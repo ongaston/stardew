@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='eng'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=0'>
+        <meta http-equiv="x-ua-compatible" content='ie=edge'>
+        <title>Crop Calculator</title>
+        <link rel='stylesheet' type='text/css' href='resources/css/reset.css'>
+        <link rel='stylesheet' type='text/css' href='resources/css/style.css'>
+        <link rel='stylesheet'
+            href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css'>
+        <link rel='stylesheet' href="resources/webfonts/fontawesome-free-6.1.1-web/css/all.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+
+        <form action='./resources/scripts/calculator.js' method='POST'>
+
+            <label for='season'>Season: </label>
+            <select name='season' id='season'>
+                <option value=''>--Choose an option--</option>
+                <option value='spring'>Spring</option>
+                <option value='summer'>Summer</option>
+                <option value='fall'>Fall</option>
+                <option value='winter'>Winter</option>
+            </select>
+            <br>
+
+            <label for='gold-to-spend'>Gold to spend: </label>
+            <input id='gold-to-spend' name='gold-to-spend' type='number'>
+            <br>
+
+            <legend id='fertilizer-legend'>Fertilizer: </legend>
+            <label for='standard'>Standard</label>
+            <input id='standard' name='fertilizer' value='standard'>
+
+            <label for='deluxe'>Deluxe</label>
+            <input id='deluxe' value='deluxe' name='fertilizer'>
+
+            <label for='none'>None</label>
+            <input id='none' value='none' name='fertilizer'>
+            <br>
+
+            <legend id='crops-available'>Additional Crops: </legend>
+            
+            <label for='garlic'>Garlic</label>
+            <input id='garlic' value='garlic' name='crops'>
+
+            <label for='rhubarb'>Rhubarb</label>
+            <input id='rhubarb' value='rhubarb' name='crops'>
+
+            <label for='strawberry'>Strawberry</label>
+            <input id='strawberry' value='strawberry' name='crops'>
+
+            <label for='red-cabbage'>Red Cabbage</label>
+            <input id='red-cabbage' value='red-cabbage' name='crops'>
+
+            <label for='starfruit'>Starfruit</label>
+            <input id='starfruit' value='starfruit' name='crops'>
+
+            <label for='artichoke'>Artichoke</label>
+            <input id='artichoke' value='artichoke' name='crops'>
+
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    </body>
+</html>

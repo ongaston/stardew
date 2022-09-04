@@ -125,20 +125,16 @@ form.addEventListener('submit', function (event) {
     let season = form.season.value;
     let goldToSpend = form['gold-to-spend'].value;
     let days = form.days.value;
-    let fertilizer = form.fertilizer.value;
+    //let fertilizer = form.fertilizer.value;
     let crops = document.getElementsByName('crops');
     let cropsArray = [];
     for (let i = 0; i < crops.length; i++) {
         if (crops[i].checked == true) {
-            cropsArray.push(crops[i]);
+            cropsArray.push(eval(crops[i].value.toString()));
         }
     }
     for (let j = 0; j < cropsArray.length; j++) {
         baseCropArray.push(cropsArray[j]);
     }
     getBestCrops(season, goldToSpend, days, baseCropArray);
-
-    console.log(form.elements);
 })
-
-console.log(form.elements);

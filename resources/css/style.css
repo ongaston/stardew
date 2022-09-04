@@ -1,0 +1,43 @@
+html {
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    background-color: hsla(151, 45%, 15%, 1);
+    color: wheat;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    justify-content: center;
+}
+
+#form  select,
+#form  option,
+#form legend,
+#form label,
+#form input {
+    margin: 1rem;
+}
+
+label, 
+legend {
+    background-color: antiquewhite;
+    color:hsla(151, 45%, 15%, 1);
+    padding: 1rem;
+    border-radius: 2px;;
+}
+
+select, 
+input {
+    border: none;
+    border-radius: 2px;
+    height: 2rem;
+}
+
+option, input {
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+}

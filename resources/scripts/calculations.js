@@ -8,15 +8,16 @@ class Crop {
         this.harvestDays = harvestDays;
         this.sellPrice = sellPrice;
         this.maxHarvests = maxHarvests;
-        this.growingDays;
-    }
-    get growingDaysMethod() {
         this.growingDays = this.matureDays + ((this.maxHarvests - 1) * this.harvestDays);
-        return this.growingDays;
+    }
+    get gpd() {
+        let gpd = ((this.maxHarvests * this.sellPrice) - this.seedCost) / this.growingDays;
+        return gpd;
     }
 }
 
 
+/* #region  crop object creation */
 let blueJazz = new Crop('spring', 30, 7, 0, 50, 1);
 let cauliflower = new Crop('spring', 80, 12, 0, 175, 1);
 let greenBean = new Crop('spring', 60, 10, 3, 40, 6);
@@ -26,9 +27,9 @@ let potato = new Crop('spring', 50, 6, 0, 80, 1.25);
 let tulip = new Crop('spring', 20, 6, 0, 30, 1);
 let unmilledRice = new Crop('spring', 40, 8, 0, 30, 1);
 
-let blueberry = new Crop('summer', 80, 13, 4, 50, 4.08);
+let blueberry = new Crop('summer', 80, 13, 4, 156, 4.08);
 let corn = new Crop('summer fall', 150, 14, 4, 50, 11);
-let hops = new Crop('summer', 60, 11, 1, 25, 14);
+let hops = new Crop('summer', 60, 11, 1, 25, 17);
 let hotPepper = new Crop('summer', 40, 5, 3, 40, 7.21);
 let melon = new Crop('summer', 80, 12, 0, 250, 1);
 let poppy = new Crop('summer', 100, 7, 0, 140, 1);
@@ -40,7 +41,7 @@ let wheat = new Crop('summer fall', 10, 4, 0, 25, 1);
 
 let amaranth = new Crop('fall', 70, 7, 0, 150, 1);
 let bokChoy = new Crop('fall', 50, 4, 0, 80, 1);
-let cranberry = new Crop('fall', 240, 7, 5, 75, 8.12);
+let cranberry = new Crop('fall', 240, 7, 5, 150, 5.20);
 let eggplant = new Crop('fall', 20, 5, 5, 60, 5.15);
 let fairyRose = new Crop('fall', 200, 12, 0, 290, 1);
 let grape = new Crop('fall', 60, 10, 3, 80, 6);
@@ -56,11 +57,19 @@ let redCabbage = new Crop('summer', 100, 9, 0, 260, 1);
 let starfruit = new Crop('summer', 400, 13, 0, 750, 1);
 let artichoke = new Crop('fall', 30, 8, 0, 160, 1);
 let beet = new Crop('fall', 20, 6, 0, 100, 1);
+/* #endregion */
+
+function getBestCrops(season, gold, days, cropArray) {
+    //filter out crops that are not in season
+    let potentialCropArray = cropArray.filter((value) => value.season == season);
+    //filter out crops who's growing period is longer than the amount of time left in the season
+    potentialCropArray = potentialCropArray.filter((value) => value.growingDays > days);
+}
 
 
 let form = document.querySelector('#form');
 
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', function (event) {
     event.preventDefault();
 
     let season = form.season.value;
@@ -74,7 +83,10 @@ form.addEventListener('submit', function(event) {
             cropsArray.push(crops[i]);
         }
     }
-
+    for (let j = 0; j < cropsArray.length; j++) {
+        baseCropArray.push(cropsArray[j]);
+    }
+    getBestCrops(season, null, null, baseCropArray);
 
     console.log(form.elements);
 })

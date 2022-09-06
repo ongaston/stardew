@@ -20,45 +20,45 @@ class Crop {
 
 
 /* #region  crop object creation */
-let blueJazz = new Crop('spring', 30, 7, 0, 50, 1, 'blue jazz');
-let cauliflower = new Crop('spring', 80, 12, 0, 175, 1, 'cauliflower');
-let greenBean = new Crop('spring', 60, 10, 3, 40, 6, 'green bean');
-let kale = new Crop('spring', 70, 6, 0, 110, 1, 'kale');
-let parsnip = new Crop('spring', 20, 4, 0, 35, 1, 'parsnip');
-let potato = new Crop('spring', 50, 6, 0, 80, 1.25, 'potato');
-let tulip = new Crop('spring', 20, 6, 0, 30, 1, 'tulip');
-let unmilledRice = new Crop('spring', 40, 8, 0, 30, 1, 'unmilled rice');
+let blueJazz = new Crop('spring', 30, 7, 0, 50, 1, 'Blue jazz');
+let cauliflower = new Crop('spring', 80, 12, 0, 175, 1, 'Cauliflower');
+let greenBean = new Crop('spring', 60, 10, 3, 40, 6, 'Green bean');
+let kale = new Crop('spring', 70, 6, 0, 110, 1, 'Kale');
+let parsnip = new Crop('spring', 20, 4, 0, 35, 1, 'Parsnip');
+let potato = new Crop('spring', 50, 6, 0, 80, 1.25, 'Potato');
+let tulip = new Crop('spring', 20, 6, 0, 30, 1, 'Tulip');
+let unmilledRice = new Crop('spring', 40, 8, 0, 30, 1, 'Unmilled rice');
 
-let blueberry = new Crop('summer', 80, 13, 4, 156, 4.08, 'blueberry');
-let corn = new Crop('summer fall', 150, 14, 4, 50, 1, 'corn');
-let hops = new Crop('summer', 60, 11, 1, 25, 17, 'hops');
-let hotPepper = new Crop('summer', 40, 5, 3, 40, 7.21, 'hot pepper');
-let melon = new Crop('summer', 80, 12, 0, 250, 1, 'melon');
-let poppy = new Crop('summer', 100, 7, 0, 140, 1, 'poppy');
-let radish = new Crop('summer', 40, 6, 0, 90, 1, 'radish');
-let summerSpangle = new Crop('summer', 50, 8, 0, 90, 1, 'summer spangle');
-let sunflower = new Crop('summer fall', 200, 8, 0, 80, 1, 'sunflower');
-let tomato = new Crop('summer', 50, 11, 4, 60, 4, 'tomato');
-let wheat = new Crop('summer fall', 10, 4, 0, 25, 1, 'wheat');
+let blueberry = new Crop('summer', 80, 13, 4, 156, 4.08, 'Blueberry');
+let corn = new Crop('summer fall', 150, 14, 4, 50, 1, 'Corn');
+let hops = new Crop('summer', 60, 11, 1, 25, 17, 'Hops');
+let hotPepper = new Crop('summer', 40, 5, 3, 40, 7.21, 'Hot pepper');
+let melon = new Crop('summer', 80, 12, 0, 250, 1, 'Melon');
+let poppy = new Crop('summer', 100, 7, 0, 140, 1, 'Poppy');
+let radish = new Crop('summer', 40, 6, 0, 90, 1, 'Radish');
+let summerSpangle = new Crop('summer', 50, 8, 0, 90, 1, 'Summer spangle');
+let sunflower = new Crop('summer fall', 200, 8, 0, 80, 1, 'Sunflower');
+let tomato = new Crop('summer', 50, 11, 4, 60, 4, 'Tomato');
+let wheat = new Crop('summer fall', 10, 4, 0, 25, 1, 'Wheat');
 
-let amaranth = new Crop('fall', 70, 7, 0, 150, 1, 'amaranth');
-let bokChoy = new Crop('fall', 50, 4, 0, 80, 1, 'bok choy');
-let cranberry = new Crop('fall', 240, 7, 5, 150, 5.20, 'cranberry');
-let eggplant = new Crop('fall', 20, 5, 5, 60, 5.15, 'eggplant');
-let fairyRose = new Crop('fall', 200, 12, 0, 290, 1, 'fairy rose');
-let grape = new Crop('fall', 60, 10, 3, 80, 6, 'grape');
-let pumpkin = new Crop('fall', 100, 13, 0, 320, 1, 'pumpkin');
-let yam = new Crop('fall', 60, 10, 0, 160, 1, 'yam');
+let amaranth = new Crop('fall', 70, 7, 0, 150, 1, 'Amaranth');
+let bokChoy = new Crop('fall', 50, 4, 0, 80, 1, 'Bok choy');
+let cranberry = new Crop('fall', 240, 7, 5, 150, 5.20, 'Cranberry');
+let eggplant = new Crop('fall', 20, 5, 5, 60, 5.15, 'Eggplant');
+let fairyRose = new Crop('fall', 200, 12, 0, 290, 1, 'Fairy rose');
+let grape = new Crop('fall', 60, 10, 3, 80, 6, 'Grape');
+let pumpkin = new Crop('fall', 100, 13, 0, 320, 1, 'Pumpkin');
+let yam = new Crop('fall', 60, 10, 0, 160, 1, 'Yam');
 let baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 
 
-let garlic = new Crop('spring', 40, 4, 0, 60, 1, 'garlic');
-let strawberry = new Crop('spring', 100, 8, 4, 120, 5.15, 'strawberry');
-let rhubarb = new Crop('spring', 100, 13, 0, 220, 1, 'rhubarb');
-let redCabbage = new Crop('summer', 100, 9, 0, 260, 1, 'red cabbage');
-let starfruit = new Crop('summer', 400, 13, 0, 750, 1, 'star fruit');
-let artichoke = new Crop('fall', 30, 8, 0, 160, 1, 'artichoke');
-let beet = new Crop('fall', 20, 6, 0, 100, 1, 'beet');
+let garlic = new Crop('spring', 40, 4, 0, 60, 1, 'Garlic');
+let strawberry = new Crop('spring', 100, 8, 4, 120, 5.15, 'Strawberry');
+let rhubarb = new Crop('spring', 100, 13, 0, 220, 1, 'Rhubarb');
+let redCabbage = new Crop('summer', 100, 9, 0, 260, 1, 'Red cabbage');
+let starfruit = new Crop('summer', 400, 13, 0, 750, 1, 'Star fruit');
+let artichoke = new Crop('fall', 30, 8, 0, 160, 1, 'Artichoke');
+let beet = new Crop('fall', 20, 6, 0, 100, 1, 'Beet');
 /* #endregion */
 
 function getBestCrops(season, gold, days, cropArray, profession) {
@@ -74,7 +74,7 @@ function getBestCrops(season, gold, days, cropArray, profession) {
             value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
 
         } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
-            value.maxProfit = Math.floor((days / value.growingDays)); 
+            value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)
 
         } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
@@ -89,35 +89,116 @@ function getBestCrops(season, gold, days, cropArray, profession) {
             let remainingDays = days - value.matureDays;
             value.maxProfit = Math.floor((remainingDays / value.harvestDays));
             value.maxProfit = value.maxProfit * (value.sellPrice) + (value.sellPrice - value.seedCost);
-
         }
         if (profession == 'yes') {
             value.maxProfit = value.maxProfit + (value.maxProfit * 0.10);
         }
+
         return value;
     })
     //sort by max profit
-    potentialCropArray = potentialCropArray.map((value) => {
-        value.maxProfit = value.maxProfit * days;
-        return value;
-    })
     potentialCropArray = potentialCropArray.sort((a, b) => {
-       return a.maxProfit - b.maxProfit;
+        return a.maxProfit - b.maxProfit;
     })
     potentialCropArray = potentialCropArray.reverse();
 
-    let crop1 = potentialCropArray[0].name;
-    let crop2 = potentialCropArray[1].name;
-    let crop3 = potentialCropArray[2].name;
+    let crop1 = potentialCropArray[0];
+    let crop2 = potentialCropArray[1];
+    let crop3 = potentialCropArray[2];
 
-    let crop1Amount = Math.floor(gold / potentialCropArray[0].seedCost);
-    let remainingMoney = gold - potentialCropArray[0].seedCost * crop1Amount;
-    let crop2Amount = Math.floor(remainingMoney / potentialCropArray[1].seedCost);
-    remainingMoney = remainingMoney - potentialCropArray[1].seedCost * crop2Amount;
-    let crop3Amount = Math.floor(remainingMoney / potentialCropArray[2].seedCost);
-    console.log(crop1 + ': ' + crop1Amount);
-    console.log(crop2 + ': ' + crop2Amount);
-    console.log(crop3 + ': ' + crop3Amount);
+    let crop1Amount = Math.floor(gold / crop1.seedCost);
+    let remainingMoney = gold - crop1.seedCost * crop1Amount;
+    crop1.maxProfit = crop1Amount * crop1.maxProfit;
+
+    let crop2Amount = Math.floor(remainingMoney / crop2.seedCost);
+    crop2.maxProfit = crop2Amount * crop2.maxProfit;
+    remainingMoney = remainingMoney - crop2.seedCost * crop2Amount;
+
+    let crop3Amount = Math.floor(remainingMoney / crop3.seedCost);
+    crop3.maxProfit = crop3Amount * crop3.maxProfit;
+    /* #region  html element creation */
+    let resultDiv = document.createElement('div');
+    resultDiv.setAttribute('id', 'result-div');
+
+    let divTitle = document.createElement('p');
+    divTitle.setAttribute('id', 'div-title');
+    let main = document.getElementById('main');
+
+    $(resultDiv).appendTo(main);
+    $(divTitle).appendTo(resultDiv);
+
+    let crop1div = document.createElement('div');
+    crop1div.setAttribute('class', 'crop-div');
+
+    $(crop1div).appendTo(resultDiv);
+
+    let crop1title = document.createElement('p');
+    crop1title.setAttribute('class', 'crop-info');
+    crop1title.innerHTML = crop1.name;
+
+    let crop1amount = document.createElement('p');
+    crop1amount.setAttribute('class', 'crop-info');
+    crop1amount.innerHTML = 'Amount to purchase: ' + crop1Amount;
+
+    let crop1profit = document.createElement('p');
+    crop1profit.setAttribute('class', 'crop-info');
+    crop1profit.innerHTML = 'Profit: ' + crop1.maxProfit;
+
+    $(crop1title).appendTo(crop1div);
+    $(crop1amount).appendTo(crop1div);
+    $(crop1profit).appendTo(crop1div);
+
+    if (crop2Amount !== 0) {
+        let crop2div = document.createElement('div');
+        crop2div.setAttribute('class', 'crop-div');
+
+        $(crop2div).appendTo(resultDiv);
+
+        let crop2title = document.createElement('p');
+        crop2title.setAttribute('class', 'crop-info');
+        crop2title.innerHTML = crop2.name;
+
+        let crop2amount = document.createElement('p');
+        crop2amount.setAttribute('class', 'crop-info');
+        crop2amount.innerHTML = 'Amount to purchase: ' + crop2Amount;
+
+        let crop2profit = document.createElement('p');
+        crop2profit.setAttribute('class', 'crop-info');
+        crop2profit.innerHTML = 'Profit: ' + crop2.maxProfit;
+
+        $(crop2title).appendTo(crop2div);
+        $(crop2amount).appendTo(crop2div);
+        $(crop2profit).appendTo(crop2div);
+    }
+
+    if (crop3Amount !== 0) {
+        let crop3div = document.createElement('div');
+        crop3div.setAttribute('class', 'crop-div');
+
+        $(crop3div).appendTo(resultDiv);
+
+        let crop3title = document.createElement('p');
+        crop3title.setAttribute('class', 'crop-info');
+        crop3title.innerHTML = crop3.name;
+
+        let crop3amount = document.createElement('p');
+        crop3amount.setAttribute('class', 'crop-info');
+        crop3amount.innerHTML = 'Amount to purchase: ' + crop3Amount;
+
+        let crop3profit = document.createElement('p');
+        crop3profit.setAttribute('class', 'crop-info');
+        crop3profit.innerHTML = 'Profit: ' + crop3.maxProfit;
+
+        $(crop3title).appendTo(crop3div);
+        $(crop3amount).appendTo(crop3div);
+        $(crop3profit).appendTo(crop3div);
+    }
+    /* #endregion */
+
+
+    console.log(crop1.name + ': ' + crop1Amount);
+    console.log(crop2.name + ': ' + crop2Amount);
+    console.log(crop3.name + ': ' + crop3Amount);
 }
 
 

@@ -41,3 +41,38 @@ option, input {
     font-weight: 600;
     font-family: 'Raleway', sans-serif;
 }
+
+main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#result-div {
+    padding: 1rem;
+    margin: 1rem;
+    background-color: antiquewhite;
+    border-radius: 2px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#div-title {
+    color:hsla(151, 45%, 15%, 1);
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.crop-div {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.crop-info {
+    padding: 1rem;
+    color:hsla(151, 45%, 15%, 1);
+}

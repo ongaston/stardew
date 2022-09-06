@@ -64,7 +64,7 @@ let artichoke = new Crop('fall', 30, 8, 0, 160, 1, 'Artichoke');
 let beet = new Crop('fall', 20, 6, 0, 100, 1, 'Beet');
 /* #endregion */
 
-function getBestCrops(season, gold, days, cropArray, profession) {
+function getBestCrops(season, gold, days, cropArray, profession, level, fertilizer) {
     days = eval(days);
     //filter out crops that are not in season
     let potentialCropArray = cropArray.filter((value) => value.season.includes(season));
@@ -117,9 +117,13 @@ function getBestCrops(season, gold, days, cropArray, profession) {
     let crop2 = potentialCropArray[1];
     let crop3 = potentialCropArray[2];
 
+    let crop1Array = getCropQuality(level, fertilizer, crop1.name);
+    let crop2Array = getCropQuality(level, fertilizer, crop2.name);
+    let crop3Array = getCropQuality(level, fertilizer, crop3.name);
+
     let crop1Amount = Math.floor(gold / crop1.seedCost);
     let remainingMoney = gold - crop1.seedCost * crop1Amount;
-    crop1.maxProfit = crop1Amount * crop1.maxProfit;
+    getQualityNumbers(crop1Array, crop1Amount, crop1);
 
     let crop2Amount = Math.floor(remainingMoney / crop2.seedCost);
     crop2.maxProfit = crop2Amount * crop2.maxProfit;
@@ -129,8 +133,6 @@ function getBestCrops(season, gold, days, cropArray, profession) {
     crop3.maxProfit = crop3Amount * crop3.maxProfit;
     remainingMoney = remainingMoney - crop3.seedCost * crop3Amount;
     /* #endregion */
-
-    
 
     /* #region  html element creation */
     if (submitCount == 0) {
@@ -285,6 +287,78 @@ function getBestCrops(season, gold, days, cropArray, profession) {
     baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 }
 
+function getCropQuality(level, fertilizer, crop) {
+    let bonus;
+    let noChance;
+    let goldChance;
+    let silverChance;
+    let iridiumChance;
+    let fertilizerLevel;
+    switch (fertilizer) {
+        case 'none':
+            fertilizerLevel = 0;
+            break;
+        case 'standard': 
+            fertilizerLevel = 1;
+            break;
+        case 'quality':
+            fertilizerLevel = 2;
+            break;
+        case 'deluxe':
+            fertilizerLevel = 3;
+            break;
+    }
+    if ((fertilizer == 'none' || fertilizer =='standard') || fertilizer == 'quality') {
+        switch (crop.name) {
+
+            default:
+                goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
+                silverChance = goldChance * 2;
+                if (silverChance > 0.75) {
+                    silverChance = 0.75;
+                }
+                break;
+                iridiumChance = 0;
+        }
+    }
+
+
+    else if (fertilizer == 'deluxe') {
+        switch (crop.name) {
+            case 'Green bean':
+            case 'Potato': 
+            case 'Blueberry':
+            case 'Hot pepper':
+            case 'Tomato':
+            case 'Wheat':
+            case 'Cranberry':
+            case 'Eggplant':
+                break;
+            default:
+                goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
+                iridiumChance = goldChance / 2;
+                silverChance = goldChance * 2;
+                break;
+        }
+    }
+    noChance = 1 - iridiumChance - goldChance - silverChance;
+    bonus = [iridiumChance, goldChance, silverChance, noChance];
+    return bonus;
+}
+
+function getQualityNumbers(array, number, crop) {
+    console.log(array);
+    console.log(number);
+    console.log(crop);
+    let noAmount = Math.floor(number * array[3]);
+    let silverAmount = Math.floor(number * array[2]);
+    let goldAmount = Math.floor(number * array[1]);
+    let iridiumAmount = Math.floor(number * array[0]);
+    noAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + noAmount);
+    crop.maxProfit = noAmount + silverAmount + goldAmount + iridiumAmount;
+    return crop;
+}
+
 
 let form = document.querySelector('#form');
 
@@ -294,7 +368,7 @@ form.addEventListener('submit', function (event) {
     let season = form.season.value;
     let goldToSpend = form['gold-to-spend'].value;
     let days = form.days.value;
-    //let fertilizer = form.fertilizer.value;
+    let fertilizer = form.fertilizer.value;
     let profession = form.profession.value;
     let crops = document.getElementsByName('crops');
     let cropsArray = [];

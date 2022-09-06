@@ -65,7 +65,7 @@ let beet = new Crop('fall', 20, 6, 0, 100, 1, 'Beet');
 /* #endregion */
 
 function getBestCrops(season, gold, days, cropArray, profession) {
-    days = eval(days)
+    days = eval(days);
     //filter out crops that are not in season
     let potentialCropArray = cropArray.filter((value) => value.season.includes(season));
     //filter out crops who's growing period is longer than the amount of time left in the season
@@ -100,7 +100,6 @@ function getBestCrops(season, gold, days, cropArray, profession) {
         if (profession == 'yes') {
             value.maxProfit = value.maxProfit + (value.maxProfit * 0.10);
         }
-        console.log(value.maxProfit)
         return value;
     })
     //sort by max profit
@@ -116,7 +115,6 @@ function getBestCrops(season, gold, days, cropArray, profession) {
     /* #region  top 3 crops */
     let crop1 = potentialCropArray[0];
     let crop2 = potentialCropArray[1];
-    console.log(crop2);
     let crop3 = potentialCropArray[2];
 
     let crop1Amount = Math.floor(gold / crop1.seedCost);
@@ -218,6 +216,8 @@ function getBestCrops(season, gold, days, cropArray, profession) {
         }
     } else {
         let cropInfo = document.getElementsByClassName('crop-info');
+        let remove = document.getElementsByClassName('remove');
+        $(remove).remove();
         let crop1title = cropInfo[0];
         crop1title.innerHTML = crop1.name;
         let crop1amount = cropInfo[1];
@@ -247,18 +247,17 @@ function getBestCrops(season, gold, days, cropArray, profession) {
         otherCrops = otherCrops.sort((a, b) => {
             return a.maxProfit - b.maxProfit;
         });
-        console.log(otherCrops);
         let length = otherCrops.length - 1;
         if (otherCrops.length !== 0) {
             let crop = otherCrops[length];
             let cropAmount = Math.floor(remainingMoney / crop.seedCost);
             remainingMoney = remainingMoney - crop.seedCost * cropAmount;
             crop.maxProfit = cropAmount * crop.seedCost;
-            console.log(crop.name + ' ' + cropAmount + ' ' + crop.maxProfit);
 
             let resultDiv = document.getElementById('result-div');
             let cropDiv = document.createElement('div');
-            cropDiv.setAttribute('class', 'crop-info');
+            cropDiv.setAttribute('class', 'crop-div');
+            cropDiv.setAttribute('class', 'remove');
 
             $(cropDiv).appendTo(resultDiv);
 
@@ -283,10 +282,7 @@ function getBestCrops(season, gold, days, cropArray, profession) {
             remainingMoney = 0;
         }
     }
-
-    console.log(crop1.name + ': ' + crop1Amount);
-    console.log(crop2.name + ': ' + crop2Amount);
-    console.log(crop3.name + ': ' + crop3Amount);
+    baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 }
 
 

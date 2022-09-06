@@ -10,14 +10,17 @@ class Crop {
         this.maxHarvests = maxHarvests;
         this.growingDays = this.matureDays + ((this.maxHarvests - 1) * this.harvestDays);
         this.name = name;
-        this.maxProfit;
     }
     get gpd() {
         let gpd = ((this.maxHarvests * this.sellPrice) - this.seedCost) / this.growingDays;
         return gpd;
     }
+    get maxProfit() {
+        return this.maxProfit;
+    }
 }
 
+let submitCount = 0;
 
 /* #region  crop object creation */
 let blueJazz = new Crop('spring', 30, 7, 0, 50, 1, 'Blue jazz');
@@ -67,6 +70,10 @@ function getBestCrops(season, gold, days, cropArray, profession) {
     let potentialCropArray = cropArray.filter((value) => value.season.includes(season));
     //filter out crops who's growing period is longer than the amount of time left in the season
     potentialCropArray = potentialCropArray.filter((value) => value.matureDays < days);
+
+    for (let i = 0; i < potentialCropArray.length; i++) {
+        Object.defineProperty(potentialCropArray[i], 'maxProfit', { enumerable: true, writable: true });
+    }
     //create maxProfit property of crop objects in array
     potentialCropArray = potentialCropArray.map((value) => {
         if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
@@ -93,17 +100,23 @@ function getBestCrops(season, gold, days, cropArray, profession) {
         if (profession == 'yes') {
             value.maxProfit = value.maxProfit + (value.maxProfit * 0.10);
         }
-
+        console.log(value.maxProfit)
         return value;
     })
     //sort by max profit
     potentialCropArray = potentialCropArray.sort((a, b) => {
-        return a.maxProfit - b.maxProfit;
+        if (a.maxProfit == b.maxProfit) {
+            return 0;
+        }
+        return a.maxProfit < b.maxProfit ? -1 : 1;
     })
     potentialCropArray = potentialCropArray.reverse();
+    console.log(potentialCropArray);
 
+    /* #region  top 3 crops */
     let crop1 = potentialCropArray[0];
     let crop2 = potentialCropArray[1];
+    console.log(crop2);
     let crop3 = potentialCropArray[2];
 
     let crop1Amount = Math.floor(gold / crop1.seedCost);
@@ -116,85 +129,160 @@ function getBestCrops(season, gold, days, cropArray, profession) {
 
     let crop3Amount = Math.floor(remainingMoney / crop3.seedCost);
     crop3.maxProfit = crop3Amount * crop3.maxProfit;
-    /* #region  html element creation */
-    let resultDiv = document.createElement('div');
-    resultDiv.setAttribute('id', 'result-div');
-
-    let divTitle = document.createElement('p');
-    divTitle.setAttribute('id', 'div-title');
-    let main = document.getElementById('main');
-
-    $(resultDiv).appendTo(main);
-    $(divTitle).appendTo(resultDiv);
-
-    let crop1div = document.createElement('div');
-    crop1div.setAttribute('class', 'crop-div');
-
-    $(crop1div).appendTo(resultDiv);
-
-    let crop1title = document.createElement('p');
-    crop1title.setAttribute('class', 'crop-info');
-    crop1title.innerHTML = crop1.name;
-
-    let crop1amount = document.createElement('p');
-    crop1amount.setAttribute('class', 'crop-info');
-    crop1amount.innerHTML = 'Amount to purchase: ' + crop1Amount;
-
-    let crop1profit = document.createElement('p');
-    crop1profit.setAttribute('class', 'crop-info');
-    crop1profit.innerHTML = 'Profit: ' + crop1.maxProfit;
-
-    $(crop1title).appendTo(crop1div);
-    $(crop1amount).appendTo(crop1div);
-    $(crop1profit).appendTo(crop1div);
-
-    if (crop2Amount !== 0) {
-        let crop2div = document.createElement('div');
-        crop2div.setAttribute('class', 'crop-div');
-
-        $(crop2div).appendTo(resultDiv);
-
-        let crop2title = document.createElement('p');
-        crop2title.setAttribute('class', 'crop-info');
-        crop2title.innerHTML = crop2.name;
-
-        let crop2amount = document.createElement('p');
-        crop2amount.setAttribute('class', 'crop-info');
-        crop2amount.innerHTML = 'Amount to purchase: ' + crop2Amount;
-
-        let crop2profit = document.createElement('p');
-        crop2profit.setAttribute('class', 'crop-info');
-        crop2profit.innerHTML = 'Profit: ' + crop2.maxProfit;
-
-        $(crop2title).appendTo(crop2div);
-        $(crop2amount).appendTo(crop2div);
-        $(crop2profit).appendTo(crop2div);
-    }
-
-    if (crop3Amount !== 0) {
-        let crop3div = document.createElement('div');
-        crop3div.setAttribute('class', 'crop-div');
-
-        $(crop3div).appendTo(resultDiv);
-
-        let crop3title = document.createElement('p');
-        crop3title.setAttribute('class', 'crop-info');
-        crop3title.innerHTML = crop3.name;
-
-        let crop3amount = document.createElement('p');
-        crop3amount.setAttribute('class', 'crop-info');
-        crop3amount.innerHTML = 'Amount to purchase: ' + crop3Amount;
-
-        let crop3profit = document.createElement('p');
-        crop3profit.setAttribute('class', 'crop-info');
-        crop3profit.innerHTML = 'Profit: ' + crop3.maxProfit;
-
-        $(crop3title).appendTo(crop3div);
-        $(crop3amount).appendTo(crop3div);
-        $(crop3profit).appendTo(crop3div);
-    }
+    remainingMoney = remainingMoney - crop3.seedCost * crop3Amount;
     /* #endregion */
 
+    
+
+    /* #region  html element creation */
+    if (submitCount == 0) {
+        let resultDiv = document.createElement('div');
+        resultDiv.setAttribute('id', 'result-div');
+
+        let divTitle = document.createElement('p');
+        divTitle.setAttribute('id', 'div-title');
+        divTitle.innerHTML = 'Crops to Purchase';
+        let main = document.getElementById('main');
+
+        $(resultDiv).appendTo(main);
+        $(divTitle).appendTo(resultDiv);
+
+        let crop1div = document.createElement('div');
+        crop1div.setAttribute('class', 'crop-div');
+
+        $(crop1div).appendTo(resultDiv);
+
+        let crop1title = document.createElement('p');
+        crop1title.setAttribute('class', 'crop-info');
+        crop1title.style.textDecoration = 'underline';;
+        crop1title.innerHTML = crop1.name;
+
+        let crop1amount = document.createElement('p');
+        crop1amount.setAttribute('class', 'crop-info');
+        crop1amount.innerHTML = 'Amount to purchase: ' + crop1Amount;
+
+        let crop1profit = document.createElement('p');
+        crop1profit.setAttribute('class', 'crop-info');
+        crop1profit.innerHTML = 'Profit: ' + crop1.maxProfit;
+
+        $(crop1title).appendTo(crop1div);
+        $(crop1amount).appendTo(crop1div);
+        $(crop1profit).appendTo(crop1div);
+
+        if (crop2Amount !== 0) {
+            let crop2div = document.createElement('div');
+            crop2div.setAttribute('class', 'crop-div');
+
+            $(crop2div).appendTo(resultDiv);
+
+            let crop2title = document.createElement('p');
+            crop2title.setAttribute('class', 'crop-info');
+            crop2title.style.textDecoration = 'underline';;
+            crop2title.innerHTML = crop2.name;
+
+            let crop2amount = document.createElement('p');
+            crop2amount.setAttribute('class', 'crop-info');
+            crop2amount.innerHTML = 'Amount to purchase: ' + crop2Amount;
+
+            let crop2profit = document.createElement('p');
+            crop2profit.setAttribute('class', 'crop-info');
+            crop2profit.innerHTML = 'Profit: ' + crop2.maxProfit;
+
+            $(crop2title).appendTo(crop2div);
+            $(crop2amount).appendTo(crop2div);
+            $(crop2profit).appendTo(crop2div);
+        }
+
+        if (crop3Amount !== 0) {
+            let crop3div = document.createElement('div');
+            crop3div.setAttribute('class', 'crop-div');
+
+            $(crop3div).appendTo(resultDiv);
+
+            let crop3title = document.createElement('p');
+            crop3title.setAttribute('class', 'crop-info');
+            crop3title.style.textDecoration = 'underline';;
+            crop3title.innerHTML = crop3.name;
+
+            let crop3amount = document.createElement('p');
+            crop3amount.setAttribute('class', 'crop-info');
+            crop3amount.innerHTML = 'Amount to purchase: ' + crop3Amount;
+
+            let crop3profit = document.createElement('p');
+            crop3profit.setAttribute('class', 'crop-info');
+            crop3profit.innerHTML = 'Profit: ' + crop3.maxProfit;
+
+            $(crop3title).appendTo(crop3div);
+            $(crop3amount).appendTo(crop3div);
+            $(crop3profit).appendTo(crop3div);
+        }
+    } else {
+        let cropInfo = document.getElementsByClassName('crop-info');
+        let crop1title = cropInfo[0];
+        crop1title.innerHTML = crop1.name;
+        let crop1amount = cropInfo[1];
+        crop1amount.innerHTML = 'Amount to Purchase: ' + crop1Amount;
+        let crop1profit = cropInfo[2];
+        crop1profit.innerHTML = 'Profit: ' + crop1.maxProfit;
+        if (crop2Amount !== 0) {
+            let crop2title = cropInfo[3];
+            crop2title.innerHTML = crop2.name;
+            let crop2amount = cropInfo[4];
+            crop2amount.innerHTML = 'Amount to Purchase: ' + crop2Amount;
+            let crop2profit = cropInfo[5];
+            crop2profit.innerHTML = 'Profit: ' + crop2.maxProfit;
+        }
+        if (crop3Amount !== 0) {
+            let crop3title = cropInfo[6];
+            crop3title.innerHTML = crop3.name;
+            let crop3amount = cropInfo[7];
+            crop3amount.innerHTML = 'Amount to Purchase: ' + crop3Amount;
+            let crop3profit = cropInfo[8];
+            crop3profit.innerHTML = 'Profit: ' + crop3.maxProfit;
+        }
+    }
+    /* #endregion */
+    while (remainingMoney > 0) {
+        let otherCrops = potentialCropArray.filter((value) => value.seedCost < remainingMoney)
+        otherCrops = otherCrops.sort((a, b) => {
+            return a.maxProfit - b.maxProfit;
+        });
+        console.log(otherCrops);
+        let length = otherCrops.length - 1;
+        if (otherCrops.length !== 0) {
+            let crop = otherCrops[length];
+            let cropAmount = Math.floor(remainingMoney / crop.seedCost);
+            remainingMoney = remainingMoney - crop.seedCost * cropAmount;
+            crop.maxProfit = cropAmount * crop.seedCost;
+            console.log(crop.name + ' ' + cropAmount + ' ' + crop.maxProfit);
+
+            let resultDiv = document.getElementById('result-div');
+            let cropDiv = document.createElement('div');
+            cropDiv.setAttribute('class', 'crop-info');
+
+            $(cropDiv).appendTo(resultDiv);
+
+        let croptitle = document.createElement('p');
+        croptitle.setAttribute('class', 'crop-info');
+        croptitle.style.textDecoration = 'underline';;
+        croptitle.innerHTML = crop.name;
+
+        let cropamount = document.createElement('p');
+        cropamount.setAttribute('class', 'crop-info');
+        cropamount.innerHTML = 'Amount to purchase: ' + cropAmount;
+
+        let cropprofit = document.createElement('p');
+        cropprofit.setAttribute('class', 'crop-info');
+        cropprofit.innerHTML = 'Profit: ' + crop.maxProfit;
+
+        $(croptitle).appendTo(cropDiv);
+        $(cropamount).appendTo(cropDiv);
+        $(cropprofit).appendTo(cropDiv);
+        }
+        if (otherCrops.length == 0) {
+            remainingMoney = 0;
+        }
+    }
 
     console.log(crop1.name + ': ' + crop1Amount);
     console.log(crop2.name + ': ' + crop2Amount);
@@ -223,5 +311,6 @@ form.addEventListener('submit', function (event) {
         baseCropArray.push(cropsArray[j]);
     }
     getBestCrops(season, goldToSpend, days, baseCropArray, profession);
+    submitCount++;
     console.log(form.elements);
 })

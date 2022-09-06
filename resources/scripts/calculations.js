@@ -61,7 +61,7 @@ let artichoke = new Crop('fall', 30, 8, 0, 160, 1, 'artichoke');
 let beet = new Crop('fall', 20, 6, 0, 100, 1, 'beet');
 /* #endregion */
 
-function getBestCrops(season, gold, days, cropArray) {
+function getBestCrops(season, gold, days, cropArray, profession) {
     days = eval(days)
     //filter out crops that are not in season
     let potentialCropArray = cropArray.filter((value) => value.season.includes(season));
@@ -72,25 +72,29 @@ function getBestCrops(season, gold, days, cropArray) {
         if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
             value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
-            return value;
+
         } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
             value.maxProfit = Math.floor((days / value.growingDays)); 
             value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)
-            return value;
+
         } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
             days = days + 28;
             let remainingDays = days - value.matureDays;
             value.maxProfit = Math.floor((remainingDays / value.harvestDays));
             value.maxProfit = value.maxProfit * (value.sellPrice) + (value.sellPrice - value.seedCost);
             days = days - 28;
-            return value;
+
         }
         else {
             let remainingDays = days - value.matureDays;
             value.maxProfit = Math.floor((remainingDays / value.harvestDays));
             value.maxProfit = value.maxProfit * (value.sellPrice) + (value.sellPrice - value.seedCost);
-            return value;
+
         }
+        if (profession == 'yes') {
+            value.maxProfit = value.maxProfit + (value.maxProfit * 0.10);
+        }
+        return value;
     })
     //sort by max profit
     potentialCropArray = potentialCropArray.map((value) => {
@@ -126,6 +130,7 @@ form.addEventListener('submit', function (event) {
     let goldToSpend = form['gold-to-spend'].value;
     let days = form.days.value;
     //let fertilizer = form.fertilizer.value;
+    let profession = form.profession.value;
     let crops = document.getElementsByName('crops');
     let cropsArray = [];
     for (let i = 0; i < crops.length; i++) {
@@ -136,5 +141,6 @@ form.addEventListener('submit', function (event) {
     for (let j = 0; j < cropsArray.length; j++) {
         baseCropArray.push(cropsArray[j]);
     }
-    getBestCrops(season, goldToSpend, days, baseCropArray);
+    getBestCrops(season, goldToSpend, days, baseCropArray, profession);
+    console.log(form.elements);
 })

@@ -314,11 +314,12 @@ function getCropQuality(level, fertilizer, crop) {
             default:
                 goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
                 silverChance = goldChance * 2;
+                iridiumChance = 0;
                 if (silverChance > 0.75) {
                     silverChance = 0.75;
                 }
                 break;
-                iridiumChance = 0;
+
         }
     }
 
@@ -369,6 +370,7 @@ form.addEventListener('submit', function (event) {
     let goldToSpend = form['gold-to-spend'].value;
     let days = form.days.value;
     let fertilizer = form.fertilizer.value;
+    let level = form.level.value;
     let profession = form.profession.value;
     let crops = document.getElementsByName('crops');
     let cropsArray = [];
@@ -380,7 +382,7 @@ form.addEventListener('submit', function (event) {
     for (let j = 0; j < cropsArray.length; j++) {
         baseCropArray.push(cropsArray[j]);
     }
-    getBestCrops(season, goldToSpend, days, baseCropArray, profession);
+    getBestCrops(season, goldToSpend, days, baseCropArray, profession, level, fertilizer);
     submitCount++;
     console.log(form.elements);
 })

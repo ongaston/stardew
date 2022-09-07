@@ -309,40 +309,25 @@ function getCropQuality(level, fertilizer, crop) {
             break;
     }
     if ((fertilizer == 'none' || fertilizer =='standard') || fertilizer == 'quality') {
-        switch (crop.name) {
 
-            default:
-                goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
-                silverChance = goldChance * 2;
-                iridiumChance = 0;
-                if (silverChance > 0.75) {
-                    silverChance = 0.75;
-                }
-                break;
-
+        goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
+        silverChance = goldChance * 2;
+        iridiumChance = 0;
+        if (silverChance > 0.75) {
+            silverChance = 0.75;
         }
+        noChance = 1 - iridiumChance - goldChance - silverChance;
     }
 
 
     else if (fertilizer == 'deluxe') {
-        switch (crop.name) {
-            case 'Green bean':
-            case 'Potato': 
-            case 'Blueberry':
-            case 'Hot pepper':
-            case 'Tomato':
-            case 'Wheat':
-            case 'Cranberry':
-            case 'Eggplant':
-                break;
-            default:
-                goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
-                iridiumChance = goldChance / 2;
-                silverChance = goldChance * 2;
-                break;
-        }
+
+        goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
+        iridiumChance = goldChance / 2;
+        silverChance = goldChance * 2;
+        noChance = 0;
     }
-    noChance = 1 - iridiumChance - goldChance - silverChance;
+
     bonus = [iridiumChance, goldChance, silverChance, noChance];
     return bonus;
 }

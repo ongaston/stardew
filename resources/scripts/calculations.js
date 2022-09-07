@@ -32,8 +32,8 @@ let potato = new Crop('spring', 50, 6, 0, 80, 1.25, 'Potato');
 let tulip = new Crop('spring', 20, 6, 0, 30, 1, 'Tulip');
 let unmilledRice = new Crop('spring', 40, 8, 0, 30, 1, 'Unmilled rice');
 
-let blueberry = new Crop('summer', 80, 13, 4, 156, 4.08, 'Blueberry');
-let corn = new Crop('summer fall', 150, 14, 4, 50, 1, 'Corn');
+let blueberry = new Crop('summer', 80, 13, 4, 150, 4.08, 'Blueberry');
+
 let hops = new Crop('summer', 60, 11, 1, 25, 17, 'Hops');
 let hotPepper = new Crop('summer', 40, 5, 3, 40, 7.21, 'Hot pepper');
 let melon = new Crop('summer', 80, 12, 0, 250, 1, 'Melon');
@@ -52,7 +52,7 @@ let fairyRose = new Crop('fall', 200, 12, 0, 290, 1, 'Fairy rose');
 let grape = new Crop('fall', 60, 10, 3, 80, 6, 'Grape');
 let pumpkin = new Crop('fall', 100, 13, 0, 320, 1, 'Pumpkin');
 let yam = new Crop('fall', 60, 10, 0, 160, 1, 'Yam');
-let baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
+let baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 
 
 let garlic = new Crop('spring', 40, 4, 0, 60, 1, 'Garlic');
@@ -66,6 +66,7 @@ let beet = new Crop('fall', 20, 6, 0, 100, 1, 'Beet');
 
 function getBestCrops(season, gold, days, cropArray, profession, level, fertilizer) {
     days = eval(days);
+    level = eval(level);
     //filter out crops that are not in season
     let potentialCropArray = cropArray.filter((value) => value.season.includes(season));
     //filter out crops who's growing period is longer than the amount of time left in the season
@@ -117,16 +118,16 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     let crop2 = potentialCropArray[1];
     let crop3 = potentialCropArray[2];
 
-    let crop1Array = getCropQuality(level, fertilizer, crop1.name);
-    let crop2Array = getCropQuality(level, fertilizer, crop2.name);
-    let crop3Array = getCropQuality(level, fertilizer, crop3.name);
+    let crop1Array = getCropQuality(level, fertilizer, crop1);
+    let crop2Array = getCropQuality(level, fertilizer, crop2);
+    let crop3Array = getCropQuality(level, fertilizer, crop3);
 
     let crop1Amount = Math.floor(gold / crop1.seedCost);
     let remainingMoney = gold - crop1.seedCost * crop1Amount;
-    getQualityNumbers(crop1Array, crop1Amount, crop1, days);
+    getQualityNumbers(crop1Array, crop1Amount, crop1, days, fertilizer, level);
 
     let crop2Amount = Math.floor(remainingMoney / crop2.seedCost);
-    crop2.maxProfit = crop2Amount * crop2.maxProfit;
+    getQualityNumbers(crop2Array, crop2Amount, crop2, days, fertilizer, level);
     remainingMoney = remainingMoney - crop2.seedCost * crop2Amount;
 
     let crop3Amount = Math.floor(remainingMoney / crop3.seedCost);
@@ -284,7 +285,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
             remainingMoney = 0;
         }
     }
-    baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
+    baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 }
 
 function getCropQuality(level, fertilizer, crop) {
@@ -294,6 +295,10 @@ function getCropQuality(level, fertilizer, crop) {
     let silverChance;
     let iridiumChance;
     let fertilizerLevel;
+    console.log(level);
+    console.log(fertilizer);
+    console.log(crop.name);
+
     switch (fertilizer) {
         case 'none':
             fertilizerLevel = 0;
@@ -309,37 +314,66 @@ function getCropQuality(level, fertilizer, crop) {
             break;
     }
     if ((fertilizer == 'none' || fertilizer =='standard') || fertilizer == 'quality') {
-
         goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
         silverChance = goldChance * 2;
         iridiumChance = 0;
         if (silverChance > 0.75) {
             silverChance = 0.75;
         }
+        silverChance = (1 - goldChance) * (silverChance);
         noChance = 1 - iridiumChance - goldChance - silverChance;
     }
 
 
     else if (fertilizer == 'deluxe') {
-
+        let formula = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
         goldChance = 0.2 * (level / 10) + 0.2 * fertilizerLevel * ((level + 2) / 12) + 0.01;
-        iridiumChance = goldChance / 2;
-        silverChance = goldChance * 2;
+        iridiumChance = formula / 2;
+        silverChance = formula * 2;
+        if (silverChance > 0.75) {
+            silverChance = 0.75;
+        }
+        goldChance = (1 - iridiumChance) * (goldChance);
+        silverChance = (1 - iridiumChance - goldChance);
         noChance = 0;
     }
 
     bonus = [iridiumChance, goldChance, silverChance, noChance];
+    
     return bonus;
 }
 
-function getQualityNumbers(array, number, crop, days) {
+function getQualityNumbers(array, number, crop, days, fertilizer, level) {
+    console.log(array);
+    console.log(crop);
     let noAmount = Math.floor(number * array[3]);
     let silverAmount = Math.floor(number * array[2]);
     let goldAmount = Math.floor(number * array[1]);
     let iridiumAmount = Math.floor(number * array[0]);
-    let remainingDays = days - crop.matureDays - 1;
+    let remainingDays = days - (crop.matureDays + 1);
     let harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
-    noAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + noAmount);
+
+
+    if (fertilizer == 'deluxe') {
+        silverAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + silverAmount);
+    } else {
+        noAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + noAmount);
+    }
+
+    switch (crop.name) {
+        case 'Blueberry':
+            let tempSellPrice = crop.sellPrice / 3;
+            let secondArray = getCropQuality(level, 'none', crop);
+            let secondIridiumAmount = (number * secondArray[0]);
+            let secondGoldAmount = (number * secondArray[1]);
+            let secondSilverAmount = (number * secondArray[2]);
+            let secondNoAmount = (number * secondArray[3]);
+            console.log(goldAmount + ' ' + secondGoldAmount);
+            console.log(secondArray);
+
+            crop.maxProfit = ((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondIridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3))));
+            console.log(blueberry.maxProfit);
+    }
     crop.maxProfit = (iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost));
     return crop;
 }

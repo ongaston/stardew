@@ -28,7 +28,7 @@ legend {
     background-color: antiquewhite;
     color:hsla(151, 45%, 15%, 1);
     padding: 1rem;
-    border-radius: 2px;;
+    border-radius: 2px;
 }
 
 select, 
@@ -46,7 +46,7 @@ option, input {
 #main {
     display: inline-flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
 }
 
@@ -57,6 +57,7 @@ body {
     width: 100%;
 }
 
+/*info div*/
 #result-div {
     padding: 1rem;
     margin: 1rem;
@@ -67,6 +68,8 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+
 
 #div-title {
     color:hsla(151, 45%, 15%, 1);
@@ -164,5 +167,46 @@ body {
     #fertilizer option[value='none'] {
         content: '--Fertilizer--';
     }
+
+    #season option[value=''] {
+        content: '--Season--';
+    }
+
+    #form {
+        background-color: antiquewhite;
+    }
+
+    #big-container {
+        flex-direction: column;
+    }
+
+    label, legend {
+        padding: 0;
+    }
+
+    #form select,
+    #form option, 
+    #form legend,
+    #form label, 
+    #form input {
+        margin: 0;
+    }
+
+    input[type='number'] {
+        width: 2rem;
+    }
+
+    label[for='gold-to-spend'] {
+        content: 'Gold:';
+    }
+
+    label[for='days'] {
+        content: 'Days:';
+    }
+
+    label[for='level'] {
+        content: 'Level';
+    }
+
 
 }

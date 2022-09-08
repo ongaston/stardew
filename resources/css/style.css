@@ -161,7 +161,7 @@ body {
         display: none;
     }
 
-    #fertlizer option[value='none'] {
+    #fertilizer option[value='none'] {
         content: '--Fertilizer--';
     }
 

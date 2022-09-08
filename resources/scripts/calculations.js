@@ -59,6 +59,8 @@ let artichoke = new Crop('fall', 30, 8, 0, 160, 1, 'Artichoke');
 let beet = new Crop('fall', 20, 6, 0, 100, 1, 'Beet');
 /* #endregion */
 
+let mobile = navigator.userAgentData.mobile;
+
 function getBestCrops(season, gold, days, cropArray, profession, level, fertilizer) {
     days = eval(days);
     level = eval(level);
@@ -139,7 +141,12 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         divTitle.innerHTML = 'Crops to Purchase';
         let main = document.getElementById('main');
 
+        if (mobile == true) {
+            $(main).css('flex-direction', 'column');
+        }
         $(resultDiv).appendTo(main);
+
+
         $(divTitle).appendTo(resultDiv);
 
         let crop1div = document.createElement('div');
@@ -154,11 +161,11 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         let crop1amount = document.createElement('p');
         crop1amount.setAttribute('class', 'crop-info');
-        crop1amount.innerHTML = 'Amount to purchase: ' + crop1Amount;
+        crop1amount.innerHTML = 'Amount to purchase: ' + crop1Amount.toLocaleString('en-US');
 
         let crop1profit = document.createElement('p');
         crop1profit.setAttribute('class', 'crop-info');
-        crop1profit.innerHTML = 'Approximate Profit: ' + crop1.maxProfit;
+        crop1profit.innerHTML = 'Approximate Profit: ' + crop1.maxProfit.toLocaleString('en-US');
 
         $(crop1title).appendTo(crop1div);
         $(crop1amount).appendTo(crop1div);
@@ -177,11 +184,11 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
             let crop2amount = document.createElement('p');
             crop2amount.setAttribute('class', 'crop-info');
-            crop2amount.innerHTML = 'Amount to purchase: ' + crop2Amount;
+            crop2amount.innerHTML = 'Amount to purchase: ' + crop2Amount.toLocaleString('en-US');
 
             let crop2profit = document.createElement('p');
             crop2profit.setAttribute('class', 'crop-info');
-            crop2profit.innerHTML = 'Approximate Profit: ' + crop2.maxProfit;
+            crop2profit.innerHTML = 'Approximate Profit: ' + crop2.maxProfit.toLocaleString('en-US');
 
             $(crop2title).appendTo(crop2div);
             $(crop2amount).appendTo(crop2div);
@@ -201,11 +208,11 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
             let crop3amount = document.createElement('p');
             crop3amount.setAttribute('class', 'crop-info');
-            crop3amount.innerHTML = 'Amount to purchase: ' + crop3Amount;
+            crop3amount.innerHTML = 'Amount to purchase: ' + crop3Amount.toLocaleString('en-US');
 
             let crop3profit = document.createElement('p');
             crop3profit.setAttribute('class', 'crop-info');
-            crop3profit.innerHTML = 'Approximate Profit: ' + crop3.maxProfit;
+            crop3profit.innerHTML = 'Approximate Profit: ' + crop3.maxProfit.toLocaleString('en-US');
 
             $(crop3title).appendTo(crop3div);
             $(crop3amount).appendTo(crop3div);
@@ -240,11 +247,11 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         let cropamount = document.createElement('p');
         cropamount.setAttribute('class', 'crop-info');
-        cropamount.innerHTML = 'Amount to purchase: ' + cropAmount;
+        cropamount.innerHTML = 'Amount to purchase: ' + cropAmount.toLocaleString('en-US');
 
         let cropprofit = document.createElement('p');
         cropprofit.setAttribute('class', 'crop-info');
-        cropprofit.innerHTML = 'Approximate Profit: ' + crop.maxProfit;
+        cropprofit.innerHTML = 'Approximate Profit: ' + crop.maxProfit.toLocaleString('en-US');
 
         $(croptitle).appendTo(cropDiv);
         $(cropamount).appendTo(cropDiv);

@@ -20,54 +20,53 @@
         <main id='main'>
             <form method='POST' id='form' action='index.html'>
                 <section id='big-container'>
-                <section class='column'>
-                    <label for='season'>Season: </label>
-                    <select name='season' id='season' required>
-                        <option value='fall'>Fall</option>
+                    <section class='column'>
+                        <label for='season'>Season: </label>
+                        <select name='season' id='season' required>
+                            <option value='fall'>Fall</option>
 
-                        <option value=''>--Choose an option--</option>
-                        <option value='spring'>Spring</option>
-                        <option value='summer'>Summer</option>
+                            <option value=''>--Choose an option--</option>
+                            <option value='spring'>Spring</option>
+                            <option value='summer'>Summer</option>
 
-                    </select>
-                    <br>
-
-                    <label for='gold-to-spend'>Gold to spend: </label>
-                    <input id='gold-to-spend' name='gold-to-spend' type='number' value='10000' required>
-                    <br>
-
-                    <label for='days'>Days left in the season: </label>
-                    <input id='days' name='days' type='number' value='28'>
-                    <br>
-                </section>
-                <section class='column'>
-                    <label for='fertilizer'>Fertilizer: </label>
-                    <select name='fertilizer' id='fertilizer'>
-                        <option value='quality'>Quality</option>
-                        <option value='none'>None</option>
-                        <option value='deluxe'>Deluxe</option>
-
-                        <option value='standard'>Standard</option>
-                    </select>
-                    <br>
-
-                    <label for='level'>Farming level: </label>
-                    <input id='level' name='level' type='number' value='12' min='0' max='14' required>
-                    <br>
-
-                    <legend id='profession'>Tiller Profession: 
+                        </select>
                         <br>
-                        <section class='radio-container'>
-                            <label for='yes'>Yes</label>
-                            <input id='yes' value='yes' name='profession' type='radio'>
-                        </section>
-                        <section class='radio-container'>    
-                            <label for='no'>No</label>
-                            <input id='no' value='no' name='profession' type='radio' checked='true'>
-                        </section>
 
-                    </legend>
-                </section>
+                        <label for='gold-to-spend'>Gold to spend: </label>
+                        <input id='gold-to-spend' name='gold-to-spend' type='number' value='10000' required>
+                        <br>
+
+                        <label for='days'>Days left in the season: </label>
+                        <input id='days' name='days' type='number' value='28'>
+                        <br>
+                    </section>
+                    <section class='column'>
+                        <label for='fertilizer'>Fertilizer: </label>
+                        <select name='fertilizer' id='fertilizer'>
+                            <option value='none'>None</option>
+                            <option value='deluxe'>Deluxe</option>
+                            <option value='quality'>Quality</option>
+                            <option value='standard'>Standard</option>
+                        </select>
+                        <br>
+
+                        <label for='level'>Farming level: </label>
+                        <input id='level' name='level' type='number' value='12' min='0' max='14' required>
+                        <br>
+
+                        <legend id='profession'>Tiller Profession: 
+                            <br>
+                            <section class='radio-container'>
+                                <label for='yes'>Yes</label>
+                                <input id='yes' value='yes' name='profession' type='radio'>
+                            </section>
+                            <section class='radio-container'>    
+                                <label for='no'>No</label>
+                                <input id='no' value='no' name='profession' type='radio' checked='true'>
+                            </section>
+
+                        </legend>
+                    </section>
                 </section>
                     <br>
 

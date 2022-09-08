@@ -2,7 +2,7 @@ html {
     font-size: 16px;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
-    background-color: hsla(151, 45%, 15%, 1);
+    background-color: hsla(151, 45%, 10%, 1);
     color: wheat;
 }
 
@@ -12,7 +12,7 @@ html {
     align-items: center;
     padding: 1rem;
     justify-content: center;
-    margin: 0 auto;
+
 }
 
 #form  select,
@@ -46,7 +46,8 @@ option, input {
 #main {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    width: 100%;
 }
 
 body {
@@ -87,4 +88,61 @@ body {
     padding: 1rem;
     color:hsla(151, 45%, 15%, 1);
     width: auto;
+}
+
+#crops-available {
+    display: inline-flex;
+}
+
+#crops-available label {
+    margin: 0;
+    padding: 0.3rem;
+}
+
+.extra-crops {
+    border: 3px solid hsla(151, 45%, 15%, 1);
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px hsla(151, 45%, 30%, 1);
+    margin: 0.3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-container {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#submit {
+    background-color: antiquewhite;
+    color: hsla(151, 45%, 15%, 1);
+    border-radius: 1px;
+    border: 2px solid hsla(151, 45%, 30%, 1);
+    padding: 0.5rem;
+}
+
+#submit:hover {
+    background-color: hsla(34, 78%, 85%, 1);
+    border-color:hsla(151, 45%, 15%, 1);
+}
+
+#submit:active {
+    background-color: hsla(151, 45%, 15%, 1);
+    border-color: antiquewhite;
+    color: antiquewhite;
+}
+
+.column {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#big-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 70%;
 }

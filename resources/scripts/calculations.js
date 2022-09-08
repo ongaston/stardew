@@ -15,9 +15,6 @@ class Crop {
         let gpd = ((this.maxHarvests * this.sellPrice) - this.seedCost) / this.growingDays;
         return gpd;
     }
-    get maxProfit() {
-        return this.maxProfit;
-    }
 }
 
 let submitCount = 0;
@@ -70,15 +67,13 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     //filter out crops who's growing period is longer than the amount of time left in the season
     potentialCropArray = potentialCropArray.filter((value) => value.matureDays < days);
 
-    for (let i = 0; i < potentialCropArray.length; i++) {
-        Object.defineProperty(potentialCropArray[i], 'maxProfit', { enumerable: true, writable: true });
-    }
+    console.log(potentialCropArray);
     //create maxProfit property of crop objects in array
     potentialCropArray = potentialCropArray.map((value) => {
         if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
+            console.log(value);
             value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
-
         } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
             value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)
@@ -99,6 +94,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         }
         return value;
     })
+    console.log(pumpkin.maxProfit)
     //sort by max profit
     potentialCropArray = potentialCropArray.sort((a, b) => {
         if (a.maxProfit == b.maxProfit) {
@@ -127,7 +123,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     remainingMoney = remainingMoney - crop2.seedCost * crop2Amount;
 
     let crop3Amount = Math.floor(remainingMoney / crop3.seedCost);
-    crop3.maxProfit = crop3Amount * crop3.maxProfit;
+    getQualityNumbers(crop3Array, crop3Amount, crop3, days, fertilizer, level);
     remainingMoney = remainingMoney - crop3.seedCost * crop3Amount;
     /* #endregion */
 
@@ -162,7 +158,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         let crop1profit = document.createElement('p');
         crop1profit.setAttribute('class', 'crop-info');
-        crop1profit.innerHTML = 'Potential Profit: ' + crop1.maxProfit;
+        crop1profit.innerHTML = 'Approximate Profit: ' + crop1.maxProfit;
 
         $(crop1title).appendTo(crop1div);
         $(crop1amount).appendTo(crop1div);
@@ -185,7 +181,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
             let crop2profit = document.createElement('p');
             crop2profit.setAttribute('class', 'crop-info');
-            crop2profit.innerHTML = 'Potential Profit: ' + crop2.maxProfit;
+            crop2profit.innerHTML = 'Approximate Profit: ' + crop2.maxProfit;
 
             $(crop2title).appendTo(crop2div);
             $(crop2amount).appendTo(crop2div);
@@ -209,7 +205,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
             let crop3profit = document.createElement('p');
             crop3profit.setAttribute('class', 'crop-info');
-            crop3profit.innerHTML = 'Potential Profit: ' + crop3.maxProfit;
+            crop3profit.innerHTML = 'Approximate Profit: ' + crop3.maxProfit;
 
             $(crop3title).appendTo(crop3div);
             $(crop3amount).appendTo(crop3div);
@@ -248,7 +244,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         let cropprofit = document.createElement('p');
         cropprofit.setAttribute('class', 'crop-info');
-        cropprofit.innerHTML = 'Potential Profit: ' + crop.maxProfit;
+        cropprofit.innerHTML = 'Approximate Profit: ' + crop.maxProfit;
 
         $(croptitle).appendTo(cropDiv);
         $(cropamount).appendTo(cropDiv);
@@ -359,7 +355,7 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
 
 
 let form = document.querySelector('#form');
-
+console.log(form.profession);
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 

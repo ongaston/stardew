@@ -19,74 +19,90 @@
 
         <main id='main'>
             <form method='POST' id='form' action='index.html'>
+                <section id='big-container'>
+                <section class='column'>
+                    <label for='season'>Season: </label>
+                    <select name='season' id='season' required>
+                        <option value='fall'>Fall</option>
 
-                <label for='season'>Season: </label>
-                <select name='season' id='season' required>
-                    <option value='summer'>Summer</option>
-                    <option value='spring'>Spring</option>
-                    <option value=''>--Choose an option--</option>
+                        <option value=''>--Choose an option--</option>
+                        <option value='spring'>Spring</option>
+                        <option value='summer'>Summer</option>
 
-
-                    <option value='fall'>Fall</option>
-                    <option value='winter'>Winter</option>
-                </select>
-                <br>
-
-                <label for='gold-to-spend'>Gold to spend: </label>
-                <input id='gold-to-spend' name='gold-to-spend' type='number' value='10000' required>
-                <br>
-
-                <label for='days'>Days left in the season: </label>
-                <input id='days' name='days' type='number' value='28'>
-                <br>
-
-                <label for='fertilizer'>Fertilizer: </label>
-                <select name='fertilizer' id='fertilizer'>
-                    <option value='quality'>Quality</option>
-                    <option value='none'>None</option>
-                    <option value='deluxe'>Deluxe</option>
-
-                    <option value='standard'>Standard</option>
-                </select>
-                <br>
-
-                <label for='level'>Farming level: </label>
-                <input id='level' name='level' type='number' value='12' min='0' max='14' required>
-                <br>
-
-                <legend id='profession'>Tiller Profession: 
+                    </select>
                     <br>
-                    <label for='yes'>Yes</label>
-                    <input id='yes' value='yes' name='profession' type='radio'>
 
-                    <label for='no'>No</label>
-                    <input id='no' value='no' name='profession' type='radio' checked='true'>
-                </legend>
-                <br>
+                    <label for='gold-to-spend'>Gold to spend: </label>
+                    <input id='gold-to-spend' name='gold-to-spend' type='number' value='10000' required>
+                    <br>
 
-                <legend id='crops-available'>Additional Crops: 
-                <br>
-                <label for='garlic'>Garlic</label>
-                <input id='garlic' value='garlic' name='crops' type='checkbox'>
+                    <label for='days'>Days left in the season: </label>
+                    <input id='days' name='days' type='number' value='28'>
+                    <br>
+                </section>
+                <section class='column'>
+                    <label for='fertilizer'>Fertilizer: </label>
+                    <select name='fertilizer' id='fertilizer'>
+                        <option value='quality'>Quality</option>
+                        <option value='none'>None</option>
+                        <option value='deluxe'>Deluxe</option>
 
-                <label for='rhubarb'>Rhubarb</label>
-                <input id='rhubarb' value='rhubarb' name='crops' type='checkbox'>
+                        <option value='standard'>Standard</option>
+                    </select>
+                    <br>
 
-                <label for='strawberry'>Strawberry</label>
-                <input id='strawberry' value='strawberry' name='crops' type='checkbox'>
+                    <label for='level'>Farming level: </label>
+                    <input id='level' name='level' type='number' value='12' min='0' max='14' required>
+                    <br>
 
-                <label for='red-cabbage'>Red Cabbage</label>
-                <input id='red-cabbage' value='redCabbage' name='crops' type='checkbox'>
+                    <legend id='profession'>Tiller Profession: 
+                        <br>
+                        <section class='radio-container'>
+                            <label for='yes'>Yes</label>
+                            <input id='yes' value='yes' name='profession' type='radio'>
+                        </section>
+                        <section class='radio-container'>    
+                            <label for='no'>No</label>
+                            <input id='no' value='no' name='profession' type='radio' checked='true'>
+                        </section>
 
-                <label for='artichoke'>Artichoke</label>
-                <input id='artichoke' value='artichoke' name='crops' type='checkbox'>
+                    </legend>
+                </section>
+                </section>
+                    <br>
 
-                <label for='beet'>Beet</label>
-                <input id='beet' value='beet' name='crops' type='checkbox'>
-                </legend>
-                <br>
+                    <legend id='crops-available'>Additional Crops: 
+                    <br>
 
-                <input id='submit' type='submit' value='Submit'>
+                    <section class='extra-crops'>
+                        <label for='garlic'>Garlic</label>
+                        <input id='garlic' value='garlic' name='crops' type='checkbox'>
+                    </section>
+                    <section class='extra-crops'>
+                        <label for='rhubarb'>Rhubarb</label>
+                        <input id='rhubarb' value='rhubarb' name='crops' type='checkbox'>
+                    </section>
+                    <section class='extra-crops'>
+                        <label for='strawberry'>Strawberry</label>
+                        <input id='strawberry' value='strawberry' name='crops' type='checkbox'>
+                    </section>
+                    <section class='extra-crops'>
+                        <label for='red-cabbage'>Red Cabbage</label>
+                        <input id='red-cabbage' value='redCabbage' name='crops' type='checkbox'>
+                    </section>
+                    <section class='extra-crops'>
+                        <label for='artichoke'>Artichoke</label>
+                        <input id='artichoke' value='artichoke' name='crops' type='checkbox'>
+                    </section>
+                    <section class='extra-crops'>
+                        <label for='beet'>Beet</label>
+                        <input id='beet' value='beet' name='crops' type='checkbox'>
+                    </section>
+
+                    </legend>
+                    <br>
+
+                    <input id='submit' type='submit' value='Submit'>
                 
 
             </form>

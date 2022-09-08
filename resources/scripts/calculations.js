@@ -131,6 +131,9 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         $('div, #result-div').remove();
 
+        let mobile = document.getElementById('mobile-check');
+        console.log($(mobile).css('display'));
+
         let resultDiv = document.createElement('div');
         resultDiv.setAttribute('id', 'result-div');
 
@@ -139,10 +142,8 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         divTitle.innerHTML = 'Crops to Purchase';
         let main = document.getElementById('main');
 
-        if (navigator.userAgentData.mobile) {
+        if ($(mobile).css('display') == 'block') {
             $(main).css('flex-direction', 'column');
-            let no = document.getElementById('profession');
-            no.innerHTML = 'test';
         }
 
         $(resultDiv).appendTo(main);

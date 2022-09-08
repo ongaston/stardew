@@ -147,6 +147,14 @@ body {
     width: 70%;
 }
 
+#mobile-check {
+    display: none;
+}
+
 @media only screen and (max-width: 480px) {
-    
+
+    #mobile-check {
+        display: block;
+    }
+
 }

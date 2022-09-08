@@ -33,7 +33,7 @@ let tulip = new Crop('spring', 20, 6, 0, 30, 1, 'Tulip');
 let unmilledRice = new Crop('spring', 40, 8, 0, 30, 1, 'Unmilled rice');
 
 let blueberry = new Crop('summer', 80, 13, 4, 150, 4.08, 'Blueberry');
-
+let corn = new Crop('summer fall', 150, 14, 4, 50, 1, 'Corn');
 let hops = new Crop('summer', 60, 11, 1, 25, 17, 'Hops');
 let hotPepper = new Crop('summer', 40, 5, 3, 40, 7.21, 'Hot pepper');
 let melon = new Crop('summer', 80, 12, 0, 250, 1, 'Melon');
@@ -52,14 +52,12 @@ let fairyRose = new Crop('fall', 200, 12, 0, 290, 1, 'Fairy rose');
 let grape = new Crop('fall', 60, 10, 3, 80, 6, 'Grape');
 let pumpkin = new Crop('fall', 100, 13, 0, 320, 1, 'Pumpkin');
 let yam = new Crop('fall', 60, 10, 0, 160, 1, 'Yam');
-let baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
-
+let baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 
 let garlic = new Crop('spring', 40, 4, 0, 60, 1, 'Garlic');
 let strawberry = new Crop('spring', 100, 8, 4, 120, 5.15, 'Strawberry');
 let rhubarb = new Crop('spring', 100, 13, 0, 220, 1, 'Rhubarb');
 let redCabbage = new Crop('summer', 100, 9, 0, 260, 1, 'Red cabbage');
-let starfruit = new Crop('summer', 400, 13, 0, 750, 1, 'Star fruit');
 let artichoke = new Crop('fall', 30, 8, 0, 160, 1, 'Artichoke');
 let beet = new Crop('fall', 20, 6, 0, 100, 1, 'Beet');
 /* #endregion */
@@ -285,7 +283,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
             remainingMoney = 0;
         }
     }
-    baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
+    baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 }
 
 function getCropQuality(level, fertilizer, crop) {
@@ -349,6 +347,11 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
     let iridiumAmount = Math.floor(number * array[0]);
     let remainingDays = days - (crop.matureDays + 1);
     let harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
+    let tempSellPrice;
+    let secondArray;
+    let secondGoldAmount;
+    let secondSilverAmount;
+    let secondNoAmount;
 
     if (fertilizer == 'deluxe') {
         silverAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + silverAmount);
@@ -358,16 +361,26 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
 
     switch (crop.name) {
         case 'Blueberry':
-            let tempSellPrice = crop.sellPrice / 3;
-            let secondArray = getCropQuality(level, 'none', crop);
-            let secondGoldAmount = Math.floor(number * secondArray[1]);
-            let secondSilverAmount = Math.floor(number * secondArray[2]);
-            let secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+            tempSellPrice = crop.sellPrice / 3;
+            secondArray = getCropQuality(level, 'none', crop);
+            secondGoldAmount = Math.floor(number * secondArray[1]);
+            secondSilverAmount = Math.floor(number * secondArray[2]);
+            secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
             crop.maxProfit = Math.round(((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))));
-            console.log(blueberry.maxProfit);
+            break;
+        case 'Cranberry':
+            tempSellPrice = crop.sellPrice / 3;
+            secondArray = getCropQuality(level, 'none', crop);
+            secondGoldAmount = Math.floor(number * secondArray[1]);
+            secondSilverAmount = Math.floor(number * secondArray[2]);
+            secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+            crop.maxProfit = Math.round(((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))));
+            break;
+        default:
+            crop.maxProfit = (iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost));
             break;
     }
-    //crop.maxProfit = (iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost));
+
     return crop;
 }
 

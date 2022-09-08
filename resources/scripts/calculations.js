@@ -141,6 +141,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         if (navigator.userAgentData.mobile) {
             $(main).css('flex-direction', 'column');
+            divTitle.innerHTML = 'test';
         }
 
         $(resultDiv).appendTo(main);

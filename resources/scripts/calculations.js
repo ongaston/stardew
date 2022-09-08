@@ -59,8 +59,6 @@ let artichoke = new Crop('fall', 30, 8, 0, 160, 1, 'Artichoke');
 let beet = new Crop('fall', 20, 6, 0, 100, 1, 'Beet');
 /* #endregion */
 
-let mobile = navigator.userAgentData.mobile;
-
 function getBestCrops(season, gold, days, cropArray, profession, level, fertilizer) {
     days = eval(days);
     level = eval(level);
@@ -141,12 +139,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         divTitle.innerHTML = 'Crops to Purchase';
         let main = document.getElementById('main');
 
-        if (mobile == true) {
-            $(main).css('flex-direction', 'column');
-        }
         $(resultDiv).appendTo(main);
-
-
         $(divTitle).appendTo(resultDiv);
 
         let crop1div = document.createElement('div');

@@ -84,15 +84,13 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
             value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)
 
         } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
-            days = days + 28;
-            let remainingDays = days - (value.matureDays - 1);
+            let remainingDays = days - (value.matureDays + 1);
             let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
             value.maxProfit = (harvestsLeft * value.seedCost) - value.seedCost;
-            days = days - 28;
 
         }
         else {
-            let remainingDays = days - (value.matureDays - 1);
+            let remainingDays = days - (value.matureDays + 1);
             let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
             value.maxProfit = (harvestsLeft * value.sellPrice) - value.seedCost;
         }
@@ -134,7 +132,9 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     /* #endregion */
 
     /* #region  html element creation */
-    if (submitCount == 0) {
+
+        $('div, #result-div').remove();
+
         let resultDiv = document.createElement('div');
         resultDiv.setAttribute('id', 'result-div');
 
@@ -215,33 +215,8 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
             $(crop3amount).appendTo(crop3div);
             $(crop3profit).appendTo(crop3div);
         }
-    } else {
-        let cropInfo = document.getElementsByClassName('crop-info');
-        let remove = document.getElementsByClassName('remove');
-        $(remove).remove();
-        let crop1title = cropInfo[0];
-        crop1title.innerHTML = crop1.name;
-        let crop1amount = cropInfo[1];
-        crop1amount.innerHTML = 'Amount to Purchase: ' + crop1Amount;
-        let crop1profit = cropInfo[2];
-        crop1profit.innerHTML = 'Potential Profit: ' + crop1.maxProfit;
-        if (crop2Amount !== 0) {
-            let crop2title = cropInfo[3];
-            crop2title.innerHTML = crop2.name;
-            let crop2amount = cropInfo[4];
-            crop2amount.innerHTML = 'Amount to Purchase: ' + crop2Amount;
-            let crop2profit = cropInfo[5];
-            crop2profit.innerHTML = 'Profit: ' + crop2.maxProfit;
-        }
-        if (crop3Amount !== 0) {
-            let crop3title = cropInfo[6];
-            crop3title.innerHTML = crop3.name;
-            let crop3amount = cropInfo[7];
-            crop3amount.innerHTML = 'Amount to Purchase: ' + crop3Amount;
-            let crop3profit = cropInfo[8];
-            crop3profit.innerHTML = 'Potential Profit: ' + crop3.maxProfit;
-        }
-    }
+
+    
     /* #endregion */
     while (remainingMoney > 0) {
         let otherCrops = potentialCropArray.filter((value) => value.seedCost < remainingMoney)
@@ -339,8 +314,6 @@ function getCropQuality(level, fertilizer, crop) {
 }
 
 function getQualityNumbers(array, number, crop, days, fertilizer, level) {
-    console.log(array);
-    console.log(crop);
     let noAmount = Math.floor(number * array[3]);
     let silverAmount = Math.floor(number * array[2]);
     let goldAmount = Math.floor(number * array[1]);

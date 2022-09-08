@@ -157,4 +157,12 @@ body {
         display: block;
     }
 
+    .desktop {
+        display: none;
+    }
+
+    #fertlizer option[value='none'] {
+        content: '--Fertilizer--';
+    }
+
 }

@@ -139,6 +139,10 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         divTitle.innerHTML = 'Crops to Purchase';
         let main = document.getElementById('main');
 
+        if (navigator.userAgentData.mobile) {
+            $(main).css('flex-direction', 'column');
+        }
+
         $(resultDiv).appendTo(main);
         $(divTitle).appendTo(resultDiv);
 

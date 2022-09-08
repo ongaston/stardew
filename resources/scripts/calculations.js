@@ -295,9 +295,6 @@ function getCropQuality(level, fertilizer, crop) {
     let silverChance;
     let iridiumChance;
     let fertilizerLevel;
-    console.log(level);
-    console.log(fertilizer);
-    console.log(crop.name);
 
     switch (fertilizer) {
         case 'none':
@@ -353,7 +350,6 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
     let remainingDays = days - (crop.matureDays + 1);
     let harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
 
-
     if (fertilizer == 'deluxe') {
         silverAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + silverAmount);
     } else {
@@ -364,17 +360,14 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
         case 'Blueberry':
             let tempSellPrice = crop.sellPrice / 3;
             let secondArray = getCropQuality(level, 'none', crop);
-            let secondIridiumAmount = (number * secondArray[0]);
-            let secondGoldAmount = (number * secondArray[1]);
-            let secondSilverAmount = (number * secondArray[2]);
-            let secondNoAmount = (number * secondArray[3]);
-            console.log(goldAmount + ' ' + secondGoldAmount);
-            console.log(secondArray);
-
-            crop.maxProfit = ((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondIridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3))));
+            let secondGoldAmount = Math.floor(number * secondArray[1]);
+            let secondSilverAmount = Math.floor(number * secondArray[2]);
+            let secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+            crop.maxProfit = Math.round(((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))));
             console.log(blueberry.maxProfit);
+            break;
     }
-    crop.maxProfit = (iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost));
+    //crop.maxProfit = (iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost));
     return crop;
 }
 

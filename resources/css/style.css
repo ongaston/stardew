@@ -187,9 +187,12 @@ body {
     #form select,
     #form option, 
     #form legend,
-    #form label, 
-    #form input {
+    #form label {
         margin: 0;
+    }
+
+    input {
+        margin: 0.01rem;
     }
 
     input[type='number'] {
@@ -206,6 +209,16 @@ body {
 
     label[for='level'] {
         content: 'Level';
+    }
+
+    .extra-crops {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    #crops-available {
+        text-align: center;
     }
 
 

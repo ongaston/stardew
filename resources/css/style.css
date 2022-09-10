@@ -12,23 +12,33 @@ html {
     align-items: center;
     padding: 1rem;
     justify-content: center;
+    width: 100%;
+}
 
+p {
+    color: antiquewhite;
+    text-decoration: underline;
+    margin: 1.5rem 0;
 }
 
 #form  select,
 #form  option,
-#form legend,
-#form label,
 #form input {
     margin: 1rem;
 }
 
-label, 
-legend {
+label {
     background-color: antiquewhite;
     color:hsla(151, 45%, 15%, 1);
     padding: 1rem;
     border-radius: 2px;
+}
+
+legend {
+    background-color: antiquewhite;
+    color: hsla(151, 45%, 15%, 1);
+    border-radius: 2px;
+    padding: 0rem 0.5rem;
 }
 
 select, 
@@ -154,6 +164,20 @@ body {
     display: none;
 }
 
+
+.mobile {
+    margin: 0.25rem 0;
+}
+
+#crops-available {
+    padding: 0.5rem;
+}
+
+.mobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
 @media only screen and (max-width: 480px) {
 
     #mobile-check {
@@ -219,6 +243,10 @@ body {
 
     #crops-available {
         text-align: center;
+    }
+
+    p {
+        color:hsla(151, 45%, 15%, 1);
     }
 
 

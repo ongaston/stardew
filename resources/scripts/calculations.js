@@ -321,6 +321,7 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
     let harvestsLeft;
     if (crop.harvestDays == 0) {
         harvestsLeft = Math.floor(days / crop.matureDays);
+        crop.seedCost = crop.seedCost * (harvestsLeft + 1);
     } else {
         harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
     }

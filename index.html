@@ -38,14 +38,14 @@
                         </section>
                         <section class='mobile'>
                             <label for='days'>Days left in the season: </label>
-                            <input id='days' name='days' type='number' value='28'>
+                            <input id='days' name='days' type='number' value='28' required>
                         </section>
                     </section>
                     </section>
                     <section class='column'>
                         <section class='mobile'>
                             <label for='fertilizer' class='desktop'>Fertilizer: </label>
-                            <select name='fertilizer' id='fertilizer'>
+                            <select name='fertilizer' id='fertilizer' required>
                                 <option value='none'>None</option>
                                 <option value='deluxe'>Deluxe</option>
                                 <option value='quality'>Quality</option>
@@ -119,5 +119,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src='./resources/scripts/calculations.js' type='module'></script>
+        <script src='./resources/scripts/mobile.js' type='module'></script>
     </body>
 </html>

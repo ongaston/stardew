@@ -72,7 +72,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     console.log(potentialCropArray);
     //create maxProfit property of crop objects in array
     potentialCropArray = potentialCropArray.map((value) => {
-        let currentCropAmount = gold / value.seedCost;
+        let currentCropAmount = Math.floor(gold / value.seedCost);
         if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
             value.maxProfit = Math.floor(((days - 1) / (value.growingDays)));
             console.log(value.maxProfit)
@@ -90,14 +90,9 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         }
         else {
             let remainingDays = days - (value.matureDays + 1);
-            console.log(value.name);
-            console.log('amount: ' + currentCropAmount);
-            console.log('Remaining: ' + remainingDays);
             let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
-            console.log('harvestsleft: ' + harvestsLeft);
-            console.log(value);
             value.maxProfit = (currentCropAmount * (harvestsLeft * value.sellPrice) - currentCropAmount * value.seedCost);
-            console.log(value.maxProfit);
+
         }
         return value;
     })
@@ -107,10 +102,11 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     })
     potentialCropArray = potentialCropArray.reverse();
 
-    /* #region  top 3 crops */
+    /* #region  top crop */
     let crop1 = potentialCropArray[0];
 
     console.log(potentialCropArray);
+
 
     let crop1Array = getCropQuality(level, fertilizer, crop1);
     let crop1Amount = Math.floor(gold / crop1.seedCost);
@@ -171,7 +167,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         let otherCrops = potentialCropArray.filter((value) => value.seedCost <= remainingMoney);
         console.log(otherCrops);
         otherCrops = otherCrops.map((value) => {
-            let currentCropAmount = remainingMoney / value.seedCost;
+            let currentCropAmount = Math.floor(remainingMoney / value.seedCost);
             if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
                 value.maxProfit = Math.floor((days / value.growingDays));
                 value.maxProfit = (value.maxProfit * (value.sellPrice - value.seedCost)) * currentCropAmount;

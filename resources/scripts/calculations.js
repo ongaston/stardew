@@ -164,6 +164,8 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         $(crop1amount).appendTo(crop1div);
         $(crop1profit).appendTo(crop1div);
 
+        let totalProfit = crop1.maxProfit;
+
         if (crop2Amount !== 0) {
             let crop2div = document.createElement('div');
             crop2div.setAttribute('class', 'crop-div');
@@ -186,6 +188,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
             $(crop2title).appendTo(crop2div);
             $(crop2amount).appendTo(crop2div);
             $(crop2profit).appendTo(crop2div);
+            
         }
 
         if (crop3Amount !== 0) {
@@ -210,21 +213,40 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
             $(crop3title).appendTo(crop3div);
             $(crop3amount).appendTo(crop3div);
             $(crop3profit).appendTo(crop3div);
+
         }
 
-    
+        if (crop2Amount !== 0 || crop3Amount !== 0) {
+            if (crop2Amount !== 0) {
+                totalProfit = totalProfit + crop2.maxProfit;
+            }
+            if (crop3Amount !== 0) {
+                totalProfit = totalProfit + crop3.maxProfit;
+            }
+
+            let totalProfitTitle = document.createElement('p');
+            totalProfitTitle.setAttribute('class', 'crop-info');
+            totalProfitTitle.style.textDecoration = 'underline';
+            totalProfitTitle.innerHTML = 'Approximate Total Profit: ' + totalProfit.toLocaleString('en-US');
+
+            $(totalProfit).appendTo(resultDiv);
+        }
+    let trigger = false;
     /* #endregion */
     while (remainingMoney > 0) {
-        let otherCrops = potentialCropArray.filter((value) => value.seedCost < remainingMoney)
+
+        let otherCrops = potentialCropArray.filter((value) => value.seedCost <= remainingMoney)
         otherCrops = otherCrops.sort((a, b) => {
             return a.maxProfit - b.maxProfit;
         });
-        let length = otherCrops.length - 1;
+        otherCrops = otherCrops.reverse();
         if (otherCrops.length !== 0) {
-            let crop = otherCrops[length];
+            trigger = true;
+            let crop = otherCrops[0];
             let cropAmount = Math.floor(remainingMoney / crop.seedCost);
             remainingMoney = remainingMoney - crop.seedCost * cropAmount;
-            crop.maxProfit = cropAmount * crop.seedCost;
+            crop.maxProfit = cropAmount * crop.maxProfit;
+
 
             let resultDiv = document.getElementById('result-div');
             let cropDiv = document.createElement('div');
@@ -233,26 +255,47 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
             $(cropDiv).appendTo(resultDiv);
 
-        let croptitle = document.createElement('p');
-        croptitle.setAttribute('class', 'crop-info');
-        croptitle.style.textDecoration = 'underline';;
-        croptitle.innerHTML = crop.name;
+            let croptitle = document.createElement('p');
+            croptitle.setAttribute('class', 'crop-info');
+            croptitle.style.textDecoration = 'underline';;
+            croptitle.innerHTML = crop.name;
 
-        let cropamount = document.createElement('p');
-        cropamount.setAttribute('class', 'crop-info');
-        cropamount.innerHTML = 'Amount to purchase: ' + cropAmount.toLocaleString('en-US');
+            let cropamount = document.createElement('p');
+            cropamount.setAttribute('class', 'crop-info');
+            cropamount.innerHTML = 'Amount to purchase: ' + cropAmount.toLocaleString('en-US');
 
-        let cropprofit = document.createElement('p');
-        cropprofit.setAttribute('class', 'crop-info');
-        cropprofit.innerHTML = 'Approximate Profit: ' + crop.maxProfit.toLocaleString('en-US');
+            let cropprofit = document.createElement('p');
+            cropprofit.setAttribute('class', 'crop-info');
+            cropprofit.innerHTML = 'Approximate Profit: ' + crop.maxProfit.toLocaleString('en-US');
 
-        $(croptitle).appendTo(cropDiv);
-        $(cropamount).appendTo(cropDiv);
-        $(cropprofit).appendTo(cropDiv);
+            $(croptitle).appendTo(cropDiv);
+            $(cropamount).appendTo(cropDiv);
+            $(cropprofit).appendTo(cropDiv);
+
+            totalProfit = totalProfit + crop.maxProfit;
+            
+
+
+                
+            
         }
-        if (otherCrops.length == 0) {
+
+        if (otherCrops.length === 0) {
             remainingMoney = 0;
+
         }
+        if (remainingMoney == 0 && trigger) {
+            if ((crop2Amount == 0 && crop3Amount == 0)) {
+                let totalProfitTitle = document.createElement('p');
+                totalProfitTitle.setAttribute('class', 'crop-info');
+                totalProfitTitle.setAttribute('id', 'total-profit');
+                totalProfitTitle.style.textDecoration = 'underline';
+                totalProfitTitle.style.textAlign = 'center';
+                totalProfitTitle.innerHTML = 'Approximate Total Profit: ' + totalProfit.toLocaleString('en-US');
+                $(totalProfitTitle).appendTo(resultDiv);
+            }
+        }
+
     }
     baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
 }

@@ -135,6 +135,14 @@ input, select {
     font-size: 12px;
 }
 
+.remove {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 #submit {
     background-color: antiquewhite;
     color: hsla(151, 45%, 15%, 1);

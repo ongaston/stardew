@@ -1,5 +1,5 @@
 html {
-    font-size: 16px;
+    font-size: 12px;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
     background-color: hsla(151, 45%, 10%, 1);
@@ -69,7 +69,7 @@ body {
 
 /*info div*/
 #result-div {
-    padding: 1rem;
+    padding: 0.5rem;
     margin: 1rem;
     background-color: antiquewhite;
     border-radius: 2px;
@@ -84,7 +84,8 @@ body {
 #div-title {
     color:hsla(151, 45%, 15%, 1);
     font-weight: 800;
-    padding: 1rem;
+    padding: 0.5rem;
+    margin: 0;
     text-align: center;
     text-decoration: underline;
 }
@@ -98,9 +99,11 @@ body {
 }
 
 .crop-info {
-    padding: 1rem;
+    padding: 0 0.5rem;
     color:hsla(151, 45%, 15%, 1);
     width: auto;
+    margin: 0.5rem;
+    text-decoration: none;
 }
 
 #crops-available {
@@ -128,12 +131,18 @@ body {
     align-items: center;
 }
 
+input, select {
+    font-size: 12px;
+}
+
 #submit {
     background-color: antiquewhite;
     color: hsla(151, 45%, 15%, 1);
     border-radius: 1px;
     border: 2px solid hsla(151, 45%, 30%, 1);
     padding: 0.5rem;
+    text-align: center;
+    font-size: 12px;
 }
 
 #submit:hover {

@@ -66,18 +66,19 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     let potentialCropArray = cropArray.filter((value) => value.season.includes(season));
     //filter out crops who's growing period is longer than the amount of time left in the season
     potentialCropArray = potentialCropArray.filter((value) => value.matureDays < days);
+    for (let i = 0; i < potentialCropArray.length; i++) {
+        Object.defineProperty(potentialCropArray[i], 'maxProfit', { enumerable: true, writable: true });
+    }
 
     console.log(potentialCropArray);
     //create maxProfit property of crop objects in array
     potentialCropArray = potentialCropArray.map((value) => {
         if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
-            console.log(value);
             value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
         } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
             value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)
-
         } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
             let remainingDays = days - (value.matureDays + 1);
             let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
@@ -94,16 +95,11 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         }
         return value;
     })
-    console.log(pumpkin.maxProfit)
     //sort by max profit
     potentialCropArray = potentialCropArray.sort((a, b) => {
-        if (a.maxProfit == b.maxProfit) {
-            return 0;
-        }
-        return a.maxProfit < b.maxProfit ? -1 : 1;
+        return a.maxProfit - b.maxProfit;
     })
     potentialCropArray = potentialCropArray.reverse();
-    console.log(potentialCropArray);
 
     /* #region  top 3 crops */
     let crop1 = potentialCropArray[0];
@@ -132,7 +128,6 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         $('div, #result-div').remove();
 
         let mobile = document.getElementById('mobile-check');
-        console.log($(mobile).css('display'));
 
         let resultDiv = document.createElement('div');
         resultDiv.setAttribute('id', 'result-div');
@@ -165,6 +160,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         let crop1profit = document.createElement('p');
         crop1profit.setAttribute('class', 'crop-info');
+        console.log(crop1.maxProfit);
         crop1profit.innerHTML = 'Approximate Profit: ' + crop1.maxProfit.toLocaleString('en-US');
 
         $(crop1title).appendTo(crop1div);
@@ -271,7 +267,7 @@ function getCropQuality(level, fertilizer, crop) {
     let silverChance;
     let iridiumChance;
     let fertilizerLevel;
-
+    console.log(crop.maxProfit)
     switch (fertilizer) {
         case 'none':
             fertilizerLevel = 0;
@@ -322,7 +318,12 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
     let goldAmount = Math.floor(number * array[1]);
     let iridiumAmount = Math.floor(number * array[0]);
     let remainingDays = days - (crop.matureDays + 1);
-    let harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
+    let harvestsLeft;
+    if (crop.harvestDays == 0) {
+        harvestsLeft = Math.floor(days / crop.matureDays);
+    } else {
+        harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
+    }
     let tempSellPrice;
     let secondArray;
     let secondGoldAmount;
@@ -362,7 +363,6 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level) {
 
 
 let form = document.querySelector('#form');
-console.log(form.profession);
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 

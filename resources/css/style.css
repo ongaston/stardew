@@ -205,10 +205,6 @@ input, select {
         display: none;
     }
 
-    #fertilizer option[value='none'] {
-        content: '--Fertilizer--';
-    }
-
     #season {
         content: '--Season--';
     }

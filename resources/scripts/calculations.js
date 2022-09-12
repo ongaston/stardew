@@ -72,22 +72,32 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     console.log(potentialCropArray);
     //create maxProfit property of crop objects in array
     potentialCropArray = potentialCropArray.map((value) => {
+        let currentCropAmount = gold / value.seedCost;
         if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
-            value.maxProfit = Math.floor((days / value.growingDays));
-            value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
+            value.maxProfit = Math.floor(((days - 1) / (value.growingDays)));
+            console.log(value.maxProfit)
+            value.maxProfit = (value.maxProfit * (value.sellPrice - value.seedCost)) * currentCropAmount;
+            console.log(value.name);
+            console.log(currentCropAmount);
+            console.log(value.maxProfit);
         } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
-            value.maxProfit = Math.floor((days / value.growingDays));
-            value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)
+            value.maxProfit = Math.floor(((days - 1) / value.growingDays));
+            value.maxProfit = (value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)) * currentCropAmount;
         } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
             let remainingDays = days - (value.matureDays + 1);
             let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
-            value.maxProfit = (harvestsLeft * value.seedCost) - value.seedCost;
-
+            value.maxProfit = ((harvestsLeft * value.seedCost) - value.seedCost) * currentCropAmount;
         }
         else {
             let remainingDays = days - (value.matureDays + 1);
+            console.log(value.name);
+            console.log('amount: ' + currentCropAmount);
+            console.log('Remaining: ' + remainingDays);
             let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
-            value.maxProfit = (harvestsLeft * value.sellPrice) - value.seedCost;
+            console.log('harvestsleft: ' + harvestsLeft);
+            console.log(value);
+            value.maxProfit = (currentCropAmount * (harvestsLeft * value.sellPrice) - currentCropAmount * value.seedCost);
+            console.log(value.maxProfit);
         }
         return value;
     })
@@ -99,26 +109,14 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
     /* #region  top 3 crops */
     let crop1 = potentialCropArray[0];
-    let crop2 = potentialCropArray[1];
-    let crop3 = potentialCropArray[2];
+
     console.log(potentialCropArray);
 
     let crop1Array = getCropQuality(level, fertilizer, crop1);
-    let crop2Array = getCropQuality(level, fertilizer, crop2);
-    let crop3Array = getCropQuality(level, fertilizer, crop3);
-    
-
     let crop1Amount = Math.floor(gold / crop1.seedCost);
     let remainingMoney = gold - crop1.seedCost * crop1Amount;
     getQualityNumbers(crop1Array, crop1Amount, crop1, days, fertilizer, level, profession);
 
-    let crop2Amount = Math.floor(remainingMoney / crop2.seedCost);
-    getQualityNumbers(crop2Array, crop2Amount, crop2, days, fertilizer, level, profession);
-    remainingMoney = remainingMoney - crop2.seedCost * crop2Amount;
-
-    let crop3Amount = Math.floor(remainingMoney / crop3.seedCost);
-    getQualityNumbers(crop3Array, crop3Amount, crop3, days, fertilizer, level, profession);
-    remainingMoney = remainingMoney - crop3.seedCost * crop3Amount;
     /* #endregion */
 
     /* #region  html element creation */
@@ -166,86 +164,47 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
         let totalProfit = crop1.maxProfit;
 
-        if (crop2Amount > 0) {
-            let crop2div = document.createElement('div');
-            crop2div.setAttribute('class', 'crop-div');
-
-            $(crop2div).appendTo(resultDiv);
-
-            let crop2title = document.createElement('p');
-            crop2title.setAttribute('class', 'crop-info');
-            crop2title.style.textDecoration = 'underline';;
-            crop2title.innerHTML = crop2.name;
-
-            let crop2amount = document.createElement('p');
-            crop2amount.setAttribute('class', 'crop-info');
-            crop2amount.innerHTML = 'Amount to purchase: ' + crop2Amount.toLocaleString('en-US');
-
-            let crop2profit = document.createElement('p');
-            crop2profit.setAttribute('class', 'crop-info');
-            crop2profit.innerHTML = 'Approximate Profit: ' + crop2.maxProfit.toLocaleString('en-US');
-
-            $(crop2title).appendTo(crop2div);
-            $(crop2amount).appendTo(crop2div);
-            $(crop2profit).appendTo(crop2div);
-            
-        }
-
-        if (crop3Amount > 0) {
-            let crop3div = document.createElement('div');
-            crop3div.setAttribute('class', 'crop-div');
-
-            $(crop3div).appendTo(resultDiv);
-
-            let crop3title = document.createElement('p');
-            crop3title.setAttribute('class', 'crop-info');
-            crop3title.style.textDecoration = 'underline';;
-            crop3title.innerHTML = crop3.name;
-
-            let crop3amount = document.createElement('p');
-            crop3amount.setAttribute('class', 'crop-info');
-            crop3amount.innerHTML = 'Amount to purchase: ' + crop3Amount.toLocaleString('en-US');
-
-            let crop3profit = document.createElement('p');
-            crop3profit.setAttribute('class', 'crop-info');
-            crop3profit.innerHTML = 'Approximate Profit: ' + crop3.maxProfit.toLocaleString('en-US');
-
-            $(crop3title).appendTo(crop3div);
-            $(crop3amount).appendTo(crop3div);
-            $(crop3profit).appendTo(crop3div);
-
-        }
-
-        if (crop2Amount !== 0 || crop3Amount !== 0) {
-            if (crop2Amount !== 0) {
-                totalProfit = totalProfit + crop2.maxProfit;
-            }
-            if (crop3Amount !== 0) {
-                totalProfit = totalProfit + crop3.maxProfit;
-            }
-
-            let totalProfitTitle = document.createElement('p');
-            totalProfitTitle.setAttribute('class', 'crop-info');
-            totalProfitTitle.style.textDecoration = 'underline';
-            totalProfitTitle.innerHTML = 'Approximate Total Profit: ' + totalProfit.toLocaleString('en-US');
-            $(totalProfitTitle).appendTo(resultDiv);
-        }
-    let trigger = false;
     /* #endregion */
     while (remainingMoney > 0) {
+        console.log(remainingMoney)
 
-        let otherCrops = potentialCropArray.filter((value) => value.seedCost <= remainingMoney)
+        let otherCrops = potentialCropArray.filter((value) => value.seedCost <= remainingMoney);
+        console.log(otherCrops);
+        otherCrops = otherCrops.map((value) => {
+            let currentCropAmount = remainingMoney / value.seedCost;
+            if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
+                value.maxProfit = Math.floor((days / value.growingDays));
+                value.maxProfit = (value.maxProfit * (value.sellPrice - value.seedCost)) * currentCropAmount;
+            } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
+                value.maxProfit = Math.floor((days / value.growingDays));
+                value.maxProfit = (value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)) * currentCropAmount;
+            } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
+                let remainingDays = days - (value.matureDays + 1);
+                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+                value.maxProfit = ((harvestsLeft * value.seedCost) - value.seedCost) * currentCropAmount;
+            }
+            else {
+                let remainingDays = days - (value.matureDays + 1);
+                console.log(value.name);
+                console.log('amount: ' + currentCropAmount);
+                console.log('Remaining: ' + remainingDays);
+                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+                console.log('harvestsleft: ' + harvestsLeft);
+                console.log(value);
+                value.maxProfit = (currentCropAmount * (harvestsLeft * value.sellPrice) - currentCropAmount * value.seedCost);
+                console.log(value.maxProfit);
+            }
+            return value;
+        })
         otherCrops = otherCrops.sort((a, b) => {
             return a.maxProfit - b.maxProfit;
         });
         otherCrops = otherCrops.reverse();
+        console.log(otherCrops);
         if (otherCrops.length !== 0) {
-            trigger = true;
             let crop = otherCrops[0];
             let cropAmount = Math.floor(remainingMoney / crop.seedCost);
             remainingMoney = remainingMoney - crop.seedCost * cropAmount;
-            crop.maxProfit = cropAmount * crop.maxProfit;
-
 
             let resultDiv = document.getElementById('result-div');
             let cropDiv = document.createElement('div');
@@ -273,18 +232,14 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
             totalProfit = totalProfit + crop.maxProfit;
             
-
-
-                
-            
         }
 
         if (otherCrops.length === 0) {
             remainingMoney = 0;
 
         }
-        if (remainingMoney == 0 && trigger) {
-            if ((crop2Amount == 0 && crop3Amount == 0)) {
+        if (remainingMoney == 0) {
+
                 let totalProfitTitle = document.createElement('p');
                 totalProfitTitle.setAttribute('class', 'crop-info');
                 totalProfitTitle.setAttribute('id', 'total-profit');
@@ -292,7 +247,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
                 totalProfitTitle.style.textAlign = 'center';
                 totalProfitTitle.innerHTML = 'Approximate Total Profit: ' + totalProfit.toLocaleString('en-US');
                 $(totalProfitTitle).appendTo(resultDiv);
-            }
+            
         }
 
     }

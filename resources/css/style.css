@@ -209,7 +209,7 @@ input, select {
         content: '--Fertilizer--';
     }
 
-    #season option[value=''] {
+    #season {
         content: '--Season--';
     }
 
@@ -237,7 +237,7 @@ input, select {
     }
 
     input[type='number'] {
-        width: 2rem;
+        width: auto;
     }
 
     label[for='gold-to-spend'] {

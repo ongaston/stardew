@@ -67,20 +67,17 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
     //filter out crops who's growing period is longer than the amount of time left in the season
     potentialCropArray = potentialCropArray.filter((value) => value.matureDays < days);
     for (let i = 0; i < potentialCropArray.length; i++) {
-        Object.defineProperty(potentialCropArray[i], 'maxProfit', { enumerable: true, writable: true });
+        delete potentialCropArray[i].maxProfit;
+        Object.defineProperty(potentialCropArray[i], 'maxProfit', { enumerable: true, writable: true, configurable: true });
     }
-    console.log(potentialCropArray);
+
     //create maxProfit property of crop objects in array
     potentialCropArray = potentialCropArray.map((value) => {
         if (check == true) {
             let currentCropAmount = Math.floor(gold / value.seedCost);
             if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
                 value.maxProfit = Math.floor(((days - 1) / (value.growingDays)));
-                console.log(value.maxProfit)
                 value.maxProfit = (value.maxProfit * (value.sellPrice - value.seedCost)) * currentCropAmount;
-                console.log(value.name);
-                console.log(currentCropAmount);
-                console.log(value.maxProfit);
             } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
                 value.maxProfit = Math.floor(((days - 1) / value.growingDays));
                 value.maxProfit = (value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)) * currentCropAmount;
@@ -101,7 +98,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
                 value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
             } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
                 value.maxProfit = Math.floor((days / value.growingDays));
-                value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)
+                value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost);
             } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
                 let remainingDays = days - (value.matureDays + 1);
                 let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
@@ -114,6 +111,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
                 value.maxProfit = (harvestsLeft * value.sellPrice) - value.seedCost;
             }
         }
+    
         return value;
     })
     //sort by max profit
@@ -124,7 +122,6 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
 
     /* #region  top crop */
     let crop1 = potentialCropArray[0];
-
     console.log(potentialCropArray);
 
 
@@ -375,11 +372,14 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level, profess
             if (profession == 'yes') {
                 crop.maxProfit = Math.round((iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost)));
             } else {
-                console.log(crop.name);
-                console.log(crop.maxProfit);
                 crop.maxProfit = Math.round((iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost)));
             }
             break;
+    }
+
+    if (crop.harvestDays == 0) {
+        harvestsLeft = Math.floor(days / crop.matureDays);
+        crop.seedCost = crop.seedCost / (harvestsLeft);
     }
 
     return crop;

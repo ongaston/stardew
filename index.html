@@ -35,14 +35,15 @@
                         <section class='mobile'>
                             <label for='gold-to-spend' id='gold'>Gold to spend: </label>
                             <input id='gold-to-spend' name='gold-to-spend' type='number' value='10000' required>
-                            
                         </section>
+
                         <section class='mobile'>
                             <label for='days' id='days-left'>Days left in the season: </label>
                             <input id='days' name='days' type='number' value='28' required>
                         </section>
+
                     </section>
-                    </section>
+
                     <section class='column'>
                         <section class='mobile'>
                             <label for='fertilizer'>Fertilizer: </label>
@@ -60,7 +61,7 @@
                         </section>
                             
                         
-                            <legend id='profession'>Tiller Profession: 
+                            <legend id='profession'>Tiller Profession:  
                                 
                                 <section class='radio-container'>
                                     <label for='yes'>Yes</label>
@@ -75,7 +76,7 @@
                     </section>
                 </section>
                     
-                    <p>Additional Crops</p>
+                    <p id='additional-crops'>Additional Crops</p>
                     <legend id='crops-available'> 
                         <section class='column'>
                             <section class='extra-crops'>
@@ -108,7 +109,12 @@
                             </section>
                         </section>
                     </legend>
-                    
+
+
+                    <section id='formula-container'>
+                        <label for='formula-switch'>Use Quantity Formula</label>
+                        <input id='formula-switch' value='quantity-formula' type='checkbox' name='formula-switch'>
+                    </section>
 
                     <input id='submit' type='submit' value='Submit'>
 

@@ -131,6 +131,30 @@ body {
     align-items: center;
 }
 
+#yes,
+#no {
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: double hsla(151, 45%, 10%, 1);
+    transition: 0.1s all linear;
+    background-color:antiquewhite;
+}
+
+#yes:checked,
+#no:checked {
+    border: 6px solid hsla(151, 45%, 15%, 1);
+
+}
+
+#yes:hover,
+#no:hover,
+input[type='checkbox']:hover,
+#submit {
+    cursor: pointer;
+}
+
 
 .remove {
     display: inline-flex;

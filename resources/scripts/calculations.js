@@ -155,9 +155,9 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         disclaimer.style.margin = '1rem 0';
         disclaimer.innerHTML = 'Profits assume replanting of crops with only one harvest.';
 
-        if ($(mobile).css('display') == 'block') {
-            $(main).css('flex-direction', 'column');
-        }
+
+        $(main).css('flex-direction', 'column');
+
 
         $(resultDiv).appendTo(main);
         $(divTitle).appendTo(resultDiv);

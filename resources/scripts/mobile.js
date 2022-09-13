@@ -22,3 +22,14 @@ if ($(mobile).css('display') == 'block') {
     goldInput.style.textAlign = 'center';
 
 }
+
+let daysInput = document.getElementById('days');
+let levelInput = document.getElementById('level');
+let goldInput = document.getElementById('gold-to-spend');
+
+daysInput.style.width = '2rem';
+daysInput.style.textAlign = 'center';
+levelInput.style.width = '2rem';
+levelInput.style.textAlign = 'center';
+goldInput.style.width = '4rem';
+goldInput.style.textAlign = 'center';

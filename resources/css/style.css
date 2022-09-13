@@ -155,6 +155,12 @@ input[type='checkbox']:hover,
     cursor: pointer;
 }
 
+#level, 
+#days {
+    width: 2rem;
+    text-align: center;
+}
+
 
 .remove {
     display: inline-flex;
@@ -203,7 +209,9 @@ input[type='checkbox']:hover,
 
 
 .mobile {
-    margin: 0.25rem 0;
+    margin: 1rem 0;
+    background-color: antiquewhite;
+    border-radius: 2px;
 }
 
 #crops-available {
@@ -229,6 +237,13 @@ input[type='checkbox']:hover,
     margin: 0;
     padding-left: 0.3rem;
     padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#profession {
+    margin: 1rem;
+    padding: 12px;
 }
 
 #additional-crops {

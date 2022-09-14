@@ -100,7 +100,6 @@ body,
 #no:checked {
     border: 4px solid var(--dark-teal);
     outline: double var(--main-white);
-
 }
 
 #yes:hover,
@@ -110,20 +109,50 @@ input[type='checkbox']:hover {
     cursor: pointer;
 }
 
+input[type='number'],
+select {
+    text-align: center;
+    background-color: var(--main-white);
+    border: double var(--dark-teal);
+    border-radius: 6px;
+}
+
 #div-title {
     font-weight: 600;
 }
 
+/*input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.extra-crops::after {
+    position: relative;
+    height: 15px;
+    width: 15px;
+    margin: 0.6rem;
+    background-color: var(--main-white);
+    content: '';
+    border: double var(--dark-teal);
+    border-radius: 6px;
+}
+
+.extra-crops::after:hover {
+    background-color: var(--light-white);
+}*/
+
 #submit {
     background-color: var(--main-white);
-    border-radius: 2px;
-    border: 2px solid var(--light-teal);
+    border-radius: 6px;
+    border: 5px double var(--light-teal);
     color: var(--main-teal);
 }
 
 #submit:hover {
     background-color: var(--light-white);
-    border-color: var(--dark-teal);
+    border: thick double var(--dark-teal);
 }
 
 #submit:active {

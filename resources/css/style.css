@@ -85,6 +85,24 @@ body,
     border: 4px double var(--main-white);
 }
 
+#yes,
+#no {
+    appearance: none;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    outline: thick double var(--dark-teal);
+    transition: 0.1s all linear;
+    background-color: var(--main-white);
+}
+
+#yes:checked,
+#no:checked {
+    border: 4px solid var(--dark-teal);
+    outline: double var(--main-white);
+
+}
+
 #yes:hover,
 #no:hover,
 #submit:hover,
@@ -143,6 +161,6 @@ input[type='checkbox']:hover {
         flex-direction: column;
     }
 
-    
+
 
 }

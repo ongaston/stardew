@@ -147,8 +147,8 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
         let main = document.getElementById('main');
 
         let disclaimer = document.createElement('p');
-        disclaimer.style.color = 'hsla(151, 45%, 15%, 1)';
-        disclaimer.style.fontSize = '12px';
+        disclaimer.style.color = 'hsla(56, 23%, 90%, 1)';
+        disclaimer.style.fontSize = '14px';
         disclaimer.style.width = '150px';
         disclaimer.style.textDecoration = 'none';
         disclaimer.style.textAlign = 'center';

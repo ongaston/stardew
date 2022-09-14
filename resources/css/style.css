@@ -83,6 +83,7 @@ body,
 #form, 
 #big-container {
     border: 4px double var(--main-white);
+    border-radius: 6px;
 }
 
 #yes,

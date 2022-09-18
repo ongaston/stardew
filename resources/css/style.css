@@ -100,7 +100,7 @@ p {
 #div-title, 
 #submit,
 #crops-available,
-#big-container {
+.big-container {
     padding: 0.5rem;
 }
 
@@ -128,7 +128,7 @@ body,
 
 #result-div,
 #form, 
-#big-container {
+.big-container {
     border: 4px double var(--main-white);
     border-radius: 6px;
 }
@@ -234,7 +234,7 @@ select {
         content: '--Season--';
     }
     
-    #big-container {
+    .big-container {
         flex-direction: column;
     }
 

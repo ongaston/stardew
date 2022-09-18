@@ -7,6 +7,7 @@
         <title>Crop Calculator</title>
         <link rel='stylesheet' type='text/css' href='resources/css/reset.css'>
         <link rel='stylesheet' type='text/css' href='resources/css/style.css'>
+        <link rel='stylesheet' type='text/css' href='resources/css/style2.css'>
         <link rel='stylesheet'
             href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css'>
         <link rel='stylesheet' href="resources/webfonts/fontawesome-free-6.1.1-web/css/all.css">
@@ -24,7 +25,130 @@
             </nav>
         </header>
 
-        <main>
+        <main id='main'>
+            <form method='' id='form' action='index.html'>
+                <section class='big-container' >
+
+                        <section class='mobile'>
+                            <label for='season' class='desktop'>Season: </label>
+                            <select name='season' required>
+
+                                <option value='' id='season'>--Choose an option--</option>
+                                <option value='spring'>Spring</option>
+                                <option value='summer'>Summer</option>
+                                <option value='fall'>Fall</option>
+                            </select>
+                        </section>
+
+                        <section class='mobile'>
+                            <label for='days' id='days-left'>Days left in the season: </label>
+                            <input id='days' name='days' type='number' value='28' required>
+                        </section>
+
+                        <legend id='profession'>Tiller Profession:  
+                                
+                            <section class='radio-container'>
+                                <label for='yes'>Yes</label>
+                                <input id='yes' value='yes' name='profession' type='radio'>
+                            </section>
+                            <section class='radio-container'>    
+                                <label for='no'>No</label>
+                                <input id='no' value='no' name='profession' type='radio' checked='true'>
+                            </section>
+
+                        </legend>
+                            
+                        <section class='mobile'>
+                            <label for='level' id='farming-level'>Farming level: </label>
+                            <input id='level' name='level' type='number' value='0' min='0' max='14' required>
+                        </section>
+
+
+
+
+
+                        
+
+                </section>
+                    
+                <section class='big-container'>
+                    <p class='crop-section'>Crop 1</p>
+                    <section class='section'>
+                        <section class='mobile'>
+                            <label for='crop-name' class='desktop'>Crop: </label>
+                            <select name='crop-name' id='crop-name' required>
+                                <option value=''>--Choose a Crop--</option>
+                                <option value='amaranth'>Amaranth</option>
+                                <option value='ancientFruit'>Ancient Fruit</option>
+                                <option value='artichoke'>Artichoke</option>
+                                <option value='beet'>Beet</option>
+                                <option value='blueberry'>Blueberry</option>
+                                <option value='blueJazz'>Blue Jazz</option>
+                                <option value='bokChoy'>Bok Choy</option>
+                                <option value='cactusFruit'>Cactus Fruit</option>
+                                <option value='cauliflower'>Cauliflower</option>
+                                <option value='coffee'>Coffee</option>
+                                <option value='corn'>Corn</option>
+                                <option value='cranberry'>Cranberry</option>
+                                <option value='eggplant'>Eggplant</option>
+                                <option value='fairyRose'>Fairy Rose</option>
+                                <option value='garlic'>Garlic</option>
+                                <option value='grape'>Grape</option>
+                                <option value='greenBean'>Green Bean</option>
+                                <option value='hops'>Hops</option>
+                                <option value='hotPepper'>Hot Pepper</option>
+                                <option value='kale'>Kale</option>
+                                <option value='melon'>Melon</option>
+                                <option value='parsnip'>Parsnip</option>
+                                <option value='pineapple'>Pineapple</option>
+                                <option value='poppy'>Poppy</option>
+                                <option value='potato'>Potato</option>
+                                <option value='pumpkin'>Pumpkin</option>
+                                <option value='radish'>Radish</option>
+                                <option value='redCabbage'>Red Cabbage</option>
+                                <option value='rhubarb'>Rhubarb</option>
+                                <option value='starfruit'>Starfruit</option>
+                                <option value='strawberry'>Strawberry</option>
+                                <option value='summer-spangle'>Summer Spangle</option>
+                                <option value='sunflower'>Sunflower</option>
+                                <option value='sweetGemFruit'>Sweet Gem Fruit</option>
+                                <option value='taroRoot'>Taro Root</option>
+                                <option value='tomato'>Tomato</option>
+                                <option value='tulip'>Tulip</option>
+                                <option value='unmilledRice'>Unmilled Rice</option>
+                                <option value='wheat'>Wheat</option>
+                                <option value='yam'>Yam</option>
+                            </select>
+                        </section>
+
+                        <section class='mobile'>
+                            <label for='quantity'>Quantity: </label>
+                            <input type='number' max='5000' value='1' id='quantity' name='quantity' required>
+                        </section>
+                    </section>
+
+                    <section class='mobile'>
+                        <label for='fertilizer'>Fertilizer: </label>
+                        <select name='fertilizer' id='fertilizer' required>
+                            <option value='none'>None</option>
+                            <option value='deluxe'>Deluxe</option>
+                            <option value='quality'>Quality</option>
+                            <option value='standard'>Standard</option>
+                        </select>
+                    </section>
+
+
+                </section>
+
+
+                    <section id='formula-container'>
+                        <label for='formula-switch'>Use Quantity Formula</label>
+                        <input id='formula-switch' value='quantity-formula' type='checkbox' name='formula-switch'>
+                    </section>
+
+                    <input id='submit' type='submit' value='Submit'>
+
+            </form>
 
             <p id='mobile-check'></p>
         </main>
@@ -33,5 +157,6 @@
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src='./resources/scripts/calculations.js' type='module'></script>
         <script src='./resources/scripts/mobile.js' type='module'></script>
+        <script src='./resources/scripts/sell-menu.js' type='module'></script>
     </body>
 </html>

@@ -5,16 +5,63 @@ html {
     background-color: var(--main-teal);
     color: var(--main-white);
     text-align: center;
+}
+
+#main {
     position: relative;
-    top: 2rem;
+    top: 3rem;
 }
 
 :root {
     --main-teal: hsla(183, 45%, 10%, 1);
     --main-white: hsla(56, 55%, 90%, 1);
     --light-teal: hsla(183, 45%, 20%, 1);
-    --light-white: hsla(56, 55%, 100%, 1);
+    --light-white: hsla(56, 55%, 95%, 1);
     --dark-teal: hsla(183, 45%, 5%, 1);
+}
+
+nav {
+    background-color: var(--main-white);
+    width: 100%;
+    padding: 1rem 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 3px 1px var(--dark-teal);
+}
+
+nav a {
+    padding: 0 2rem;
+    margin: 0 1rem;
+    color: var(--main-teal);
+    font-weight: 800;
+    font-size: 20px;
+    outline: thick double var(--main-teal);
+    border-radius: 4px;
+    box-shadow: 3px 3px 1px var(--main-teal);
+}   
+
+nav a:hover {
+    color: var(--dark-teal);
+    background-color: var(--light-white);
+    box-shadow: 3px 3px 1px var(--dark-teal), 0 -3px 1px var(--light-white), 0 3px 1px var(--light-white);
+}
+
+nav a:active {
+    color: var(--main-white);
+    background-color: var(--main-teal);
+    outline-color: var(--main-white);
+    box-shadow: 3px 3px 1px var(--main-white), -3px -3px 1px var(--main-teal), 0 3px 1px var(--main-teal);
+}
+
+header {
+    width: 100%;
+}
+
+body {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 #form {

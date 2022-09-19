@@ -194,48 +194,47 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
     for (let i = 0; i < crops.length; i++) {
         delete crops[i].maxProfit;
+        delete crops[i].singleProfit;
         Object.defineProperty(crops[i], 'maxProfit', { enumerable: true, writable: true, configurable: true });
+        Object.defineProperty(crops[i], 'singleProfit', { enumerable: true, writable: true, configurable: true });
     }
 
     crops = crops.map((value) => {
-        if (check == true) {
-            let currentCropAmount = Math.floor(gold / value.seedCost);
-            if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
-                value.maxProfit = Math.floor(((days - 1) / (value.growingDays)));
-                value.maxProfit = (value.maxProfit * (value.sellPrice - value.seedCost)) * currentCropAmount;
-            } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
-                value.maxProfit = Math.floor(((days - 1) / value.growingDays));
-                value.maxProfit = (value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)) * currentCropAmount;
-            } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
-                let remainingDays = days - (value.matureDays + 1);
-                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
-                value.maxProfit = ((harvestsLeft * value.seedCost) - value.seedCost) * currentCropAmount;
-            }
-            else {
-                let remainingDays = days - (value.matureDays + 1);
-                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
-                value.maxProfit = (currentCropAmount * (harvestsLeft * value.sellPrice) - currentCropAmount * value.seedCost);
 
-            }
-        } else {
-            if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
-                value.maxProfit = Math.floor((days / value.growingDays));
-                value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
-            } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
-                value.maxProfit = Math.floor((days / value.growingDays));
-                value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost);
-            } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
-                let remainingDays = days - (value.matureDays + 1);
-                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
-                value.maxProfit = (harvestsLeft * value.seedCost) - value.seedCost;
-    
-            }
-            else {
-                let remainingDays = days - (value.matureDays + 1);
-                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
-                value.maxProfit = (harvestsLeft * value.sellPrice) - value.seedCost;
-            }
+        if ((value.name == 'Ancient Fruit')) {
+            value.maxProfit = Math.floor((days / value.growingDays));
+            value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
+
+            value.singleProfit = (value.sellPrice - value.seedCost);
         }
+        else if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
+            value.maxProfit = Math.floor((days / value.growingDays));
+            value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
+
+            value.singleProfit = (value.sellPrice - value.seedCost);
+        } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
+            value.maxProfit = Math.floor((days / value.growingDays));
+            value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost);
+
+            value.singleProfit = (value.sellPrice * 1.25) - value.seedCost;
+        } else if (((value.name == 'Corn' || value.name == 'Sunflower') && season == 'summer') || (value.name == 'Coffee' && season == 'spring')) {
+            days = days + 28;
+            let remainingDays = days - (value.matureDays + 1);
+            let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+            value.maxProfit = (harvestsLeft * value.seedCost) - value.seedCost;
+
+            value.singleProfit = value.sellPrice - (value.seedCost / value.maxHarvests);
+            days = days - 28;
+        }
+        else {
+            let remainingDays = days - (value.matureDays + 1);
+            let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+            value.maxProfit = (harvestsLeft * value.sellPrice) - value.seedCost;
+
+            value.singleProfit = value.sellPrice - (value.seedCost / value.maxHarvests);
+            console.log(value);
+        }
+    
     
         return value;
     })

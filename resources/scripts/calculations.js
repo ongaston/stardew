@@ -22,7 +22,7 @@ let submitCount = 0;
 /* #region  crop object creation */
 let blueJazz = new Crop('spring', 30, 7, 0, 50, 1, 'Blue jazz');
 let cauliflower = new Crop('spring', 80, 12, 0, 175, 1, 'Cauliflower');
-let greenBean = new Crop('spring', 60, 10, 3, 40, 1, 'Green bean');
+let greenBean = new Crop('spring', 60, 10, 3, 40, 6, 'Green bean');
 let kale = new Crop('spring', 70, 6, 0, 110, 1, 'Kale');
 let parsnip = new Crop('spring', 20, 4, 0, 35, 1, 'Parsnip');
 let potato = new Crop('spring', 50, 6, 0, 80, 1.25, 'Potato');
@@ -32,7 +32,7 @@ let unmilledRice = new Crop('spring', 40, 8, 0, 30, 1, 'Unmilled rice');
 let blueberry = new Crop('summer', 80, 13, 4, 150, 4.08, 'Blueberry');
 let corn = new Crop('summer fall', 150, 14, 4, 50, 1, 'Corn');
 let hops = new Crop('summer', 60, 11, 1, 25, 17, 'Hops');
-let hotPepper = new Crop('summer', 40, 5, 3, 40, 1, 'Hot pepper');
+let hotPepper = new Crop('summer', 40, 5, 3, 40, 8, 'Hot pepper');
 let melon = new Crop('summer', 80, 12, 0, 250, 1, 'Melon');
 let poppy = new Crop('summer', 100, 7, 0, 140, 1, 'Poppy');
 let radish = new Crop('summer', 40, 6, 0, 90, 1, 'Radish');
@@ -44,9 +44,9 @@ let wheat = new Crop('summer fall', 10, 4, 0, 25, 1, 'Wheat');
 let amaranth = new Crop('fall', 70, 7, 0, 150, 1, 'Amaranth');
 let bokChoy = new Crop('fall', 50, 4, 0, 80, 1, 'Bok choy');
 let cranberry = new Crop('fall', 240, 7, 5, 150, 5.20, 'Cranberry');
-let eggplant = new Crop('fall', 20, 5, 5, 60, 1, 'Eggplant');
+let eggplant = new Crop('fall', 20, 5, 5, 60, 5, 'Eggplant');
 let fairyRose = new Crop('fall', 200, 12, 0, 290, 1, 'Fairy rose');
-let grape = new Crop('fall', 60, 10, 3, 80, 1, 'Grape');
+let grape = new Crop('fall', 60, 10, 3, 80, 6, 'Grape');
 let pumpkin = new Crop('fall', 100, 13, 0, 320, 1, 'Pumpkin');
 let yam = new Crop('fall', 60, 10, 0, 160, 1, 'Yam');
 let baseCropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam];
@@ -90,7 +90,7 @@ function getBestCrops(season, gold, days, cropArray, profession, level, fertiliz
                 let remainingDays = days - (value.matureDays + 1);
                 let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
                 value.maxProfit = (currentCropAmount * (harvestsLeft * value.sellPrice) - currentCropAmount * value.seedCost);
-
+console.log(value);
             }
         } else {
             if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {

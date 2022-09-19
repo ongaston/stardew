@@ -90,7 +90,53 @@ $(function () {
             newOption.setAttribute('value', value);
             $(newOption).appendTo(cropSelect);
         }
+
+        let quantityContainer = document.createElement('section');
+        quantityContainer.setAttribute('class', 'mobile');
+        $(quantityContainer).appendTo(nameAndQuantity);
+
+        let quantityLabel = document.createElement('label');
+        quantityLabel.innerHTML = 'Quantity: ';
+        $(quantityLabel).appendTo(quantityContainer);
+
+        let quantityInput = document.createElement('input');
+        quantityInput.setAttribute('type', 'number');
+        quantityInput.setAttribute('max', 5000);
+        quantityInput.setAttribute('value', 1);
+        quantityInput.setAttribute('id', 'quantity' + cropNumber.toString());
+        $(quantityInput).appendTo(quantityContainer);
         
+        let fertilizerContainer = document.createElement('section');
+        fertilizerContainer.setAttribute('class', 'mobile');
+        $(fertilizerContainer).appendTo(bigContainer);
+
+        let fertilizerLabel = document.createElement('label');
+        fertilizerLabel.innerHTML = 'Fertilizer: ';
+        $(fertilizerLabel).appendTo(fertilizerContainer);
+
+        let fertilizerSelect = document.createElement('select');
+        fertilizerSelect.setAttribute('id', 'fertilizer' + cropNumber.toString());
+
+        let none = document.createElement('option');
+        none.setAttribute('value', 'none');
+        none.innerHTML = 'None';
+        $(none).appendTo(fertilizerSelect);
+
+        let deluxe = document.createElement('option');
+        deluxe.setAttribute('value', 'deluxe');
+        deluxe.innerHTML = 'Deluxe';
+        $(deluxe).appendTo(fertilizerSelect);
+
+        let quality = document.createElement('option');
+        quality.setAttribute('value', 'quality');
+        quality.innerHTML = 'Quality';
+        $(quality).appendTo(fertilizerSelect);
+
+        let standard = document.createElement('option');
+        standard.setAttribute('value', 'standard');
+        standard.innerHTML = 'Standard';
+        $(standard).appendTo(fertilizerSelect);
+
 
     })
 

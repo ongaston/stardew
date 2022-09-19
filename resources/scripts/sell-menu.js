@@ -1,6 +1,7 @@
 import { Crop, blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet } from './calculations.js';
 
 let newCropButton = document.getElementById('new-crop-button');
+let oldCropContainer = document.getElementsByClassName('new-crop-container');
 let biggerContainer = document.getElementById('bigger-container');
 
 let cropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet];
@@ -28,116 +29,145 @@ cropArray = cropArray.sort((a, b) => {
     return 0;
 })
 
+function clickFunction() {
+
+    for (let i = 0; i < oldCropContainer.length; i++) {
+        $(oldCropContainer[i]).remove();
+    }
+
+    cropNumber++;
+
+    let bigContainer = document.createElement('section');
+    bigContainer.setAttribute('class', 'big-container');
+
+    let cropTitle = document.createElement('p');
+    cropTitle.setAttribute('class', 'crop-section');
+    cropTitle.innerHTML = 'Crop ' + cropNumber.toString();
+
+    let nameAndQuantity = document.createElement('section');
+    nameAndQuantity.setAttribute('class', 'section');
+
+    let nameContainer = document.createElement('section');
+    nameContainer.setAttribute('class', 'mobile');
+
+    let nameLabel = document.createElement('label');
+    nameLabel.setAttribute('class', 'desktop');
+    nameLabel.innerHTML = 'Crop: ';
+
+    let cropSelect = document.createElement('select');
+    cropSelect.setAttribute('name', 'crop-name');
+
+    $(bigContainer).appendTo(biggerContainer);
+    $(cropTitle).appendTo(bigContainer);
+    $(nameAndQuantity).appendTo(bigContainer);
+    $(nameContainer).appendTo(nameAndQuantity);
+    $(nameLabel).appendTo(nameContainer);
+    $(cropSelect).appendTo(nameContainer);
+
+    let blank = document.createElement('option');
+    blank.setAttribute('value', '');
+    blank.innerHTML = '--Choose a Crop--';
+    $(blank).appendTo(cropSelect);
+
+    function capitalize (s) {
+        return s[0].toLowerCase() + s.slice(1);
+    }
+
+    for (let i = 0; i < cropArray.length; i++) {
+        let newOption = document.createElement('option');
+        newOption.innerHTML = cropArray[i].name;
+        let value;
+        if (cropArray[i].name === 'Sweet Gem Fruit') {
+            value = 'sweetGemFruit';
+        } else {
+            let letterIndex = cropArray[i].name.indexOf(' ') + 1;
+            if (letterIndex == 0) {
+                value = cropArray[i].name.toLowerCase();
+            } else {
+                value = cropArray[i].name.substr(0, letterIndex - 1) + cropArray[i].name.substr(letterIndex, 1).toUpperCase() + cropArray[i].name.substr(letterIndex + 1);
+                value = capitalize(value);
+            }
+        }
+        newOption.setAttribute('value', value);
+        $(newOption).appendTo(cropSelect);
+    }
+
+    let quantityContainer = document.createElement('section');
+    quantityContainer.setAttribute('class', 'mobile');
+    $(quantityContainer).appendTo(nameAndQuantity);
+
+    let quantityLabel = document.createElement('label');
+    quantityLabel.innerHTML = 'Quantity: ';
+    $(quantityLabel).appendTo(quantityContainer);
+
+    let quantityInput = document.createElement('input');
+    quantityInput.setAttribute('type', 'number');
+    quantityInput.setAttribute('max', 5000);
+    quantityInput.setAttribute('value', 1);
+    quantityInput.setAttribute('id', 'quantity' + cropNumber.toString());
+    $(quantityInput).appendTo(quantityContainer);
+    
+    let fertilizerContainer = document.createElement('section');
+    fertilizerContainer.setAttribute('class', 'mobile');
+    $(fertilizerContainer).appendTo(bigContainer);
+
+    let fertilizerLabel = document.createElement('label');
+    fertilizerLabel.innerHTML = 'Fertilizer: ';
+    $(fertilizerLabel).appendTo(fertilizerContainer);
+
+    let fertilizerSelect = document.createElement('select');
+    fertilizerSelect.setAttribute('id', 'fertilizer' + cropNumber.toString());
+    $(fertilizerSelect).appendTo(fertilizerContainer);
+
+    let none = document.createElement('option');
+    none.setAttribute('value', 'none');
+    none.innerHTML = 'None';
+    $(none).appendTo(fertilizerSelect);
+
+    let deluxe = document.createElement('option');
+    deluxe.setAttribute('value', 'deluxe');
+    deluxe.innerHTML = 'Deluxe';
+    $(deluxe).appendTo(fertilizerSelect);
+
+    let quality = document.createElement('option');
+    quality.setAttribute('value', 'quality');
+    quality.innerHTML = 'Quality';
+    $(quality).appendTo(fertilizerSelect);
+
+    let standard = document.createElement('option');
+    standard.setAttribute('value', 'standard');
+    standard.innerHTML = 'Standard';
+    $(standard).appendTo(fertilizerSelect);
+
+    let newCropContainer = document.createElement('section');
+    newCropContainer.setAttribute('class', 'new-crop-container');
+    $(newCropContainer).appendTo(bigContainer);
+
+    newCropButton = document.createElement('p');
+    newCropButton.setAttribute('id', 'new-crop-button');
+    newCropButton.innerHTML = 'Add Another Crop ';
+    $(newCropButton).appendTo(newCropContainer);
+
+    $(newCropButton).on('click', function () {
+        clickFunction();
+        console.log('test');
+    })
+
+    let plus = document.createElement('i');
+    plus.setAttribute('class', 'fa-solid');
+    plus.setAttribute('class', 'fa-plus');
+    $(plus).appendTo(newCropButton);
+
+
+}
+
 
 $(function () {
 
     $(newCropButton).on('click', function () {
-        $(newCropButton).remove();
-
-        cropNumber++;
-
-        let bigContainer = document.createElement('section');
-        bigContainer.setAttribute('class', 'big-container');
-
-        let cropTitle = document.createElement('p');
-        cropTitle.setAttribute('class', 'crop-section');
-        cropTitle.innerHTML = 'Crop ' + cropNumber.toString();
-
-        let nameAndQuantity = document.createElement('section');
-        nameAndQuantity.setAttribute('class', 'section');
-
-        let nameContainer = document.createElement('section');
-        nameContainer.setAttribute('class', 'mobile');
-
-        let nameLabel = document.createElement('label');
-        nameLabel.setAttribute('class', 'desktop');
-        nameLabel.innerHTML = 'Crop: ';
-
-        let cropSelect = document.createElement('select');
-        cropSelect.setAttribute('name', 'crop-name');
-
-        $(bigContainer).appendTo(biggerContainer);
-        $(cropTitle).appendTo(bigContainer);
-        $(nameAndQuantity).appendTo(bigContainer);
-        $(nameContainer).appendTo(nameAndQuantity);
-        $(nameLabel).appendTo(nameContainer);
-        $(cropSelect).appendTo(nameContainer);
-
-        let blank = document.createElement('option');
-        blank.setAttribute('value', '');
-        blank.innerHTML = '--Choose a Crop--';
-        $(blank).appendTo(cropSelect);
-
-        function capitalize (s) {
-            return s[0].toLowerCase() + s.slice(1);
-        }
-
-        for (let i = 0; i < cropArray.length; i++) {
-            let newOption = document.createElement('option');
-            newOption.innerHTML = cropArray[i].name;
-            let value;
-            if (cropArray[i].name === 'Sweet Gem Fruit') {
-                value = 'sweetGemFruit';
-            } else {
-                let letterIndex = cropArray[i].name.indexOf(' ') + 1;
-                if (letterIndex == 0) {
-                    value = cropArray[i].name.toLowerCase();
-                } else {
-                    value = cropArray[i].name.substr(0, letterIndex - 1) + cropArray[i].name.substr(letterIndex, 1).toUpperCase() + cropArray[i].name.substr(letterIndex + 1);
-                    value = capitalize(value);
-                }
-            }
-            newOption.setAttribute('value', value);
-            $(newOption).appendTo(cropSelect);
-        }
-
-        let quantityContainer = document.createElement('section');
-        quantityContainer.setAttribute('class', 'mobile');
-        $(quantityContainer).appendTo(nameAndQuantity);
-
-        let quantityLabel = document.createElement('label');
-        quantityLabel.innerHTML = 'Quantity: ';
-        $(quantityLabel).appendTo(quantityContainer);
-
-        let quantityInput = document.createElement('input');
-        quantityInput.setAttribute('type', 'number');
-        quantityInput.setAttribute('max', 5000);
-        quantityInput.setAttribute('value', 1);
-        quantityInput.setAttribute('id', 'quantity' + cropNumber.toString());
-        $(quantityInput).appendTo(quantityContainer);
-        
-        let fertilizerContainer = document.createElement('section');
-        fertilizerContainer.setAttribute('class', 'mobile');
-        $(fertilizerContainer).appendTo(bigContainer);
-
-        let fertilizerLabel = document.createElement('label');
-        fertilizerLabel.innerHTML = 'Fertilizer: ';
-        $(fertilizerLabel).appendTo(fertilizerContainer);
-
-        let fertilizerSelect = document.createElement('select');
-        fertilizerSelect.setAttribute('id', 'fertilizer' + cropNumber.toString());
-
-        let none = document.createElement('option');
-        none.setAttribute('value', 'none');
-        none.innerHTML = 'None';
-        $(none).appendTo(fertilizerSelect);
-
-        let deluxe = document.createElement('option');
-        deluxe.setAttribute('value', 'deluxe');
-        deluxe.innerHTML = 'Deluxe';
-        $(deluxe).appendTo(fertilizerSelect);
-
-        let quality = document.createElement('option');
-        quality.setAttribute('value', 'quality');
-        quality.innerHTML = 'Quality';
-        $(quality).appendTo(fertilizerSelect);
-
-        let standard = document.createElement('option');
-        standard.setAttribute('value', 'standard');
-        standard.innerHTML = 'Standard';
-        $(standard).appendTo(fertilizerSelect);
-
-
+       clickFunction();
+       console.log('test');
     })
+
 
 })

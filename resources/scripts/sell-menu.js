@@ -7,6 +7,27 @@ let cropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip,
 
 let cropNumber = 1;
 
+let coffee = new Crop('spring summer', 2500, 10, 2, 15, 4, 'Coffee');
+let starfruit = new Crop('summer', 400, 13, 0, 750, 1, 'Starfruit');
+let ancientFruit = new Crop('spring summer fall', 1000, 28, 7, 550, 1, 'Ancient Fruit');
+let cactusFruit = new Crop('spring summer fall winter', 150, 12, 3, 75, 1, 'Cactus Fruit');
+let pineapple = new Crop('summer', 0, 14, 7, 300, 1, 'Pineapple');
+let taroRoot = new Crop('summer', 0, 10, 0, 100, 1, 'Taro Root');
+let sweetGemFruit = new Crop('fall', 1000, 24, 0, 3000, 1, 'Sweet Gem Fruit');
+
+cropArray.push(coffee, starfruit, ancientFruit, cactusFruit, pineapple, taroRoot, sweetGemFruit);
+cropArray = cropArray.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+        return -1;
+    }
+    if (nameA > nameB) {
+        return 1;
+    }
+    return 0;
+})
+
 
 $(function () {
 
@@ -66,6 +87,8 @@ $(function () {
                     value = capitalize(value);
                 }
             }
+            newOption.setAttribute('value', value);
+            $(newOption).appendTo(cropSelect);
         }
         
 

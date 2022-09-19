@@ -179,15 +179,70 @@ $(function () {
 
 })
 
-function sellFunction(season, days, level, profession, formulaCheck, crops, fertilizers, quantities) {
+function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities) {
     console.log(season);
     console.log(days);
     console.log(level);
     console.log(profession);
-    console.log(formulaCheck);
+    console.log(check);
     console.log(crops);
     console.log(fertilizers);
     console.log(quantities);
+
+    days = eval(days);
+    level = eval(level);
+
+    for (let i = 0; i < crops.length; i++) {
+        delete crops[i].maxProfit;
+        Object.defineProperty(crops[i], 'maxProfit', { enumerable: true, writable: true, configurable: true });
+    }
+
+    crops = crops.map((value) => {
+        if (check == true) {
+            let currentCropAmount = Math.floor(gold / value.seedCost);
+            if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
+                value.maxProfit = Math.floor(((days - 1) / (value.growingDays)));
+                value.maxProfit = (value.maxProfit * (value.sellPrice - value.seedCost)) * currentCropAmount;
+            } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
+                value.maxProfit = Math.floor(((days - 1) / value.growingDays));
+                value.maxProfit = (value.maxProfit * (value.sellPrice * 1.25 - value.seedCost)) * currentCropAmount;
+            } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
+                let remainingDays = days - (value.matureDays + 1);
+                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+                value.maxProfit = ((harvestsLeft * value.seedCost) - value.seedCost) * currentCropAmount;
+            }
+            else {
+                let remainingDays = days - (value.matureDays + 1);
+                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+                value.maxProfit = (currentCropAmount * (harvestsLeft * value.sellPrice) - currentCropAmount * value.seedCost);
+
+            }
+        } else {
+            if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
+                value.maxProfit = Math.floor((days / value.growingDays));
+                value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
+            } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
+                value.maxProfit = Math.floor((days / value.growingDays));
+                value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost);
+            } else if ((value.harvestDays == 4 && season == 'summer') && value.season.includes('fall')) {
+                let remainingDays = days - (value.matureDays + 1);
+                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+                value.maxProfit = (harvestsLeft * value.seedCost) - value.seedCost;
+    
+            }
+            else {
+                let remainingDays = days - (value.matureDays + 1);
+                let harvestsLeft = Math.floor(remainingDays / value.harvestDays) + 1;
+                value.maxProfit = (harvestsLeft * value.sellPrice) - value.seedCost;
+            }
+        }
+    
+        return value;
+    })
+    for (let i = 0; i < crops.length; i++) {
+        console.log(crops[i].name + ' ' + crops[i].maxProfit);
+    }
+    
 }
 
 let form = document.querySelector('#form');
@@ -204,7 +259,17 @@ form.addEventListener('submit', function (event) {
     fertilizers = document.getElementsByClassName('fertilizer');
     quantities = document.getElementsByClassName('quantity');
 
-    sellFunction(season, days, level, profession, formulaCheck, selectedCrops, fertilizers, quantities);
+    let cropsArray = [];
+    let fertilizerArray = [];
+    let quantityArray = [];
+
+    for (let i = 0; i < selectedCrops.length; i++) {
+        cropsArray.push(eval(selectedCrops[i].value));
+        fertilizerArray.push(fertilizers[i].value);
+        quantityArray.push(quantities[i].value);
+    }
+
+    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray);
 
     console.log(form.elements);
 })

@@ -194,7 +194,7 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
     } else {
         harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
     }
-    console.log('harvestsLeft ' + harvestsLeft);
+    console.log('harvestsLeftfsdadfsa ' + harvestsLeft);
     let tempSellPrice;
     let secondArray;
     let secondGoldAmount;

@@ -36,3 +36,11 @@ input[type='number'] {
     width: 3rem;
     text-align: center;
 }
+
+.crop-info {
+    text-decoration: none;
+}
+
+.crop-title {
+    font-size: 20px;
+}

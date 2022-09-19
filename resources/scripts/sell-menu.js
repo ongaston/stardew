@@ -195,6 +195,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     for (let i = 0; i < crops.length; i++) {
         delete crops[i].maxProfit;
         delete crops[i].singleProfit;
+        delete crops[i].monthlyProfit;
         Object.defineProperty(crops[i], 'maxProfit', { enumerable: true, writable: true, configurable: true });
         Object.defineProperty(crops[i], 'singleProfit', { enumerable: true, writable: true, configurable: true });
     }
@@ -206,17 +207,23 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
             value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
 
             value.singleProfit = (value.sellPrice - value.seedCost);
+
+            value.monthlyProfit = value.maxHarvests * (value.sellPrice - value.seedCost);
         }
         else if (value.harvestDays == 0 && value.maxHarvests !== 1.25) {
             value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice - value.seedCost);
 
             value.singleProfit = (value.sellPrice - value.seedCost);
+
+            value.monthlyProfit = value.maxHarvests * (value.sellPrice - value.seedCost);
         } else if (value.harvestDays == 0 && value.maxHarvests == 1.25) {
             value.maxProfit = Math.floor((days / value.growingDays));
             value.maxProfit = value.maxProfit * (value.sellPrice * 1.25 - value.seedCost);
 
             value.singleProfit = (value.sellPrice * 1.25) - value.seedCost;
+
+            value.monthlyProfit = value.maxHarvests * (value.sellPrice - value.seedCost);
         } else if (((value.name == 'Corn' || value.name == 'Sunflower') && season == 'summer') || (value.name == 'Coffee' && season == 'spring')) {
             days = days + 28;
             let remainingDays = days - (value.matureDays + 1);
@@ -224,6 +231,8 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
             value.maxProfit = (harvestsLeft * value.seedCost) - value.seedCost;
 
             value.singleProfit = value.sellPrice - (value.seedCost / value.maxHarvests);
+
+            value.monthlyProfit = (value.sellPrice * value.maxHarvests) - value.seedCost; 
             days = days - 28;
         }
         else {
@@ -232,6 +241,8 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
             value.maxProfit = (harvestsLeft * value.sellPrice) - value.seedCost;
 
             value.singleProfit = value.sellPrice - (value.seedCost / value.maxHarvests);
+
+            value.monthlyProfit = (value.sellPrice * value.maxHarvests) - value.seedCost; 
             console.log(value);
         }
     
@@ -244,7 +255,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     
 }
 if (document.location.pathname == '/profit.html') {
-    let form = document.querySelector('#form-profit');
+    let form = document.querySelector('#form');
     form.addEventListener('submit', function (event) {
         event.preventDefault;
 
@@ -268,7 +279,7 @@ if (document.location.pathname == '/profit.html') {
             fertilizerArray.push(fertilizers[i].value);
             quantityArray.push(quantities[i].value);
         }
-
+        console.log('test');
         sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray);
 
         console.log(form.elements);

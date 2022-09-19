@@ -1,4 +1,4 @@
-import { Crop, blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet } from './calculations.js';
+import { Crop, getCropQuality, blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet } from './calculations.js';
 
 /* #region  variable declaration */
 let newCropButton = document.getElementById('new-crop-button');
@@ -179,15 +179,90 @@ $(function () {
 
 })
 
+function getCropNumbers (cropsArray, number, crop, days, fertilizer, level, profession) {
+    let index = cropsArray.indexOf(crop);
+    let array = getCropQuality(level, fertilizer);
+    number = eval(number);
+    let noAmount = Math.floor(number * array[3]);
+    let silverAmount = Math.floor(number * array[2]);
+    let goldAmount = Math.floor(number * array[1]);
+    let iridiumAmount = Math.floor(number * array[0]);
+    let remainingDays = days - (crop.matureDays + 1);
+    let harvestsLeft;
+    console.log(index);
+    console.log(array);
+    console.log(noAmount);
+    console.log(remainingDays);
+    console.log(number);
+    if (crop.harvestDays == 0) {
+        harvestsLeft = Math.floor(days / crop.matureDays);
+        crop.seedCost = crop.seedCost * (harvestsLeft);
+    } else {
+        harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
+    }
+    let tempSellPrice;
+    let secondArray;
+    let secondGoldAmount;
+    let secondSilverAmount;
+    let secondNoAmount;
+
+    if (fertilizer == 'deluxe') {
+        silverAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + silverAmount);
+    } else {
+        noAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + noAmount);
+    }
+
+    switch (crop.name) {
+        case 'Blueberry':
+            tempSellPrice = crop.sellPrice / 3;
+            secondArray = getCropQuality(level, 'none', crop);
+            secondGoldAmount = Math.floor(number * secondArray[1]);
+            secondSilverAmount = Math.floor(number * secondArray[2]);
+            secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+            if (profession == 'yes') {
+                crop.maxProfit = Math.round(((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2) + ((harvestsLeft * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 3))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5) + ((harvestsLeft * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25) + ((harvestsLeft * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (noAmount * ((harvestsLeft * (tempSellPrice) + ((harvestsLeft * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5) + ((harvestsLeft * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25) + ((harvestsLeft * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice) + ((harvestsLeft * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))));
+            } else {
+                crop.maxProfit = Math.round(((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 3)))));
+            }
+            break;
+        case 'Cranberry':
+            tempSellPrice = crop.sellPrice / 2;
+            secondArray = getCropQuality(level, 'none', crop);
+            secondGoldAmount = Math.floor(number * secondArray[1]);
+            secondSilverAmount = Math.floor(number * secondArray[2]);
+            secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+            if (profession == 'yes') {
+                crop.maxProfit = Math.round(((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2) + ((harvestsLeft * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 2))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5) + ((harvestsLeft * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25) + ((harvestsLeft * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (noAmount * ((harvestsLeft * (tempSellPrice) + ((harvestsLeft * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5) + ((harvestsLeft * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25) + ((harvestsLeft * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice) + ((harvestsLeft * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))));
+            } else {
+                crop.maxProfit = Math.round(((iridiumAmount * ((harvestsLeft * (tempSellPrice * 2)) - (crop.seedCost / 2))) + (goldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (silverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (noAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((harvestsLeft * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (secondSilverAmount * ((harvestsLeft * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (secondNoAmount * ((harvestsLeft * (tempSellPrice)) - (crop.seedCost / 2)))));
+            }
+            break;
+        default:
+            if (profession == 'yes') {
+                crop.maxProfit = Math.round((iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost)));
+            } else {
+                crop.maxProfit = Math.round((iridiumAmount * ((harvestsLeft * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((harvestsLeft * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((harvestsLeft * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((harvestsLeft * (crop.sellPrice)) - crop.seedCost)));
+            }
+            break;
+    }
+
+    if (crop.harvestDays == 0) {
+        harvestsLeft = Math.floor(days / crop.matureDays);
+        crop.seedCost = crop.seedCost / (harvestsLeft);
+    }
+
+    return crop;
+}
+
 function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities) {
-    console.log(season);
+   /* console.log(season);
     console.log(days);
     console.log(level);
     console.log(profession);
     console.log(check);
     console.log(crops);
     console.log(fertilizers);
-    console.log(quantities);
+    console.log(quantities);*/
 
     days = eval(days);
     level = eval(level);
@@ -249,12 +324,29 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     
         return value;
     })
+
+    let qualityArray = [];
     for (let i = 0; i < crops.length; i++) {
-        console.log(crops[i].name + ' ' + crops[i].maxProfit);
-    }
+
+        let cropQualityArray = getCropQuality(level, fertilizers[i]);
+        let container = [crops[i].name, cropQualityArray];
+        qualityArray.push(container);
+        getCropNumbers(crops, quantities[i], crops[i], days, fertilizers[i], level, profession);
+        
+        
+    };
+    /*
+    console.log(crops)
+    crops = crops.map(function (element, index) {
+        
+        getCropNumbers(crops, quantities[index], element, days, fertilizers[index], level, profession);
+    });*/
+
+    console.log(crops);
+
     
 }
-if (document.location.pathname == '/profit.html') {
+
     let form = document.querySelector('#form');
     form.addEventListener('submit', function (event) {
         event.preventDefault;
@@ -279,9 +371,8 @@ if (document.location.pathname == '/profit.html') {
             fertilizerArray.push(fertilizers[i].value);
             quantityArray.push(quantities[i].value);
         }
-        console.log('test');
+
         sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray);
 
         console.log(form.elements);
     })
-}

@@ -408,7 +408,7 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level, profess
     return crop;
 }
 
-    if (document.location.pathname == '/index.html') {
+
     let form = document.querySelector('#form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -434,6 +434,6 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level, profess
         submitCount++;
         console.log(form.elements);
     })
-    }
+    
 
-export { Crop, blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet };
+export { Crop, getCropQuality, blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet };

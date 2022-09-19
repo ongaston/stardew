@@ -1,5 +1,6 @@
 import { Crop, blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet } from './calculations.js';
 
+/* #region  variable declaration */
 let newCropButton = document.getElementById('new-crop-button');
 let oldCropContainer = document.getElementsByClassName('new-crop-container');
 let biggerContainer = document.getElementById('bigger-container');
@@ -29,6 +30,11 @@ cropArray = cropArray.sort((a, b) => {
     return 0;
 })
 
+let selectedCrops = [];
+let quantities = [];
+let fertilizers = [];
+/* #endregion */
+
 function clickFunction() {
 
     for (let i = 0; i < oldCropContainer.length; i++) {
@@ -55,7 +61,8 @@ function clickFunction() {
     nameLabel.innerHTML = 'Crop: ';
 
     let cropSelect = document.createElement('select');
-    cropSelect.setAttribute('name', 'crop-name');
+    cropSelect.setAttribute('name', 'crop-name' + cropNumber.toString());
+    cropSelect.setAttribute('class', 'crop-name');
 
     $(bigContainer).appendTo(biggerContainer);
     $(cropTitle).appendTo(bigContainer);
@@ -69,7 +76,7 @@ function clickFunction() {
     blank.innerHTML = '--Choose a Crop--';
     $(blank).appendTo(cropSelect);
 
-    function capitalize (s) {
+    function capitalize(s) {
         return s[0].toLowerCase() + s.slice(1);
     }
 
@@ -105,8 +112,9 @@ function clickFunction() {
     quantityInput.setAttribute('max', 5000);
     quantityInput.setAttribute('value', 1);
     quantityInput.setAttribute('id', 'quantity' + cropNumber.toString());
+    quantityInput.setAttribute('class', 'quantity');
     $(quantityInput).appendTo(quantityContainer);
-    
+
     let fertilizerContainer = document.createElement('section');
     fertilizerContainer.setAttribute('class', 'mobile');
     $(fertilizerContainer).appendTo(bigContainer);
@@ -117,6 +125,7 @@ function clickFunction() {
 
     let fertilizerSelect = document.createElement('select');
     fertilizerSelect.setAttribute('id', 'fertilizer' + cropNumber.toString());
+    fertilizerSelect.setAttribute('class', 'fertilizer');
     $(fertilizerSelect).appendTo(fertilizerContainer);
 
     let none = document.createElement('option');
@@ -150,7 +159,6 @@ function clickFunction() {
 
     $(newCropButton).on('click', function () {
         clickFunction();
-        console.log('test');
     })
 
     let plus = document.createElement('i');
@@ -165,9 +173,38 @@ function clickFunction() {
 $(function () {
 
     $(newCropButton).on('click', function () {
-       clickFunction();
-       console.log('test');
+        clickFunction();
     })
 
 
+})
+
+function sellFunction(season, days, level, profession, formulaCheck, crops, fertilizers, quantities) {
+    console.log(season);
+    console.log(days);
+    console.log(level);
+    console.log(profession);
+    console.log(formulaCheck);
+    console.log(crops);
+    console.log(fertilizers);
+    console.log(quantities);
+}
+
+let form = document.querySelector('#form');
+form.addEventListener('submit', function (event) {
+    event.preventDefault;
+
+    let season = form.season.value;
+    let days = form.days.value;
+    let level = form.level.value;
+    let profession = form.profession.value;
+    let formulaCheck = form['formula-switch'].checked;
+
+    selectedCrops = document.getElementsByClassName('crop-name');
+    fertilizers = document.getElementsByClassName('fertilizer');
+    quantities = document.getElementsByClassName('quantity');
+
+    sellFunction(season, days, level, profession, formulaCheck, selectedCrops, fertilizers, quantities);
+
+    console.log(form.elements);
 })

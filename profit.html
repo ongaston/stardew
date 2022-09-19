@@ -27,7 +27,7 @@
 
         <main id='main'>
             <h1>UNDER CONSTRUCTION</h1>
-            <form method='' id='form' action='index.html'>
+            <form method='' id='form-profit' action='index.html'>
                 <section id='bigger-container'>
                     <section class='big-container' >
 
@@ -149,6 +149,17 @@
                         <input id='formula-switch' value='quantity-formula' type='checkbox' name='formula-switch'>
                     </section>
 
+                    <legend id='profit-type'>
+                        <section class='radio-container'>
+                            <label for='net'>Net Income </label>
+                            <input type='radio' id='net' name='profit-type' value='net'>
+                        </section>
+                        <section class='radio-container'>
+                            <label for='profit'>Total Profit </label>
+                            <input type='radio' id='profit' name='profit-type' value='profit' checked='true'>
+                        </section>
+                    </legend>
+
                     <input id='submit' type='submit' value='Submit'>
 
             </form>
@@ -159,7 +170,7 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src='./resources/scripts/calculations.js' type='module'></script>
-        <script src='./resources/scripts/mobile.js' type='module'></script>
+
         <script src='./resources/scripts/sell-menu.js' type='module'></script>
     </body>
 </html>

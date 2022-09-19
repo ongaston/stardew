@@ -64,7 +64,7 @@ body {
     width: 100%;
 }
 
-#form {
+#form, #form-profit {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -83,7 +83,10 @@ p {
 #form option,
 #form input,
 #result-div,
-#profession {
+#profession,
+#form-profit select,
+#form-profit option,
+#form-profit input {
     margin: 1rem;
     font-family: 'Trebuchet MS', 'Raleway', sans-serif;
     font-weight: 400;
@@ -128,13 +131,13 @@ body,
 
 #result-div,
 #form, 
-.big-container {
+.big-container,
+#form-profit {
     border: 4px double var(--main-white);
     border-radius: 6px;
 }
 
-#yes,
-#no {
+input[type='radio'] {
     appearance: none;
     border-radius: 50%;
     width: 14px;
@@ -144,14 +147,12 @@ body,
     background-color: var(--main-white);
 }
 
-#yes:checked,
-#no:checked {
+input[type='radio']:checked {
     border: 4px solid var(--dark-teal);
     outline: double var(--main-white);
 }
 
-#yes:hover,
-#no:hover,
+input[type='radio']:hover,
 #submit:hover,
 input[type='checkbox']:hover {
     cursor: pointer;

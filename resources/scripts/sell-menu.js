@@ -243,32 +243,34 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     }
     
 }
+if (document.location.pathname == '/profit.html') {
+    let form = document.querySelector('#form-profit');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault;
 
-let form = document.querySelector('#form');
-form.addEventListener('submit', function (event) {
-    event.preventDefault;
+        let season = form.season.value;
+        let days = form.days.value;
+        let level = form.level.value;
+        let profession = form.profession.value;
+        let formulaCheck = form['formula-switch'].checked;
+        let profitCheck = form['profit-type'].value;
 
-    let season = form.season.value;
-    let days = form.days.value;
-    let level = form.level.value;
-    let profession = form.profession.value;
-    let formulaCheck = form['formula-switch'].checked;
+        selectedCrops = document.getElementsByClassName('crop-name');
+        fertilizers = document.getElementsByClassName('fertilizer');
+        quantities = document.getElementsByClassName('quantity');
 
-    selectedCrops = document.getElementsByClassName('crop-name');
-    fertilizers = document.getElementsByClassName('fertilizer');
-    quantities = document.getElementsByClassName('quantity');
+        let cropsArray = [];
+        let fertilizerArray = [];
+        let quantityArray = [];
 
-    let cropsArray = [];
-    let fertilizerArray = [];
-    let quantityArray = [];
+        for (let i = 0; i < selectedCrops.length; i++) {
+            cropsArray.push(eval(selectedCrops[i].value));
+            fertilizerArray.push(fertilizers[i].value);
+            quantityArray.push(quantities[i].value);
+        }
 
-    for (let i = 0; i < selectedCrops.length; i++) {
-        cropsArray.push(eval(selectedCrops[i].value));
-        fertilizerArray.push(fertilizers[i].value);
-        quantityArray.push(quantities[i].value);
-    }
+        sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray);
 
-    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray);
-
-    console.log(form.elements);
-})
+        console.log(form.elements);
+    })
+}

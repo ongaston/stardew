@@ -17,7 +17,7 @@ class Crop {
     }
 }
 
-let submitCount = 0;
+
 
 /* #region  crop object creation */
 let blueJazz = new Crop('spring', 30, 7, 0, 50, 1, 'Blue jazz');
@@ -39,8 +39,7 @@ let radish = new Crop('summer', 40, 6, 0, 90, 1, 'Radish');
 let summerSpangle = new Crop('summer', 50, 8, 0, 90, 1, 'Summer spangle');
 let sunflower = new Crop('summer fall', 200, 8, 0, 80, 0, 'Sunflower');
 let tomato = new Crop('summer', 50, 11, 4, 60, 4, 'Tomato');
-let wheat = new Crop('summer fall', 10, 4, 0, 25, 0
-, 'Wheat');
+let wheat = new Crop('summer fall', 10, 4, 0, 25, 0, 'Wheat');
 
 let amaranth = new Crop('fall', 70, 7, 0, 150, 1, 'Amaranth');
 let bokChoy = new Crop('fall', 50, 4, 0, 80, 1, 'Bok choy');

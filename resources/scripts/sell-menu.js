@@ -38,10 +38,13 @@ let fertilizers = [];
 
 function clickFunction() {
 
+    $(newCropButton).remove();
+
     for (let i = 0; i < oldCropContainer.length; i++) {
         $(oldCropContainer[i]).remove();
     }
 
+    /* #region  first html elements */
     cropNumber++;
 
     let bigContainer = document.createElement('section');
@@ -50,6 +53,20 @@ function clickFunction() {
     let cropTitle = document.createElement('p');
     cropTitle.setAttribute('class', 'crop-section');
     cropTitle.innerHTML = 'Crop ' + cropNumber.toString();
+
+    let removeContainer = document.createElement('section');
+    removeContainer.setAttribute('class', 'remove-container');
+
+    let removeButton = document.createElement('p');
+    removeButton.setAttribute('class', 'remove-button');
+    removeButton.setAttribute('id', 'remove' + cropNumber.toString());
+    removeButton.innerHTML = 'Remove Crop  ';
+    $(removeButton).appendTo(removeContainer);
+
+    let xSymbol = document.createElement('i');
+    xSymbol.setAttribute('class', 'fa-solid');
+    xSymbol.setAttribute('class', 'fa-circle-xmark');
+    $(xSymbol).appendTo(removeButton);
 
     let nameAndQuantity = document.createElement('section');
     nameAndQuantity.setAttribute('class', 'section');
@@ -67,6 +84,7 @@ function clickFunction() {
 
     $(bigContainer).appendTo(biggerContainer);
     $(cropTitle).appendTo(bigContainer);
+    $(removeContainer).appendTo(bigContainer);
     $(nameAndQuantity).appendTo(bigContainer);
     $(nameContainer).appendTo(nameAndQuantity);
     $(nameLabel).appendTo(nameContainer);
@@ -76,6 +94,7 @@ function clickFunction() {
     blank.setAttribute('value', '');
     blank.innerHTML = '--Choose a Crop--';
     $(blank).appendTo(cropSelect);
+    /* #endregion */
 
     function capitalize(s) {
         return s[0].toLowerCase() + s.slice(1);
@@ -100,6 +119,7 @@ function clickFunction() {
         $(newOption).appendTo(cropSelect);
     }
 
+    /* #region  crop info html elements */
     let quantityContainer = document.createElement('section');
     quantityContainer.setAttribute('class', 'mobile');
     $(quantityContainer).appendTo(nameAndQuantity);
@@ -157,6 +177,7 @@ function clickFunction() {
     newCropButton.setAttribute('id', 'new-crop-button');
     newCropButton.innerHTML = 'Add Another Crop ';
     $(newCropButton).appendTo(newCropContainer);
+    /* #endregion */
 
     $(newCropButton).on('click', function () {
         clickFunction();
@@ -270,14 +291,14 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
         default:
             if (profession == 'yes') {
                 crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2) + ((crop.mostHarvests * (crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5) + ((crop.mostHarvests * (crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25) + ((crop.mostHarvests * (crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * ((crop.mostHarvests * (crop.sellPrice) + ((crop.mostHarvests * (crop.sellPrice))) * 0.1) - crop.seedCost)));
-                
+
                 if (crop.harvestDays == 0) {
                     crop.seedCost = crop.seedCost / harvestsLeft;
                     crop.seedCost = crop.seedCost * crop.monthlyHarvests;
                 }
 
                 crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2) + ((crop.monthlyHarvests * (crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5) + ((crop.monthlyHarvests * (crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25) + ((crop.monthlyHarvests * (crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice) + ((crop.monthlyHarvests * (crop.sellPrice))) * 0.1) - crop.seedCost)));
-                
+
                 if (crop.harvestDays == 0) {
                     crop.seedCost = crop.seedCost / crop.monthlyHarvests;
 
@@ -287,14 +308,14 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
 
             } else {
                 crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((crop.mostHarvests * (crop.sellPrice)) - crop.seedCost)));
-                
+
                 if (crop.harvestDays == 0) {
                     crop.seedCost = crop.seedCost / (harvestsLeft);
                     crop.seedCost = crop.seedCost * crop.monthlyHarvests;
                 }
 
                 crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice)) - crop.seedCost)));
-                
+
                 if (crop.harvestDays == 0) {
                     crop.seedCost = crop.seedCost / crop.monthlyHarvests;
 
@@ -313,7 +334,7 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
     return crop;
 }
 
-function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities) {
+function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities, profit) {
     /* console.log(season);
      console.log(days);
      console.log(level);
@@ -339,76 +360,76 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         Object.defineProperty(crops[i], 'monthlyHarvests', { enumerable: true, writable: true, configurable: true });
     }
 
-        crops = crops.map((value) => {
+    crops = crops.map((value) => {
 
-            if (value.maxHarvests == 1) {
-                value.singleProfit = (value.sellPrice - value.seedCost);
+        if (value.maxHarvests == 1) {
+            value.singleProfit = (value.sellPrice - value.seedCost);
 
-                value.mostHarvests = Math.floor(days / value.matureDays);
+            value.mostHarvests = Math.floor(days / value.matureDays);
 
-                value.maxProfit = value.singleProfit * value.mostHarvests;
+            value.maxProfit = value.singleProfit * value.mostHarvests;
 
-                value.monthlyHarvests = Math.floor(28 / value.matureDays);
+            value.monthlyHarvests = Math.floor(28 / value.matureDays);
 
-                value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
-            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower') || value.name == 'Wheat'))|| (season == 'fall' && value.name =='Ancient Fruit')))) {
-                value.singleProfit = (value.sellPrice - value.seedCost);
+            value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
+        } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower') || value.name == 'Wheat')) || (season == 'fall' && value.name == 'Ancient Fruit')))) {
+            value.singleProfit = (value.sellPrice - value.seedCost);
 
-                let remainingDays = days - (value.matureDays + 1);
-                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
-                
-                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+            let remainingDays = days - (value.matureDays + 1);
+            value.mostHarvests = (remainingDays / value.harvestDays) + 1;
 
-                remainingDays = 28 - (value.matureDays + 1);
-                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+            value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
 
-                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
-            } else if (((season == 'spring' && value.name == 'Coffee') ||  (season == 'summer' && value.name == 'Corn')) || ((season == 'fall' && value.name == 'Cactus Fruit') || (season =='summer' && value.name == 'Ancient Fruit'))) {
-                days = days + 28;
-                value.singleProfit = (value.sellPrice - value.seedCost);
+            remainingDays = 28 - (value.matureDays + 1);
+            value.monthlyHarvests = remainingDays / value.harvestDays + 1;
 
-                let remainingDays = days - (value.matureDays + 1);
-                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
-                
-                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+            value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+        } else if (((season == 'spring' && value.name == 'Coffee') || (season == 'summer' && value.name == 'Corn')) || ((season == 'fall' && value.name == 'Cactus Fruit') || (season == 'summer' && value.name == 'Ancient Fruit'))) {
+            days = days + 28;
+            value.singleProfit = (value.sellPrice - value.seedCost);
 
-                remainingDays = 56 - (value.matureDays + 1);
-                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+            let remainingDays = days - (value.matureDays + 1);
+            value.mostHarvests = (remainingDays / value.harvestDays) + 1;
 
-                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
-                days = days - 28;
-            } else if ((value.name == 'Sunflower' || value.name == 'Wheat') && season =='summer') {
-                days = days + 28;
+            value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
 
-                value.singleProfit = (value.sellPrice - value.seedCost);
+            remainingDays = 56 - (value.matureDays + 1);
+            value.monthlyHarvests = remainingDays / value.harvestDays + 1;
 
-                value.mostHarvests = Math.floor(days / value.matureDays);
+            value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+            days = days - 28;
+        } else if ((value.name == 'Sunflower' || value.name == 'Wheat') && season == 'summer') {
+            days = days + 28;
 
-                value.maxProfit = value.singleProfit * value.mostHarvests;
+            value.singleProfit = (value.sellPrice - value.seedCost);
 
-                value.monthlyHarvests = Math.floor(56 / value.matureDays);
+            value.mostHarvests = Math.floor(days / value.matureDays);
 
-                value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
+            value.maxProfit = value.singleProfit * value.mostHarvests;
 
-                days = days - 28;
-            } else if((season == 'spring' && value.name == 'Ancient Fruit') || (season == 'summer' && value.name == 'Cactus Fruit')) {
-                days = days + 56;
-                value.singleProfit = (value.sellPrice - value.seedCost);
+            value.monthlyHarvests = Math.floor(56 / value.matureDays);
 
-                let remainingDays = days - (value.matureDays + 1);
-                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
-                
-                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+            value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
 
-                remainingDays = 84 - (value.matureDays + 1);
-                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+            days = days - 28;
+        } else if ((season == 'spring' && value.name == 'Ancient Fruit') || (season == 'summer' && value.name == 'Cactus Fruit')) {
+            days = days + 56;
+            value.singleProfit = (value.sellPrice - value.seedCost);
 
-                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
-                days = days - 56;
-            }
+            let remainingDays = days - (value.matureDays + 1);
+            value.mostHarvests = (remainingDays / value.harvestDays) + 1;
 
-            return value;
-        })
+            value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+
+            remainingDays = 84 - (value.matureDays + 1);
+            value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+
+            value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+            days = days - 56;
+        }
+
+        return value;
+    })
 
     /* #region  html element creation */
     $('div, #result-div').remove();
@@ -435,7 +456,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     $(divTitle).appendTo(resultDiv);
     $(disclaimer).appendTo(resultDiv);
     /* #endregion */
-console.log(crops);
+    console.log(crops);
 
     for (let i = 0; i < crops.length; i++) {
 
@@ -502,7 +523,7 @@ form.addEventListener('submit', function (event) {
         quantityArray.push(quantities[i].value);
     }
 
-    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray);
+    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray, profitCheck);
     submitCount++;
 
     console.log(form.elements);

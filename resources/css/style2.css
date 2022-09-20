@@ -20,8 +20,11 @@ h1 {
     justify-content: right;
 }
 
-.new-crop-container:hover {
+.new-crop-container:hover,
+.remove-container:hover {
     cursor: pointer;
+    color: var(--light-white);
+    text-decoration: underline;
 }
 
 #new-crop-button {
@@ -44,3 +47,25 @@ input[type='number'] {
 .crop-title {
     font-size: 20px;
 }
+
+.remove-button {
+    text-decoration: none;
+    position: relative;
+    font-size: 14px;
+}
+
+
+
+.remove-container {
+    display: inline-flex;
+    justify-content: right;
+    align-items: center;
+    position: absolute;
+    top: 0%;
+    right: 1%
+}
+
+.big-container {
+    position: relative;
+}
+

@@ -67,5 +67,6 @@ input[type='number'] {
 
 .big-container {
     position: relative;
+    z-index: 1;
 }
 

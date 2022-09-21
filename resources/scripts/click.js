@@ -21,7 +21,16 @@ function clickFunction() {
     }
 
     /* #region  first html elements */
-    cropNumber++;
+    cropNumber++;  
+    bigContainers = document.querySelectorAll('.big-container');
+
+    if (cropNumber > bigContainers.length) {
+        cropNumber--;
+        let hiddenArray = document.getElementsByClassName('change');
+
+        biggerContainer.removeChild(hiddenArray[0]);
+    }
+    
 
     let bigContainer = document.createElement('section');
     bigContainer.setAttribute('class', 'big-container');
@@ -174,7 +183,7 @@ function clickFunction() {
             addButton();
         })
     })
-    console.log(removeArray);
+
 }
 
 function removeCrop(element) {
@@ -182,7 +191,7 @@ function removeCrop(element) {
     let parent = element.parentElement;
     console.log(parent);
     $(parent).slideToggle();
-    cropNumber--;
+    parent.setAttribute('class', 'change');
 
 }
 
@@ -207,7 +216,10 @@ function addButton() {
         plus.setAttribute('class', 'fa-plus');
         $(plus).appendTo(newCropButton);
 
-
+        $(newCropButton).on('click', function () {
+            clickFunction();
+        })
+    
     }
 }
 

@@ -3,7 +3,8 @@ import { cropArray } from './sell-menu.js';
 let newCropButton = document.getElementById('new-crop-button');
 let oldCropContainer = document.getElementsByClassName('new-crop-container');
 let biggerContainer = document.getElementById('bigger-container');
-let removeButtons = document.getElementsByClassName('remove-container');
+let bigContainers;
+
 let removeArray;
 
 let cropNumber = 1;
@@ -161,11 +162,13 @@ function clickFunction() {
     plus.setAttribute('class', 'fa-solid');
     plus.setAttribute('class', 'fa-plus');
     $(plus).appendTo(newCropButton);
-    removeButtons = document.getElementsByClassName('remove-container');
+
+
     removeArray = Array.from(document.getElementsByClassName('remove-container'));
     removeArray.forEach(crop => {
         $(crop).on('click', function () {
             removeCrop(crop);
+            bluh();
         })
     })
     console.log(removeArray);
@@ -176,7 +179,35 @@ function removeCrop(element) {
     let parent = element.offsetParent;
     console.log(parent);
     $(parent).remove();
-    console.log('test');
+
+
+}
+
+function bluh() {
+    bigContainers = document.querySelectorAll('.big-container');
+    let lastIndex = bigContainers.length - 1;
+    let lastChild = bigContainers[lastIndex];
+    console.log(bigContainers);
+    console.log(lastChild);
+    if (lastChild.lastElementChild.className !== 'new-crop-container') {
+        let newCropContainer = document.createElement('section');
+        newCropContainer.setAttribute('class', 'new-crop-container');
+        $(newCropContainer).appendTo(lastChild);
+    
+        newCropButton = document.createElement('p');
+        newCropButton.setAttribute('id', 'new-crop-button');
+        newCropButton.innerHTML = 'Add Another Crop ';
+        $(newCropButton).appendTo(newCropContainer);
+
+        let plus = document.createElement('i');
+        plus.setAttribute('class', 'fa-solid');
+        plus.setAttribute('class', 'fa-plus');
+        $(plus).appendTo(newCropButton);
+
+        $(newCropButton).on('click', function () {
+            clickFunction();
+        })
+    }
 }
 
 

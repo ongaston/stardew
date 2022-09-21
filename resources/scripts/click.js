@@ -168,7 +168,7 @@ function clickFunction() {
     removeArray.forEach(crop => {
         $(crop).on('click', function () {
             removeCrop(crop);
-            bluh();
+            addButton();
         })
     })
     console.log(removeArray);
@@ -179,11 +179,11 @@ function removeCrop(element) {
     let parent = element.offsetParent;
     console.log(parent);
     $(parent).remove();
-
+    cropNumber--;
 
 }
 
-function bluh() {
+function addButton() {
     bigContainers = document.querySelectorAll('.big-container');
     let lastIndex = bigContainers.length - 1;
     let lastChild = bigContainers[lastIndex];

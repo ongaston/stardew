@@ -6,6 +6,7 @@ let biggerContainer = document.getElementById('bigger-container');
 let bigContainers;
 
 let removeArray;
+let array = [];
 
 let cropNumber = 1;
 
@@ -24,6 +25,7 @@ function clickFunction() {
 
     let bigContainer = document.createElement('section');
     bigContainer.setAttribute('class', 'big-container');
+    bigContainer.style.display = 'none';
 
     let cropTitle = document.createElement('p');
     cropTitle.setAttribute('class', 'crop-section');
@@ -31,10 +33,10 @@ function clickFunction() {
 
     let removeContainer = document.createElement('section');
     removeContainer.setAttribute('class', 'remove-container');
+    removeContainer.setAttribute('id', 'remove' + cropNumber.toString());
 
     let removeButton = document.createElement('p');
     removeButton.setAttribute('class', 'remove-button');
-    removeButton.setAttribute('id', 'remove' + cropNumber.toString());
     removeButton.innerHTML = 'Remove Crop  ';
     $(removeButton).appendTo(removeContainer);
 
@@ -163,9 +165,10 @@ function clickFunction() {
     plus.setAttribute('class', 'fa-plus');
     $(plus).appendTo(newCropButton);
 
-
+    $(bigContainer).slideToggle();
     removeArray = Array.from(document.getElementsByClassName('remove-container'));
     removeArray.forEach(crop => {
+        $(crop).off();
         $(crop).on('click', function () {
             removeCrop(crop);
             addButton();
@@ -176,9 +179,9 @@ function clickFunction() {
 
 function removeCrop(element) {
     console.log(element);
-    let parent = element.offsetParent;
+    let parent = element.parentElement;
     console.log(parent);
-    $(parent).remove();
+    $(parent).slideToggle();
     cropNumber--;
 
 }
@@ -204,9 +207,7 @@ function addButton() {
         plus.setAttribute('class', 'fa-plus');
         $(plus).appendTo(newCropButton);
 
-        $(newCropButton).on('click', function () {
-            clickFunction();
-        })
+
     }
 }
 

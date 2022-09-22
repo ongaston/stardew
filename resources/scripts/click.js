@@ -9,6 +9,8 @@ let removeArray;
 let array = [];
 
 let cropNumber = 1;
+let num = 1;
+
 
 
 
@@ -20,17 +22,29 @@ function clickFunction() {
         $(oldCropContainer[i]).remove();
     }
 
+    num++;
     /* #region  first html elements */
-    cropNumber++;  
+    
     bigContainers = document.querySelectorAll('.big-container');
+    cropNumber = bigContainers.length;
 
-    if (cropNumber > bigContainers.length) {
-        cropNumber--;
+
+    if (num > bigContainers.length) {
+        num--;
         let hiddenArray = document.getElementsByClassName('change');
 
         biggerContainer.removeChild(hiddenArray[0]);
+
+        let bigContainersArray = Array.from(bigContainers);
+        //console.log(bigContainersArray);
+
+        for (let i = 0; i < bigContainers.length; i++) {
+            if (bigContainersArray.indexOf(bigContainers[i]) > 1) {
+                //console.log(bigContainers[i]);
+            }
+        }
     }
-    
+
 
     let bigContainer = document.createElement('section');
     bigContainer.setAttribute('class', 'big-container');
@@ -54,6 +68,7 @@ function clickFunction() {
     xSymbol.setAttribute('class', 'fa-circle-xmark');
     $(xSymbol).appendTo(removeButton);
 
+    /* #region  collapse */
     let nameAndQuantity = document.createElement('section');
     nameAndQuantity.setAttribute('class', 'section');
 
@@ -80,6 +95,7 @@ function clickFunction() {
     blank.setAttribute('value', '');
     blank.innerHTML = '--Choose a Crop--';
     $(blank).appendTo(cropSelect);
+    /* #endregion */
     /* #endregion */
 
     function capitalize(s) {
@@ -187,11 +203,22 @@ function clickFunction() {
 }
 
 function removeCrop(element) {
-    console.log(element);
+    //console.log(element);
     let parent = element.parentElement;
-    console.log(parent);
+    //console.log(parent);
     $(parent).slideToggle();
     parent.setAttribute('class', 'change');
+
+    bigContainers = document.getElementsByClassName('big-container');
+    let bigContainersArray = Array.from(bigContainers);
+    console.log(bigContainersArray);
+
+    for (let i = 0; i < bigContainers.length; i++) {
+        if (bigContainers.length > 2 && i > 1) {
+            console.log(bigContainers[i]);
+            bigContainers[i].firstElementChild.innerHTML = 'Crop ' + i.toString();
+        }
+    }
 
 }
 
@@ -199,13 +226,13 @@ function addButton() {
     bigContainers = document.querySelectorAll('.big-container');
     let lastIndex = bigContainers.length - 1;
     let lastChild = bigContainers[lastIndex];
-    console.log(bigContainers);
-    console.log(lastChild);
+    //console.log(bigContainers);
+    //console.log(lastChild);
     if (lastChild.lastElementChild.className !== 'new-crop-container') {
         let newCropContainer = document.createElement('section');
         newCropContainer.setAttribute('class', 'new-crop-container');
         $(newCropContainer).appendTo(lastChild);
-    
+
         newCropButton = document.createElement('p');
         newCropButton.setAttribute('id', 'new-crop-button');
         newCropButton.innerHTML = 'Add Another Crop ';
@@ -219,7 +246,7 @@ function addButton() {
         $(newCropButton).on('click', function () {
             clickFunction();
         })
-    
+
     }
 }
 
@@ -228,7 +255,7 @@ $(function () {
 
     $(newCropButton).on('click', function () {
         clickFunction();
-        
+
     })
 
 

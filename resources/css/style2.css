@@ -42,10 +42,12 @@ input[type='number'] {
 
 .crop-info {
     text-decoration: none;
+    align-self: start;
 }
 
 .crop-title {
     font-size: 20px;
+    font-weight: 800;
 }
 
 .remove-button {
@@ -70,3 +72,10 @@ input[type='number'] {
     z-index: 1;
 }
 
+#div-title {
+    font-size: 25px;
+}
+
+.span {
+    font-weight: thin;
+}

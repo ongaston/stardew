@@ -5,9 +5,6 @@ import { Crop, getCropQuality, blueJazz, cauliflower, greenBean, kale, parsnip, 
 
 let cropArray = [blueJazz, cauliflower, greenBean, kale, parsnip, potato, tulip, unmilledRice, blueberry, corn, hops, hotPepper, melon, poppy, radish, summerSpangle, sunflower, tomato, wheat, amaranth, bokChoy, cranberry, eggplant, fairyRose, grape, pumpkin, yam, garlic, strawberry, rhubarb, redCabbage, artichoke, beet];
 
-
-
-
 let coffee = new Crop('spring summer', 2500, 10, 2, 15, 0, 'Coffee');
 let starfruit = new Crop('summer', 400, 13, 0, 750, 1, 'Starfruit');
 let ancientFruit = new Crop('spring summer fall', 1000, 28, 7, 550, 0, 'Ancient Fruit');
@@ -36,7 +33,7 @@ let fertilizers = [];
 
 
 
-function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profession) {
+function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profession, profit) {
     let array = getCropQuality(level, fertilizer);
     number = eval(number);
 
@@ -73,92 +70,182 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
         noAmount = (number - (noAmount + silverAmount + goldAmount + iridiumAmount) + noAmount);
     }
 
-    switch (crop.name) {
-        case 'Blueberry':
-            tempSellPrice = crop.sellPrice / 3;
-            secondArray = getCropQuality(level, 'none', crop);
-            secondGoldAmount = Math.floor(number * secondArray[1]);
-            secondSilverAmount = Math.floor(number * secondArray[2]);
-            secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
-            if (profession == 'yes') {
-                crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2) + ((crop.mostHarvests * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 3))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (noAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))));
+    if (profit == 'profit') {
+        switch (crop.name) {
+            case 'Blueberry':
+                tempSellPrice = crop.sellPrice / 3;
+                secondArray = getCropQuality(level, 'none', crop);
+                secondGoldAmount = Math.floor(number * secondArray[1]);
+                secondSilverAmount = Math.floor(number * secondArray[2]);
+                secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+                if (profession == 'yes') {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2) + ((crop.mostHarvests * (tempSellPrice * 2))) * 0.1))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (noAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))));
 
-                crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2) + ((crop.monthlyHarvests * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 3))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))));
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2) + ((crop.monthlyHarvests * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 3))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))));
 
-                crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2) + (((tempSellPrice * 2))) * 0.1) - (crop.seedCost / 3))) + (goldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (silverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (noAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (secondSilverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (secondNoAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))));
-
-
-            } else {
-                crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 3)))));
-
-                crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 3)))));
-
-                crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * (((tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * (((tempSellPrice)) - (crop.seedCost / 3)))));
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2) + (((tempSellPrice * 2))) * 0.1) - (crop.seedCost / 3))) + (goldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (silverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (noAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 3))) + (secondSilverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 3))) + (secondNoAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 3)))));
 
 
-            }
-            break;
-        case 'Cranberry':
-            tempSellPrice = crop.sellPrice / 2;
-            secondArray = getCropQuality(level, 'none', crop);
-            secondGoldAmount = Math.floor(number * secondArray[1]);
-            secondSilverAmount = Math.floor(number * secondArray[2]);
-            secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
-            if (profession == 'yes') {
-                crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2) + ((crop.mostHarvests * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 2))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (noAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))));
+                } else {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 3)))));
 
-                crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2) + ((crop.monthlyHarvests * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 2))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))));
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 3)))));
 
-                crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2) + (((tempSellPrice * 2))) * 0.1) - (crop.seedCost / 2))) + (goldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (silverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (noAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (secondSilverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (secondNoAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))));
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2)) - (crop.seedCost / 3))) + (goldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (silverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (noAmount * (((tempSellPrice)) - (crop.seedCost / 3)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 3))) + (secondSilverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 3))) + (secondNoAmount * (((tempSellPrice)) - (crop.seedCost / 3)))));
 
-
-            } else {
-                crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2)) - (crop.seedCost / 2))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (noAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 2)))));
-
-                crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2)) - (crop.seedCost / 2))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 2)))));
-
-                crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2)) - (crop.seedCost / 2))) + (goldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (silverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (noAmount * (((tempSellPrice)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (secondSilverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (secondNoAmount * (((tempSellPrice)) - (crop.seedCost / 2)))));
-
-
-            }
-            break;
-        default:
-            if (profession == 'yes') {
-                crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2) + ((crop.mostHarvests * (crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5) + ((crop.mostHarvests * (crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25) + ((crop.mostHarvests * (crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * ((crop.mostHarvests * (crop.sellPrice) + ((crop.mostHarvests * (crop.sellPrice))) * 0.1) - crop.seedCost)));
-
-                if (crop.harvestDays == 0) {
-                    crop.seedCost = crop.seedCost / harvestsLeft;
-                    crop.seedCost = crop.seedCost * crop.monthlyHarvests;
-                }
-
-                crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2) + ((crop.monthlyHarvests * (crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5) + ((crop.monthlyHarvests * (crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25) + ((crop.monthlyHarvests * (crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice) + ((crop.monthlyHarvests * (crop.sellPrice))) * 0.1) - crop.seedCost)));
-
-                if (crop.harvestDays == 0) {
-                    crop.seedCost = crop.seedCost / crop.monthlyHarvests;
 
                 }
-                crop.singleProfit = Math.round((iridiumAmount * (((crop.sellPrice * 2) + (((crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * (((crop.sellPrice * 1.5) + (((crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * (((crop.sellPrice * 1.25) + (((crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * (((crop.sellPrice) + (((crop.sellPrice))) * 0.1) - crop.seedCost)));
+                break;
+            case 'Cranberry':
+                tempSellPrice = crop.sellPrice / 2;
+                secondArray = getCropQuality(level, 'none', crop);
+                secondGoldAmount = Math.floor(number * secondArray[1]);
+                secondSilverAmount = Math.floor(number * secondArray[2]);
+                secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+                if (profession == 'yes') {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2) + ((crop.mostHarvests * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 2))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (noAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))));
+
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2) + ((crop.monthlyHarvests * (tempSellPrice * 2))) * 0.1) - (crop.seedCost / 2))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))));
+
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2) + (((tempSellPrice * 2))) * 0.1) - (crop.seedCost / 2))) + (goldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (silverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (noAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)) - (crop.seedCost / 2))) + (secondSilverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)) - (crop.seedCost / 2))) + (secondNoAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1)) - (crop.seedCost / 2)))));
 
 
-            } else {
-                crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((crop.mostHarvests * (crop.sellPrice)) - crop.seedCost)));
+                } else {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2)) - (crop.seedCost / 2))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (noAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice)) - (crop.seedCost / 2)))));
 
-                if (crop.harvestDays == 0) {
-                    crop.seedCost = crop.seedCost / (harvestsLeft);
-                    crop.seedCost = crop.seedCost * crop.monthlyHarvests;
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2)) - (crop.seedCost / 2))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice)) - (crop.seedCost / 2)))));
+
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2)) - (crop.seedCost / 2))) + (goldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (silverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (noAmount * (((tempSellPrice)) - (crop.seedCost / 2)))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5)) - (crop.seedCost / 2))) + (secondSilverAmount * (((tempSellPrice * 1.25)) - (crop.seedCost / 2))) + (secondNoAmount * (((tempSellPrice)) - (crop.seedCost / 2)))));
+
+
                 }
+                break;
+            default:
+                if (profession == 'yes') {
+                    crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2) + ((crop.mostHarvests * (crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5) + ((crop.mostHarvests * (crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25) + ((crop.mostHarvests * (crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * ((crop.mostHarvests * (crop.sellPrice) + ((crop.mostHarvests * (crop.sellPrice))) * 0.1) - crop.seedCost)));
 
-                crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice)) - crop.seedCost)));
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / harvestsLeft;
+                        crop.seedCost = crop.seedCost * crop.monthlyHarvests;
+                    }
 
-                if (crop.harvestDays == 0) {
-                    crop.seedCost = crop.seedCost / crop.monthlyHarvests;
+                    crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2) + ((crop.monthlyHarvests * (crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5) + ((crop.monthlyHarvests * (crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25) + ((crop.monthlyHarvests * (crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice) + ((crop.monthlyHarvests * (crop.sellPrice))) * 0.1) - crop.seedCost)));
+
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / crop.monthlyHarvests;
+
+                    }
+                    crop.singleProfit = Math.round((iridiumAmount * (((crop.sellPrice * 2) + (((crop.sellPrice * 2))) * 0.1) - crop.seedCost)) + (goldAmount * (((crop.sellPrice * 1.5) + (((crop.sellPrice * 1.5)) * 0.1)) - crop.seedCost)) + (silverAmount * (((crop.sellPrice * 1.25) + (((crop.sellPrice * 1.25))) * 0.1) - crop.seedCost)) + (noAmount * (((crop.sellPrice) + (((crop.sellPrice))) * 0.1) - crop.seedCost)));
+
+
+                } else {
+                    crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((crop.mostHarvests * (crop.sellPrice)) - crop.seedCost)));
+
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / (harvestsLeft);
+                        crop.seedCost = crop.seedCost * crop.monthlyHarvests;
+                    }
+
+                    crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice)) - crop.seedCost)));
+
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / crop.monthlyHarvests;
+
+                    }
+                    crop.singleProfit = Math.round((iridiumAmount * (((crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * (((crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * (((crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * (((crop.sellPrice)) - crop.seedCost)));
+
 
                 }
-                crop.singleProfit = Math.round((iridiumAmount * (((crop.sellPrice * 2)) - crop.seedCost)) + (goldAmount * (((crop.sellPrice * 1.5)) - crop.seedCost)) + (silverAmount * (((crop.sellPrice * 1.25)) - crop.seedCost)) + (noAmount * (((crop.sellPrice)) - crop.seedCost)));
-
-
-            }
-            break;
+                break;
+        }
+    } else {
+        switch (crop.name) {
+            case 'Blueberry':
+                tempSellPrice = crop.sellPrice / 3;
+                secondArray = getCropQuality(level, 'none', crop);
+                secondGoldAmount = Math.floor(number * secondArray[1]);
+                secondSilverAmount = Math.floor(number * secondArray[2]);
+                secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+                if (profession == 'yes') {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2) + ((crop.mostHarvests * (tempSellPrice * 2))) * 0.1))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (noAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1))))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1))))));
+    
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2) + ((crop.monthlyHarvests * (tempSellPrice * 2))) * 0.1))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1))))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1))))));
+    
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2) + (((tempSellPrice * 2))) * 0.1))) + (goldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)))) + (silverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)))) + (noAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1))))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)))) + (secondSilverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)))) + (secondNoAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1))))));
+    
+    
+                } else {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2)))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)))) + (noAmount * ((crop.mostHarvests * (tempSellPrice))))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice))))));
+    
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2)))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice))))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice))))));
+    
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2)))) + (goldAmount * (((tempSellPrice * 1.5)))) + (silverAmount * (((tempSellPrice * 1.25)))) + (noAmount * (((tempSellPrice))))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5)))) + (secondSilverAmount * (((tempSellPrice * 1.25)))) + (secondNoAmount * (((tempSellPrice))))));
+    
+    
+                }
+                break;
+            case 'Cranberry':
+                tempSellPrice = crop.sellPrice / 2;
+                secondArray = getCropQuality(level, 'none', crop);
+                secondGoldAmount = Math.floor(number * secondArray[1]);
+                secondSilverAmount = Math.floor(number * secondArray[2]);
+                secondNoAmount = Math.floor((number * secondArray[3]) + (number - ((number * secondArray[3] + secondGoldAmount + secondSilverAmount) + (number * secondArray[3])) + (number * secondArray[3])));
+                if (profession == 'yes') {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2) + ((crop.mostHarvests * (tempSellPrice * 2))) * 0.1))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (noAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1))))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5) + ((crop.mostHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25) + ((crop.mostHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice) + ((crop.mostHarvests * (tempSellPrice)) * 0.1))))));
+    
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2) + ((crop.monthlyHarvests * (tempSellPrice * 2))) * 0.1))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1))))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5) + ((crop.monthlyHarvests * (tempSellPrice * 1.5)) * 0.1)))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25) + ((crop.monthlyHarvests * (tempSellPrice * 1.25)) * 0.1)))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice) + ((crop.monthlyHarvests * (tempSellPrice)) * 0.1))))));
+    
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2) + (((tempSellPrice * 2))) * 0.1))) + (goldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)))) + (silverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)))) + (noAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1))))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5) + (((tempSellPrice * 1.5)) * 0.1)))) + (secondSilverAmount * (((tempSellPrice * 1.25) + (((tempSellPrice * 1.25)) * 0.1)))) + (secondNoAmount * (((tempSellPrice) + (((tempSellPrice)) * 0.1))))));
+    
+    
+                } else {
+                    crop.maxProfit = Math.round(((iridiumAmount * ((crop.mostHarvests * (tempSellPrice * 2)))) + (goldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)))) + (silverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)))) + (noAmount * ((crop.mostHarvests * (tempSellPrice))))) + 2 * ((secondGoldAmount * ((crop.mostHarvests * (tempSellPrice * 1.5)))) + (secondSilverAmount * ((crop.mostHarvests * (tempSellPrice * 1.25)))) + (secondNoAmount * ((crop.mostHarvests * (tempSellPrice))))));
+    
+                    crop.monthlyProfit = Math.round(((iridiumAmount * ((crop.monthlyHarvests * (tempSellPrice * 2)))) + (goldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)))) + (silverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)))) + (noAmount * ((crop.monthlyHarvests * (tempSellPrice))))) + 2 * ((secondGoldAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.5)))) + (secondSilverAmount * ((crop.monthlyHarvests * (tempSellPrice * 1.25)))) + (secondNoAmount * ((crop.monthlyHarvests * (tempSellPrice))))));
+    
+                    crop.singleProfit = Math.round(((iridiumAmount * (((tempSellPrice * 2)))) + (goldAmount * (((tempSellPrice * 1.5)))) + (silverAmount * (((tempSellPrice * 1.25)))) + (noAmount * (((tempSellPrice))))) + 2 * ((secondGoldAmount * (((tempSellPrice * 1.5)))) + (secondSilverAmount * (((tempSellPrice * 1.25)))) + (secondNoAmount * (((tempSellPrice))))));
+    
+    
+                }
+                break;
+            default:
+                if (profession == 'yes') {
+                    crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2) + ((crop.mostHarvests * (crop.sellPrice * 2))) * 0.1))) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5) + ((crop.mostHarvests * (crop.sellPrice * 1.5)) * 0.1)))) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25) + ((crop.mostHarvests * (crop.sellPrice * 1.25))) * 0.1))) + (noAmount * ((crop.mostHarvests * (crop.sellPrice) + ((crop.mostHarvests * (crop.sellPrice))) * 0.1))));
+    
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / harvestsLeft;
+                        crop.seedCost = crop.seedCost * crop.monthlyHarvests;
+                    }
+    
+                    crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2) + ((crop.monthlyHarvests * (crop.sellPrice * 2))) * 0.1))) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5) + ((crop.monthlyHarvests * (crop.sellPrice * 1.5)) * 0.1)))) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25) + ((crop.monthlyHarvests * (crop.sellPrice * 1.25))) * 0.1))) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice) + ((crop.monthlyHarvests * (crop.sellPrice))) * 0.1))));
+    
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / crop.monthlyHarvests;
+    
+                    }
+                    crop.singleProfit = Math.round((iridiumAmount * (((crop.sellPrice * 2) + (((crop.sellPrice * 2))) * 0.1))) + (goldAmount * (((crop.sellPrice * 1.5) + (((crop.sellPrice * 1.5)) * 0.1)))) + (silverAmount * (((crop.sellPrice * 1.25) + (((crop.sellPrice * 1.25))) * 0.1))) + (noAmount * (((crop.sellPrice) + (((crop.sellPrice))) * 0.1))));
+    
+    
+                } else {
+                    crop.maxProfit = Math.round((iridiumAmount * ((crop.mostHarvests * (crop.sellPrice * 2)))) + (goldAmount * ((crop.mostHarvests * (crop.sellPrice * 1.5)))) + (silverAmount * ((crop.mostHarvests * (crop.sellPrice * 1.25)))) + (noAmount * ((crop.mostHarvests * (crop.sellPrice)))));
+    
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / (harvestsLeft);
+                        crop.seedCost = crop.seedCost * crop.monthlyHarvests;
+                    }
+    
+                    crop.monthlyProfit = Math.round((iridiumAmount * ((crop.monthlyHarvests * (crop.sellPrice * 2)))) + (goldAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.5)))) + (silverAmount * ((crop.monthlyHarvests * (crop.sellPrice * 1.25)))) + (noAmount * ((crop.monthlyHarvests * (crop.sellPrice)))));
+    
+                    if (crop.harvestDays == 0) {
+                        crop.seedCost = crop.seedCost / crop.monthlyHarvests;
+    
+                    }
+                    crop.singleProfit = Math.round((iridiumAmount * (((crop.sellPrice * 2)))) + (goldAmount * (((crop.sellPrice * 1.5)))) + (silverAmount * (((crop.sellPrice * 1.25)))) + (noAmount * (((crop.sellPrice)))));
+    
+    
+                }
+                break;
+        }
     }
 
     if (crop.harvestDays == 0) {
@@ -360,11 +447,11 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     $(divTitle).appendTo(resultDiv);
     $(disclaimer).appendTo(resultDiv);
     /* #endregion */
-
+    console.log(crops);
 
     for (let i = 0; i < crops.length; i++) {
 
-        getCropNumbers(crops, quantities[i], crops[i], days, fertilizers[i], level, profession);
+        getCropNumbers(crops, quantities[i], crops[i], days, fertilizers[i], level, profession, profit);
 
         let cropDiv = document.createElement('div');
         cropDiv.setAttribute('class', 'crop-div');
@@ -393,6 +480,11 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         $(remainingMonthlyAmount).appendTo(cropDiv);
         $(potentialMonthlyAmount).appendTo(cropDiv);
     };
+
+
+
+
+
 
 
 }

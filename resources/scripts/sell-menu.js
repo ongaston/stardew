@@ -197,70 +197,139 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
     crops = crops.map((value) => {
 
-        if (value.maxHarvests == 1) {
-            value.singleProfit = (value.sellPrice - value.seedCost);
+        if (profit == 'profit') {
 
-            value.mostHarvests = Math.floor(days / value.matureDays);
+            if (value.maxHarvests == 1) {
+                value.singleProfit = (value.sellPrice - value.seedCost);
 
-            value.maxProfit = value.singleProfit * value.mostHarvests;
+                value.mostHarvests = Math.floor(days / value.matureDays);
 
-            value.monthlyHarvests = Math.floor(28 / value.matureDays);
+                value.maxProfit = value.singleProfit * value.mostHarvests;
 
-            value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
-        } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower') || value.name == 'Wheat')) || (season == 'fall' && value.name == 'Ancient Fruit')))) {
-            value.singleProfit = (value.sellPrice - value.seedCost);
+                value.monthlyHarvests = Math.floor(28 / value.matureDays);
 
-            let remainingDays = days - (value.matureDays + 1);
-            value.mostHarvests = (remainingDays / value.harvestDays) + 1;
+                value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
+            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower') || value.name == 'Wheat')) || (season == 'fall' && value.name == 'Ancient Fruit')))) {
+                value.singleProfit = (value.sellPrice - value.seedCost);
 
-            value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+                let remainingDays = days - (value.matureDays + 1);
+                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
 
-            remainingDays = 28 - (value.matureDays + 1);
-            value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
 
-            value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
-        } else if (((season == 'spring' && value.name == 'Coffee') || (season == 'summer' && value.name == 'Corn')) || ((season == 'fall' && value.name == 'Cactus Fruit') || (season == 'summer' && value.name == 'Ancient Fruit'))) {
-            days = days + 28;
-            value.singleProfit = (value.sellPrice - value.seedCost);
+                remainingDays = 28 - (value.matureDays + 1);
+                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
 
-            let remainingDays = days - (value.matureDays + 1);
-            value.mostHarvests = (remainingDays / value.harvestDays) + 1;
+                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+            } else if (((season == 'spring' && value.name == 'Coffee') || (season == 'summer' && value.name == 'Corn')) || ((season == 'fall' && value.name == 'Cactus Fruit') || (season == 'summer' && value.name == 'Ancient Fruit'))) {
+                days = days + 28;
+                value.singleProfit = (value.sellPrice - value.seedCost);
 
-            value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+                let remainingDays = days - (value.matureDays + 1);
+                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
 
-            remainingDays = 56 - (value.matureDays + 1);
-            value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
 
-            value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
-            days = days - 28;
-        } else if ((value.name == 'Sunflower' || value.name == 'Wheat') && season == 'summer') {
-            days = days + 28;
+                remainingDays = 56 - (value.matureDays + 1);
+                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
 
-            value.singleProfit = (value.sellPrice - value.seedCost);
+                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+                days = days - 28;
+            } else if ((value.name == 'Sunflower' || value.name == 'Wheat') && season == 'summer') {
+                days = days + 28;
 
-            value.mostHarvests = Math.floor(days / value.matureDays);
+                value.singleProfit = (value.sellPrice - value.seedCost);
 
-            value.maxProfit = value.singleProfit * value.mostHarvests;
+                value.mostHarvests = Math.floor(days / value.matureDays);
 
-            value.monthlyHarvests = Math.floor(56 / value.matureDays);
+                value.maxProfit = value.singleProfit * value.mostHarvests;
 
-            value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
+                value.monthlyHarvests = Math.floor(56 / value.matureDays);
 
-            days = days - 28;
-        } else if ((season == 'spring' && value.name == 'Ancient Fruit') || (season == 'summer' && value.name == 'Cactus Fruit')) {
-            days = days + 56;
-            value.singleProfit = (value.sellPrice - value.seedCost);
+                value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
 
-            let remainingDays = days - (value.matureDays + 1);
-            value.mostHarvests = (remainingDays / value.harvestDays) + 1;
+                days = days - 28;
+            } else if ((season == 'spring' && value.name == 'Ancient Fruit') || (season == 'summer' && value.name == 'Cactus Fruit')) {
+                days = days + 56;
+                value.singleProfit = (value.sellPrice - value.seedCost);
 
-            value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+                let remainingDays = days - (value.matureDays + 1);
+                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
 
-            remainingDays = 84 - (value.matureDays + 1);
-            value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
 
-            value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
-            days = days - 56;
+                remainingDays = 84 - (value.matureDays + 1);
+                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+
+                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+                days = days - 56;
+            }
+        } else {
+            if (value.maxHarvests == 1) {
+                value.singleProfit = (value.sellPrice - value.seedCost);
+
+                value.mostHarvests = Math.floor(days / value.matureDays);
+
+                value.maxProfit = value.singleProfit * value.mostHarvests;
+
+                value.monthlyHarvests = Math.floor(28 / value.matureDays);
+
+                value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
+            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower') || value.name == 'Wheat')) || (season == 'fall' && value.name == 'Ancient Fruit')))) {
+                value.singleProfit = (value.sellPrice - value.seedCost);
+
+                let remainingDays = days - (value.matureDays + 1);
+                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
+
+                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+
+                remainingDays = 28 - (value.matureDays + 1);
+                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+
+                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+            } else if (((season == 'spring' && value.name == 'Coffee') || (season == 'summer' && value.name == 'Corn')) || ((season == 'fall' && value.name == 'Cactus Fruit') || (season == 'summer' && value.name == 'Ancient Fruit'))) {
+                days = days + 28;
+                value.singleProfit = (value.sellPrice - value.seedCost);
+
+                let remainingDays = days - (value.matureDays + 1);
+                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
+
+                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+
+                remainingDays = 56 - (value.matureDays + 1);
+                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+
+                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+                days = days - 28;
+            } else if ((value.name == 'Sunflower' || value.name == 'Wheat') && season == 'summer') {
+                days = days + 28;
+
+                value.singleProfit = (value.sellPrice - value.seedCost);
+
+                value.mostHarvests = Math.floor(days / value.matureDays);
+
+                value.maxProfit = value.singleProfit * value.mostHarvests;
+
+                value.monthlyHarvests = Math.floor(56 / value.matureDays);
+
+                value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
+
+                days = days - 28;
+            } else if ((season == 'spring' && value.name == 'Ancient Fruit') || (season == 'summer' && value.name == 'Cactus Fruit')) {
+                days = days + 56;
+                value.singleProfit = (value.sellPrice - value.seedCost);
+
+                let remainingDays = days - (value.matureDays + 1);
+                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
+
+                value.maxProfit = (value.mostHarvests * value.sellPrice) - value.seedCost;
+
+                remainingDays = 84 - (value.matureDays + 1);
+                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+
+                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
+                days = days - 56;
+            }
         }
 
         return value;

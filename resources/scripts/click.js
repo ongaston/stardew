@@ -119,6 +119,8 @@ function clickFunction() {
         }
         newOption.setAttribute('value', value);
         $(newOption).appendTo(cropSelect);
+
+        
     }
 
     /* #region  crop info html elements */

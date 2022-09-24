@@ -451,6 +451,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     /* #endregion */
     console.log(crops);
 
+
     for (let i = 0; i < crops.length; i++) {
 
         getCropNumbers(crops, quantities[i], crops[i], days, fertilizers[i], level, profession, profit);
@@ -468,11 +469,9 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
         let singleProfitAmount = document.createElement('p');
         singleProfitAmount.setAttribute('class', 'crop-info');
-        singleProfitAmount.setAttribute('id', 'single');
         let singleSpan = document.createElement('span');
         singleSpan.setAttribute('class', 'span');
         singleSpan.innerHTML = crops[i].singleProfit.toLocaleString('en-US', 'USD');
-        singleSpan.setAttribute('id', 'single-span');
         singleProfitAmount.innerHTML = 'Profit from one harvest: ';
         $(singleSpan).appendTo(singleProfitAmount);
 
@@ -506,7 +505,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
             netDisclaimer.innerHTML = 'Due to the method(s) of obtainment for this crop, only net income can be calculated. Other crops still show profit.';
             $(netDisclaimer).appendTo(cropDiv);
             cropTitle.style.marginBottom = '0.5rem';
-        }
+        } 
 
         $(singleProfitAmount).appendTo(cropDiv);
         $(remainingMonthlyAmount).appendTo(cropDiv);

@@ -11,8 +11,34 @@ let array = [];
 let cropNumber = 1;
 let num = 1;
 
+let cropName = document.getElementById('crop-name');
 
 
+function gingerClick(element) {
+    let fertilizerCon = document.getElementById('fertilizer-container');
+    let fertilizerSel = document.getElementById('fertilizer');
+    if (((element.value == 'cactusFruit' || element.value == 'taroRoot') || element.value == 'pineapple') && (fertilizerCon.lastElementChild == fertilizerSel)) {
+        let gingerLabel = document.createElement('label');
+        gingerLabel.setAttribute('for', 'gingerIsland');
+        gingerLabel.setAttribute('id', 'gingerLabel');
+        gingerLabel.innerHTML = 'Grown on Ginger Island: ';
+
+        let gingerSwitch = document.createElement('input');
+        gingerSwitch.setAttribute('id', 'gingerIsland');
+        gingerSwitch.setAttribute('type', 'checkbox');
+
+        $(gingerLabel).appendTo(fertilizerCon);
+        $(gingerSwitch).appendTo(fertilizerCon);
+    } else {
+
+        let gingerLabel = document.getElementById('gingerLabel');
+        $(gingerLabel).remove();
+
+        let gingerSwitch = document.getElementById('gingerIsland');
+        $(gingerSwitch).remove();
+
+    }
+}
 
 function clickFunction() {
 
@@ -24,7 +50,7 @@ function clickFunction() {
 
     num++;
     /* #region  first html elements */
-    
+
     bigContainers = document.querySelectorAll('.big-container');
     cropNumber = bigContainers.length;
 
@@ -120,10 +146,11 @@ function clickFunction() {
         newOption.setAttribute('value', value);
         $(newOption).appendTo(cropSelect);
 
-        
     }
 
+
     /* #region  crop info html elements */
+    /* #region  condense */
     let quantityContainer = document.createElement('section');
     quantityContainer.setAttribute('class', 'mobile');
     $(quantityContainer).appendTo(nameAndQuantity);
@@ -172,6 +199,39 @@ function clickFunction() {
     standard.setAttribute('value', 'standard');
     standard.innerHTML = 'Standard';
     $(standard).appendTo(fertilizerSelect);
+    /* #endregion */
+
+    $(cropSelect).on('change', function (event) {
+        gingerCheck(event.target);
+    })
+
+    function gingerCheck(element) {
+        if (((element.value == 'cactusFruit' || element.value == 'taroRoot') || element.value == 'pineapple') && (fertilizerContainer.lastElementChild == fertilizerSelect)) {
+            let gingerLabel = document.createElement('label');
+            gingerLabel.setAttribute('for', 'gingerIsland' + cropNumber.toString());
+            gingerLabel.setAttribute('id', 'gingerLabel' + cropNumber.toString());
+            gingerLabel.innerHTML = 'Grown on Ginger Island: ';
+
+            let gingerSwitch = document.createElement('input');
+            gingerSwitch.setAttribute('id', 'gingerIsland' + cropNumber.toString());
+            gingerSwitch.setAttribute('type', 'checkbox');
+
+            $(gingerLabel).appendTo(fertilizerContainer);
+            $(gingerSwitch).appendTo(fertilizerContainer);
+        } else {
+            let titleParentText = element.parentElement.parentElement.parentElement.firstElementChild.innerHTML;
+            let textLength = titleParentText.length - 1;
+            let numberCrop = titleParentText[textLength];
+
+            let labelId = 'gingerLabel'.concat(numberCrop);
+            let gingerLabel = document.getElementById(labelId);
+            $(gingerLabel).remove();
+
+            let switchId = 'gingerIsland'.concat(numberCrop);
+            let gingerSwitch = document.getElementById(switchId);
+            $(gingerSwitch).remove();
+        }
+    }
 
     let newCropContainer = document.createElement('section');
     newCropContainer.setAttribute('class', 'new-crop-container');
@@ -260,7 +320,9 @@ $(function () {
 
     })
 
-
+    $(cropName).on('change', function (event) {
+        gingerClick(event.target);
+    })
 
 
 

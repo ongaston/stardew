@@ -116,7 +116,8 @@ body,
 .remove,
 .column,
 .mobile,
-#formula-container {
+#formula-container,
+#gingerLabel {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -171,15 +172,23 @@ select {
     font-size: 20px;
 }
 
-/*input[type='checkbox'] {
+input[type='checkbox'] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
 }
-.extra-crops::after {
-    position: relative;
+
+#formula-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
     height: 15px;
     width: 15px;
     margin: 0.6rem;
@@ -189,9 +198,38 @@ select {
     border-radius: 6px;
 }
 
-.extra-crops::after:hover {
+.extra-crops:hover input ~ .checkmark {
     background-color: var(--light-white);
-}*/
+    border: double var(--main-teal);
+    cursor: pointer;
+}
+
+.extra-crops input:checked ~ .checkmark {
+    background-color: var(--dark-teal);
+    border: double var(--main-white);
+}
+
+.checkmark:after {
+    content: '';
+    position: relative;
+    display: none;
+}
+
+.extra-crops input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkmark:after {
+    left: 3px;
+    bottom: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--main-white);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+}
 
 #submit {
     background-color: var(--main-white);
@@ -240,6 +278,9 @@ select {
         flex-direction: column;
     }
 
-
+    #form {
+        padding: 0;
+        border: none;
+    }
 
 }

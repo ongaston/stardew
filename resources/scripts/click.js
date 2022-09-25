@@ -15,20 +15,27 @@ let cropName = document.getElementById('crop-name');
 
 
 function gingerClick(element) {
-    let fertilizerCon = document.getElementById('fertilizer-container');
-    let fertilizerSel = document.getElementById('fertilizer');
+    let fertilizerCon = document.getElementById('fertilizer-ginger');
+    let fertilizerSel = document.getElementById('fertilizer-container');
     if (((element.value == 'cactusFruit' || element.value == 'taroRoot') || element.value == 'pineapple') && (fertilizerCon.lastElementChild == fertilizerSel)) {
+
         let gingerLabel = document.createElement('label');
         gingerLabel.setAttribute('for', 'gingerIsland');
         gingerLabel.setAttribute('id', 'gingerLabel');
-        gingerLabel.innerHTML = 'Grown on Ginger Island: ';
+
 
         let gingerSwitch = document.createElement('input');
         gingerSwitch.setAttribute('id', 'gingerIsland');
         gingerSwitch.setAttribute('type', 'checkbox');
 
+        let gingerSpan = document.createElement('span');
+        gingerSpan.setAttribute('class', 'checkmark');
+
+        gingerLabel.innerHTML = 'Grown on Ginger Island:\n  <input id="gingerIsland" type="checkbox">\n  <span class="checkmark"></span> '
+
         $(gingerLabel).appendTo(fertilizerCon);
-        $(gingerSwitch).appendTo(fertilizerCon);
+        /*$(gingerSwitch).appendTo(gingerLabel);
+        $(gingerSpan).appendTo(gingerLabel);*/
     } else {
 
         let gingerLabel = document.getElementById('gingerLabel');

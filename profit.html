@@ -125,14 +125,17 @@
                             </section>
                         </section>
 
-                        <section class='mobile' id='fertilizer-container'>
-                            <label for='fertilizer'>Fertilizer: </label>
-                            <select name='fertilizer' id='fertilizer' class='fertilizer' required>
-                                <option value='none'>None</option>
-                                <option value='deluxe'>Deluxe</option>
-                                <option value='quality'>Quality</option>
-                                <option value='standard'>Standard</option>
-                            </select>
+
+                        <section class='section' id='fertilizer-ginger'>
+                            <section class='mobile' id='fertilizer-container'>
+                                <label for='fertilizer'>Fertilizer: </label>
+                                <select name='fertilizer' id='fertilizer' class='fertilizer' required>
+                                    <option value='none'>None</option>
+                                    <option value='deluxe'>Deluxe</option>
+                                    <option value='quality'>Quality</option>
+                                    <option value='standard'>Standard</option>
+                                </select>
+                            </section>
                         </section>
 
                         <section class='new-crop-container'>
@@ -143,10 +146,10 @@
                     </section>
                     </section>
 
-                    <section id='formula-container'>
-                        <label for='formula-switch'>Use Quantity Formula</label>
+                    <label for='formula-switch' id='formula-container'>Use Quantity Formula
                         <input id='formula-switch' value='quantity-formula' type='checkbox' name='formula-switch'>
-                    </section>
+                        <span class='checkmark'></span>
+                    </label>
 
                     <legend id='profit-type'>
                         <section class='radio-container'>

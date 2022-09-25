@@ -80,3 +80,58 @@ input[type='number'] {
     font-weight: 100;
     font-size: 16px;
 }
+
+#formula-container input,
+#gingerLabel input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    height: 15px;
+    width: 15px;
+    margin: 0.6rem;
+    background-color: var(--main-white);
+    content: '';
+    border: double var(--dark-teal);
+    border-radius: 6px;
+}
+
+#formula-container:hover input ~ .checkmark,
+#gingerLabel:hover input ~ .checkmark {
+    background-color: var(--light-white);
+    border: double var(--main-teal);
+    cursor: pointer;
+}
+
+#formula-container input:checked ~ .checkmark,
+#gingerLabel input:checked ~ .checkmark {
+    background-color: var(--dark-teal);
+    border: double var(--main-white);
+}
+
+.checkmark:after {
+    content: '';
+    position: relative;
+    display: none;
+}
+
+#formula-container input:checked ~ .checkmark:after,
+#gingerLabel input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkmark:after {
+    left: 3px;
+    bottom: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--main-white);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+}

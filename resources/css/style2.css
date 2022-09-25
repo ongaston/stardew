@@ -82,7 +82,7 @@ input[type='number'] {
 }
 
 #formula-container input,
-#gingerLabel input
+#gingerLabel input,
 .checkbox-label input {
     position: absolute;
     opacity: 0;
@@ -111,7 +111,7 @@ input[type='number'] {
 
 #formula-container input:checked ~ .checkmark,
 #gingerLabel input:checked ~ .checkmark,
-.checkbox-label:hover input:checked ~ .checkmark {
+.checkbox-label input:checked ~ .checkmark {
     background-color: var(--dark-teal);
     border: double var(--main-white);
 }

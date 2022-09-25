@@ -324,6 +324,4 @@ $(function () {
         gingerClick(event.target);
     })
 
-
-
 })

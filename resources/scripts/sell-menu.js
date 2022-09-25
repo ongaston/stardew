@@ -59,6 +59,9 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
     } else {
         harvestsLeft = Math.floor(remainingDays / crop.harvestDays) + 1;
     }
+
+
+
     let tempSellPrice;
     let secondArray;
     let secondGoldAmount;
@@ -160,7 +163,8 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
                 }
                 break;
         }
-    } else {
+    } 
+    else {
         switch (crop.name) {
             case 'Blueberry':
                 tempSellPrice = crop.sellPrice / 3;
@@ -257,7 +261,7 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
     return crop;
 }
 
-function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities, profit) {
+function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities, profit, gingers) {
     /* console.log(season);
      console.log(days);
      console.log(level);
@@ -283,9 +287,9 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         Object.defineProperty(crops[i], 'monthlyHarvests', { enumerable: true, writable: true, configurable: true });
     }
 
-    crops = crops.map((value) => {
+    crops = crops.map((value, index) => {
 
-        if (profit == 'profit') {
+        if (profit == 'profit' && ((value.name !== 'Cactus Fruit') && (value.name !== 'Pineapple' && value.name !== 'Taro Root'))) {
 
             if (value.maxHarvests == 1) {
                 value.singleProfit = (value.sellPrice - value.seedCost);
@@ -352,7 +356,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
                 days = days - 56;
             }
-        } else {
+        } else if (gingers[index] == false) {
             if (value.maxHarvests == 1) {
                 value.singleProfit = (value.sellPrice);
 
@@ -417,6 +421,30 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
                 value.monthlyProfit = (value.monthlyHarvests * value.sellPrice);
                 days = days - 56;
+            }
+        } else {
+            if (value.maxHarvests == 1) {
+                value.singleProfit = (value.sellPrice);
+
+                value.mostHarvests = Math.floor(days / value.matureDays);
+
+                value.maxProfit = value.singleProfit * value.mostHarvests;
+
+                value.monthlyHarvests = Math.floor(28 / value.matureDays);
+
+                value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
+            } else {
+                value.singleProfit = (value.sellPrice);
+
+                let remainingDays = days - (value.matureDays + 1);
+                value.mostHarvests = (remainingDays / value.harvestDays) + 1;
+
+                value.maxProfit = (value.mostHarvests * value.sellPrice);
+
+                remainingDays = 28 - (value.matureDays + 1);
+                value.monthlyHarvests = remainingDays / value.harvestDays + 1;
+
+                value.monthlyProfit = (value.monthlyHarvests * value.sellPrice);
             }
         }
 
@@ -449,7 +477,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     $(divTitle).appendTo(resultDiv);
     $(disclaimer).appendTo(resultDiv);
     /* #endregion */
-    console.log(crops);
+
 
 
     for (let i = 0; i < crops.length; i++) {
@@ -505,7 +533,18 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
             netDisclaimer.innerHTML = 'Due to the method(s) of obtainment for this crop, only net income can be calculated. Other crops still show profit.';
             $(netDisclaimer).appendTo(cropDiv);
             cropTitle.style.marginBottom = '0.5rem';
-        } 
+        } if (((crops[i].name == 'Cactus Fruit') || (crops[i].name == 'Pineapple' || crops[i].name == 'Taro Root')) && gingers[i] == true) {
+            let seasonDisclaimer = document.createElement('p');
+            seasonDisclaimer.style.color = 'hsla(56, 23%, 1)';
+            seasonDisclaimer.style.fontSize = '14px';
+            seasonDisclaimer.style.width = '350px';
+            seasonDisclaimer.style.textDecoration = 'none';
+            seasonDisclaimer.style.textAlign = 'center';
+            seasonDisclaimer.style.margin = '0 0 1rem';
+            seasonDisclaimer.style.lineHeight = '120%';
+            seasonDisclaimer.innerHTML = 'Because this crop can grow year-round, only income for the remainder of the season is calculated.';
+            $(seasonDisclaimer).appendTo(cropDiv);
+        }
 
         $(singleProfitAmount).appendTo(cropDiv);
         $(remainingMonthlyAmount).appendTo(cropDiv);
@@ -525,6 +564,29 @@ form.addEventListener('submit', function (event) {
     let formulaCheck = form['formula-switch'].checked;
     let profitCheck = form['profit-type'].value;
 
+    let formArray = form.firstElementChild.children;
+    console.log(formArray);
+
+    let gingerArray = [];
+
+    for (let i = 0; i < formArray.length; i++) {
+        if (i !== 0) {
+            let cropElementContainer = formArray[i];
+            let fertCon;
+            if (i == 1) {
+                fertCon = cropElementContainer.children[2];
+            } else {
+                fertCon = cropElementContainer.children[3];
+            }
+            if (fertCon.children.length == 2) {
+                gingerArray.push(false);
+            } else {
+                gingerArray.push(fertCon.children[3].checked);
+            }
+        }
+    }
+
+
     selectedCrops = document.getElementsByClassName('crop-name');
     fertilizers = document.getElementsByClassName('fertilizer');
     quantities = document.getElementsByClassName('quantity');
@@ -539,7 +601,7 @@ form.addEventListener('submit', function (event) {
         quantityArray.push(quantities[i].value);
     }
 
-    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray, profitCheck);
+    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray, profitCheck, gingerArray);
 
 
     console.log(form.elements);

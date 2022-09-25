@@ -117,7 +117,8 @@ body,
 .column,
 .mobile,
 #formula-container,
-#gingerLabel {
+#gingerLabel,
+.checkbox-label {
     display: inline-flex;
     align-items: center;
     justify-content: center;

@@ -174,9 +174,13 @@ function clickFunction() {
     quantityInput.setAttribute('class', 'quantity');
     $(quantityInput).appendTo(quantityContainer);
 
+    let fertilizerGinger = document.createElement('section');
+    fertilizerGinger.setAttribute('class', 'section');
+    $(fertilizerGinger).appendTo(bigContainer);
+
     let fertilizerContainer = document.createElement('section');
     fertilizerContainer.setAttribute('class', 'mobile');
-    $(fertilizerContainer).appendTo(bigContainer);
+    $(fertilizerContainer).appendTo(fertilizerGinger);
 
     let fertilizerLabel = document.createElement('label');
     fertilizerLabel.innerHTML = 'Fertilizer: ';
@@ -213,18 +217,16 @@ function clickFunction() {
     })
 
     function gingerCheck(element) {
-        if (((element.value == 'cactusFruit' || element.value == 'taroRoot') || element.value == 'pineapple') && (fertilizerContainer.lastElementChild == fertilizerSelect)) {
+        if (((element.value == 'cactusFruit' || element.value == 'taroRoot') || element.value == 'pineapple') && (fertilizerGinger.lastElementChild == fertilizerContainer)) {
             let gingerLabel = document.createElement('label');
             gingerLabel.setAttribute('for', 'gingerIsland' + cropNumber.toString());
             gingerLabel.setAttribute('id', 'gingerLabel' + cropNumber.toString());
-            gingerLabel.innerHTML = 'Grown on Ginger Island: ';
+            gingerLabel.setAttribute('class', 'checkbox-label');
+            gingerLabel.innerHTML = 'Grown on Ginger Island: \n <input id="gingerIsland' + cropNumber.toString() + '" type="checkbox">\n <span class="checkmark"></span>';
 
-            let gingerSwitch = document.createElement('input');
-            gingerSwitch.setAttribute('id', 'gingerIsland' + cropNumber.toString());
-            gingerSwitch.setAttribute('type', 'checkbox');
 
-            $(gingerLabel).appendTo(fertilizerContainer);
-            $(gingerSwitch).appendTo(fertilizerContainer);
+            $(gingerLabel).appendTo(fertilizerGinger);
+
         } else {
             let titleParentText = element.parentElement.parentElement.parentElement.firstElementChild.innerHTML;
             let textLength = titleParentText.length - 1;

@@ -407,14 +407,24 @@ function removeCrop(element) {
 
     bigContainers = document.getElementsByClassName('big-container');
     let bigContainersArray = Array.from(bigContainers);
-    console.log(bigContainersArray);
 
     for (let i = 0; i < bigContainers.length; i++) {
         if (bigContainers.length > 2 && i > 1) {
-            console.log(bigContainers[i]);
             bigContainers[i].firstElementChild.innerHTML = 'Crop ' + i.toString();
         }
     }
+
+    let main = document.getElementById('main');
+    let resultDiv = document.getElementById('result-div');
+    let lastIndex = main.childNodes.length - 1;
+    if (main.childNodes[lastIndex] == resultDiv) {
+
+        let bigContainerArray = Array.from(biggerContainer.children);
+        let removeIndex = bigContainerArray.indexOf(parent) + 1;
+        $(resultDiv.children[removeIndex - 1].lastElementChild).remove();
+        $(resultDiv.children[removeIndex]).remove();
+    }
+
 
 }
 

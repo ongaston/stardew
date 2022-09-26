@@ -43,11 +43,14 @@ input[type='number'] {
 .crop-info {
     text-decoration: none;
     align-self: start;
+    margin: 0.3rem 0;
+    font-size: 16px;
 }
 
 .crop-title {
     font-size: 20px;
     font-weight: 800;
+    margin-bottom: 1.5rem;
 }
 
 .remove-button {
@@ -74,6 +77,10 @@ input[type='number'] {
 
 #div-title {
     font-size: 25px;
+}
+
+#profit-type {
+    margin: 1rem 0;
 }
 
 .span {
@@ -138,4 +145,24 @@ input[type='number'] {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
+}
+
+hr {
+    border: none;
+    border-top: 3px double var(--main-white); 
+    height: 10px;
+    text-align: center;
+    width: 90%;
+    overflow: visible;
+    text-align: center;
+    margin: 2rem 0 1rem;
+}
+
+hr::after {
+    content: '§';
+    position: relative;
+    bottom: 10px;
+    z-index: 2;
+    background-color: var(--main-teal);
+    padding: 0 15px;
 }

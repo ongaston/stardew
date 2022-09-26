@@ -564,6 +564,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         if ((crops.length > 1) && i !== crops.length - 1) {
             let breakline = document.createElement('hr');
 
+
             $(breakline).appendTo(cropDiv);
         }
 
@@ -582,7 +583,7 @@ form.addEventListener('submit', function (event) {
     let days = form.days.value;
     let level = form.level.value;
     let profession = form.profession.value;
-    let formulaCheck = form['formula-switch'].checked;
+    let formulaCheck = null;
     let profitCheck = form['profit-type'].value;
 
     let formArray = form.firstElementChild.children;

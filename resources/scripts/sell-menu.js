@@ -11,6 +11,7 @@ let ancientFruit = new Crop('spring summer fall', 1000, 28, 7, 550, 0, 'Ancient 
 let cactusFruit = new Crop('spring summer fall winter', 150, 12, 3, 75, 0, 'Cactus Fruit');
 let pineapple = new Crop('summer', 0, 14, 7, 300, 1, 'Pineapple');
 let taroRoot = new Crop('summer', 0, 10, 0, 100, 1, 'Taro Root');
+taroRoot.defaultMatureDays = 10;
 let sweetGemFruit = new Crop('fall', 1000, 24, 0, 3000, 1, 'Sweet Gem Fruit');
 
 cropArray.push(coffee, starfruit, ancientFruit, cactusFruit, pineapple, taroRoot, sweetGemFruit);
@@ -30,7 +31,6 @@ let selectedCrops = [];
 let quantities = [];
 let fertilizers = [];
 /* #endregion */
-
 
 
 function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profession, profit) {
@@ -288,6 +288,17 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     }
 
     crops = crops.map((value, index) => {
+
+        if ((value.name == 'Unmilled rice' || value.name == 'Taro Root') && irrigations[index] == true) {
+            switch(value.name) {
+                case 'Unmilled rice':
+                    value.matureDays = 6;
+                    break;
+                case 'Taro Root':
+                    value.matureDays = 7;
+                    break;
+            }
+        }
 
         if (profit == 'profit' && ((value.name !== 'Cactus Fruit') && (value.name !== 'Pineapple' && value.name !== 'Taro Root'))) {
 
@@ -549,6 +560,10 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         $(singleProfitAmount).appendTo(cropDiv);
         $(remainingMonthlyAmount).appendTo(cropDiv);
         $(potentialMonthlyAmount).appendTo(cropDiv);
+
+        if ((crops[i].name == 'Unmilled rice' || crops[i].name == 'Taro Root') && irrigations[i] == true) {
+            crops[i].matureDays = crops[i].defaultMatureDays;
+        }
     };
 
 }
@@ -601,6 +616,8 @@ form.addEventListener('submit', function (event) {
             }
         }
     }
+
+    console.log(irrigationArray);
 
     selectedCrops = document.getElementsByClassName('crop-name');
     fertilizers = document.getElementsByClassName('fertilizer');

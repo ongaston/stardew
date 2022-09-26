@@ -10,6 +10,7 @@ class Crop {
         this.maxHarvests = maxHarvests;
         this.growingDays = this.matureDays + ((this.maxHarvests - 1) * this.harvestDays);
         this.name = name;
+        this.defaultMatureDays;
     }
     get gpd() {
         let gpd = ((this.maxHarvests * this.sellPrice) - this.seedCost) / this.growingDays;
@@ -28,6 +29,7 @@ let parsnip = new Crop('spring', 20, 4, 0, 35, 1, 'Parsnip');
 let potato = new Crop('spring', 50, 6, 0, 80, 1.25, 'Potato');
 let tulip = new Crop('spring', 20, 6, 0, 30, 1, 'Tulip');
 let unmilledRice = new Crop('spring', 40, 8, 0, 30, 1, 'Unmilled rice');
+unmilledRice.defaultMatureDays = 8;
 
 let blueberry = new Crop('summer', 80, 13, 4, 150, 4.08, 'Blueberry');
 let corn = new Crop('summer fall', 150, 14, 4, 50, 0, 'Corn');

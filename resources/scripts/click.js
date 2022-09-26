@@ -2,6 +2,7 @@ import { cropArray } from './sell-menu.js';
 
 let newCropButton = document.getElementById('new-crop-button');
 let oldCropContainer = document.getElementsByClassName('new-crop-container');
+let firstAddContainer = document.getElementById('old-crop-container');
 let biggerContainer = document.getElementById('bigger-container');
 let bigContainers;
 
@@ -13,6 +14,62 @@ let num = 1;
 
 let cropName = document.getElementById('crop-name');
 
+
+function irrigationClick(element) {
+    let fertilizerGinger = document.getElementById('fertilizer-ginger');
+    let fertCon = document.getElementById('fertilizer-container');
+    if ((element.value == 'taroRoot' && fertilizerGinger.nextElementSibling == firstAddContainer)) {
+
+        let irrigationContainer = document.createElement('section');
+        irrigationContainer.setAttribute('class', 'section');
+        irrigationContainer.setAttribute('id', 'irrigationContainer');
+
+        let irrigationLabel = document.createElement('label');
+        irrigationLabel.setAttribute('for', 'irrigation');
+        irrigationLabel.setAttribute('id', 'irrigationLabel');
+        irrigationLabel.setAttribute('class', 'checkbox-label');
+        irrigationLabel.innerHTML = 'Irrigated: \n <input id="irrigation' + '"" type="checkbox">\n <span class="checkmark"></span>';
+
+        $(irrigationLabel).appendTo(irrigationContainer);
+
+        fertilizerGinger.parentElement.insertBefore(irrigationContainer, firstAddContainer);
+
+        if (element.value == 'taroRoot' && fertilizerGinger.lastElementChild !== fertCon) {
+            $(fertilizerGinger.lastElementChild).remove();
+
+            gingerClick(element);
+
+        }
+        
+
+    } else if (element.value == 'unmilledRice' && fertilizerGinger.lastElementChild == fertCon) {
+
+        let irrigationLabel = document.createElement('label');
+        irrigationLabel.setAttribute('for', 'irrigation');
+        irrigationLabel.setAttribute('id', 'irrigationLabel');
+        irrigationLabel.setAttribute('class', 'checkbox-label');
+        irrigationLabel.innerHTML = 'Irrigated: \n <input id="irrigation" type="checkbox">\n <span class="checkmark"></span>';
+
+        $(irrigationLabel).appendTo(fertilizerGinger);
+
+        if (element.value == 'unmilledRice' && fertilizerGinger.nextElementSibling !== firstAddContainer) {
+
+            let containerId = 'irrigationContainer';
+            let irrigationContainer = document.getElementById(containerId);
+            $(irrigationContainer).remove();
+        }
+
+    } else {
+
+        let containerId = 'irrigationContainer';
+        let irrigationContainer = document.getElementById(containerId);
+        $(irrigationContainer).remove();
+
+        let labelId = 'irrigationLabel';
+        let irrigationLabel = document.getElementById(labelId);
+        $(irrigationLabel).remove();
+    }
+}
 
 function gingerClick(element) {
     let fertilizerCon = document.getElementById('fertilizer-ginger');
@@ -214,6 +271,7 @@ function clickFunction() {
 
     $(cropSelect).on('change', function (event) {
         gingerCheck(event.target);
+        irrigationCheck(event.target);
     })
 
     function gingerCheck(element) {
@@ -239,6 +297,66 @@ function clickFunction() {
             let switchId = 'gingerIsland'.concat(numberCrop);
             let gingerSwitch = document.getElementById(switchId);
             $(gingerSwitch).remove();
+        }
+    }
+
+    function irrigationCheck (element) {
+        if ((element.value == 'taroRoot' && fertilizerGinger.nextElementSibling == newCropContainer)) {
+
+            let irrigationContainer = document.createElement('section');
+            irrigationContainer.setAttribute('class', 'section');
+            irrigationContainer.setAttribute('id', 'irrigationContainer' + cropNumber.toString());
+
+            let irrigationLabel = document.createElement('label');
+            irrigationLabel.setAttribute('for', 'irrigation' + cropNumber.toString());
+            irrigationLabel.setAttribute('id', 'irrigationLabel' + cropNumber.toString());
+            irrigationLabel.setAttribute('class', 'checkbox-label');
+            irrigationLabel.innerHTML = 'Irrigated: \n <input id="irrigation' + cropNumber.toString() + '"" type="checkbox">\n <span class="checkmark"></span>';
+
+            $(irrigationLabel).appendTo(irrigationContainer);
+
+            fertilizerGinger.parentElement.insertBefore(irrigationContainer, newCropContainer);
+
+            if (element.value == 'taroRoot' && fertilizerGinger.lastElementChild !== fertilizerContainer) {
+                $(fertilizerGinger.lastElementChild).remove();
+
+                gingerCheck(element);
+    
+            }
+            
+
+        } else if (element.value == 'unmilledRice' && fertilizerGinger.lastElementChild == fertilizerContainer) {
+
+            let irrigationLabel = document.createElement('label');
+            irrigationLabel.setAttribute('for', 'irrigation' + cropNumber.toString());
+            irrigationLabel.setAttribute('id', 'irrigationLabel' + cropNumber.toString());
+            irrigationLabel.setAttribute('class', 'checkbox-label');
+            irrigationLabel.innerHTML = 'Irrigated: \n <input id="irrigation' + cropNumber.toString() + '"" type="checkbox">\n <span class="checkmark"></span>';
+
+            $(irrigationLabel).appendTo(fertilizerGinger);
+
+            if (element.value == 'unmilledRice' && fertilizerGinger.nextElementSibling !== newCropContainer) {
+                let titleParentText = element.parentElement.parentElement.parentElement.firstElementChild.innerHTML;
+                let textLength = titleParentText.length - 1;
+                let numberCrop = titleParentText[textLength];
+    
+                let containerId = 'irrigationContainer'.concat(numberCrop);
+                let irrigationContainer = document.getElementById(containerId);
+                $(irrigationContainer).remove();
+            }
+
+        } else {
+            let titleParentText = element.parentElement.parentElement.parentElement.firstElementChild.innerHTML;
+            let textLength = titleParentText.length - 1;
+            let numberCrop = titleParentText[textLength];
+
+            let containerId = 'irrigationContainer'.concat(numberCrop);
+            let irrigationContainer = document.getElementById(containerId);
+            $(irrigationContainer).remove();
+
+            let labelId = 'irrigationLabel'.concat(numberCrop);
+            let irrigationLabel = document.getElementById(labelId);
+            $(irrigationLabel).remove();
         }
     }
 
@@ -331,11 +449,13 @@ $(function () {
 
     $(cropName).on('change', function (event) {
         gingerClick(event.target);
+        irrigationClick(event.target);
     })
 
     $(window).on('load', function () {
-        cropName.value = 'cactusFruit';
+        cropName.value = 'taroRoot';
         gingerClick(cropName);
+        irrigationClick(cropName);
     })
 
 })

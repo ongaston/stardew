@@ -357,7 +357,6 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 days = days - 56;
             }
         } else if (gingers[index] == false) {
-            console.log(index);
             if (value.maxHarvests == 1) {
                 value.singleProfit = (value.sellPrice);
 
@@ -534,7 +533,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
             netDisclaimer.innerHTML = 'Due to the method(s) of obtainment for this crop, only net income can be calculated. Other crops still show profit.';
             $(netDisclaimer).appendTo(cropDiv);
             cropTitle.style.marginBottom = '0.5rem';
-        } if (((crops[i].name == 'Cactus Fruit') || (crops[i].name == 'Pineapple' || crops[i].name == 'Taro Root')) && gingers[i] == true) {
+        } if ((((crops[i].name == 'Cactus Fruit') || (crops[i].name == 'Pineapple' || crops[i].name == 'Taro Root')) && gingers[i] == true) || (crops[i].name == 'Cactus Fruit')) {
             let seasonDisclaimer = document.createElement('p');
             seasonDisclaimer.style.color = 'hsla(56, 23%, 1)';
             seasonDisclaimer.style.fontSize = '14px';
@@ -585,6 +584,8 @@ form.addEventListener('submit', function (event) {
             }
         }
     }
+
+    let irrigationArray = [];
 
     console.log(gingerArray);
 

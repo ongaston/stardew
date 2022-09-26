@@ -565,8 +565,9 @@ form.addEventListener('submit', function (event) {
     let profitCheck = form['profit-type'].value;
 
     let formArray = form.firstElementChild.children;
-
     let gingerArray = [];
+
+    let irrigationArray = [];
 
     for (let i = 0; i < formArray.length; i++) {
         if (i !== 0) {
@@ -577,17 +578,36 @@ form.addEventListener('submit', function (event) {
             } else {
                 fertCon = cropElementContainer.children[3];
             }
+            console.log(fertCon);
             if (fertCon.children.length == 1) {
                 gingerArray.push(false);
-            } else {
+                irrigationArray.push(false);
+            } else if (i == 1 && cropElementContainer.children[1].children[0].children[1].value == 'unmilledRice') {
+                gingerArray.push(false);
+                irrigationArray.push(fertCon.children[1].children[0].checked);
+            } else if (cropElementContainer.children[2].children[0].children[1].value == 'unmilledRice') {
+                gingerArray.push(false);
+                irrigationArray.push(fertCon.children[1].children[0].checked);
+            } else if (i == 1 && cropElementContainer.children[1].children[0].children[1].value == 'taroRoot') {
                 gingerArray.push(fertCon.children[1].children[0].checked);
+
+                irrigationArray.push(cropElementContainer.children[3].children[0].children[0].checked);
+            } else if (cropElementContainer.children[2].children[0].children[1].value == 'taroRoot') {
+                gingerArray.push(fertCon.children[1].children[0].checked);
+                irrigationArray.push(cropElementContainer.children[4].children[0].children[0].checked);
+            }
+             else {
+                gingerArray.push(fertCon.children[1].children[0].checked);
+                irrigationArray.push(false);
             }
         }
     }
-
-    let irrigationArray = [];
-
     console.log(gingerArray);
+    console.log(irrigationArray);
+
+
+
+
 
     selectedCrops = document.getElementsByClassName('crop-name');
     fertilizers = document.getElementsByClassName('fertilizer');

@@ -453,7 +453,7 @@ $(function () {
     })
 
     $(window).on('load', function () {
-        cropName.value = 'taroRoot';
+        cropName.value = 'unmilledRice';
         gingerClick(cropName);
         irrigationClick(cropName);
     })

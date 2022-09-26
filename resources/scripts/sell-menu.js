@@ -261,7 +261,7 @@ function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profe
     return crop;
 }
 
-function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities, profit, gingers) {
+function sellFunction(season, days, level, profession, check, crops, fertilizers, quantities, profit, gingers, irrigations) {
     /* console.log(season);
      console.log(days);
      console.log(level);
@@ -578,7 +578,6 @@ form.addEventListener('submit', function (event) {
             } else {
                 fertCon = cropElementContainer.children[3];
             }
-            console.log(fertCon);
             if (fertCon.children.length == 1) {
                 gingerArray.push(false);
                 irrigationArray.push(false);
@@ -602,12 +601,6 @@ form.addEventListener('submit', function (event) {
             }
         }
     }
-    console.log(gingerArray);
-    console.log(irrigationArray);
-
-
-
-
 
     selectedCrops = document.getElementsByClassName('crop-name');
     fertilizers = document.getElementsByClassName('fertilizer');
@@ -623,7 +616,7 @@ form.addEventListener('submit', function (event) {
         quantityArray.push(quantities[i].value);
     }
 
-    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray, profitCheck, gingerArray);
+    sellFunction(season, days, level, profession, formulaCheck, cropsArray, fertilizerArray, quantityArray, profitCheck, gingerArray, irrigationArray);
 
 
     console.log(form.elements);

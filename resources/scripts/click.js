@@ -68,6 +68,8 @@ function irrigationClick(element) {
         let labelId = 'irrigationLabel';
         let irrigationLabel = document.getElementById(labelId);
         $(irrigationLabel).remove();
+
+        gingerClick(element);
     }
 }
 
@@ -357,6 +359,8 @@ function clickFunction() {
             let labelId = 'irrigationLabel'.concat(numberCrop);
             let irrigationLabel = document.getElementById(labelId);
             $(irrigationLabel).remove();
+
+            gingerCheck(element);
         }
     }
 

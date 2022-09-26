@@ -473,6 +473,9 @@ $(function () {
         cropName.value = 'unmilledRice';
         gingerClick(cropName);
         irrigationClick(cropName);
+
+        let seasonSelect = document.getElementById('season-select');
+        seasonSelect.value = 'spring';
     })
 
 })

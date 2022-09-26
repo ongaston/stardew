@@ -76,7 +76,8 @@ input[type='number'] {
 }
 
 #div-title {
-    font-size: 25px;
+    font-size: 30px;
+    text-decoration: none;
 }
 
 #profit-type {
@@ -165,4 +166,34 @@ hr::after {
     z-index: 2;
     background-color: var(--main-teal);
     padding: 0 15px;
+}
+
+#disclaimer-container {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    position: absolute;
+    background-color: var(--dark-teal);
+    left: 20rem;
+    top: 38rem;
+    border-radius: 4px;
+    border: double var(--main-white);
+}
+
+#remaining-container {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    position: absolute;
+    background-color: var(--dark-teal);
+    left: 26rem;
+    top: 50rem;
+    border-radius: 4px;
+    border: double var(--main-white);
+}
+
+.disclaimer {
+    font-size: 14px;
+    text-decoration: none;
+    margin: 0.5rem 0;
 }

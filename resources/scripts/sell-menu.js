@@ -33,6 +33,25 @@ let fertilizers = [];
 /* #endregion */
 
 
+function disclaimerHover(element) {
+
+    let disclaimerContainer = document.createElement('div');
+    disclaimerContainer.setAttribute('id', 'disclaimer-container');
+    $(disclaimerContainer).appendTo(element);
+
+    let disclaimer1 = document.createElement('p');
+    disclaimer1.setAttribute('class', 'disclaimer');
+    disclaimer1.innerHTML = 'Profits assume replanting of crops with only one harvest.\n';
+
+    let disclaimer2 = document.createElement('p');
+    disclaimer2.setAttribute('class', 'disclaimer');
+    disclaimer2.innerHTML = 'Profits assume selected crops are in season.';
+
+    $(disclaimer1).appendTo(disclaimerContainer);
+    $(disclaimer2).appendTo(disclaimerContainer);
+
+}
+
 function getCropNumbers(cropsArray, number, crop, days, fertilizer, level, profession, profit) {
     let array = getCropQuality(level, fertilizer);
     number = eval(number);
@@ -467,6 +486,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
     let resultDiv = document.createElement('div');
     resultDiv.setAttribute('id', 'result-div');
+    resultDiv.style.padding = '1rem 1rem 2rem';
 
     let main = document.getElementById('main');
 
@@ -474,19 +494,23 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     divTitle.setAttribute('id', 'div-title');
     divTitle.innerHTML = 'Profit';
 
-    let disclaimer = document.createElement('p');
-    disclaimer.style.color = 'hsla(56, 23%, 90%, 1)';
-    disclaimer.style.fontSize = '14px';
-    disclaimer.style.width = '300px';
-    disclaimer.style.textDecoration = 'none';
-    disclaimer.style.textAlign = 'center';
-    disclaimer.style.margin = '0 0 1rem';
-    disclaimer.style.lineHeight = '120%';
-    disclaimer.innerHTML = 'Profits assume replanting of crops with only one harvest.';
+    let breaklineTitle = document.createElement('hr');
+
+
+    $(function () {
+
+        $(divTitle).hover(function (event) {
+            disclaimerHover(event.target);
+        }, function (event) {
+            $(event.target.children).remove();
+        })
+
+    });
+
 
     $(resultDiv).appendTo(main);
     $(divTitle).appendTo(resultDiv);
-    $(disclaimer).appendTo(resultDiv);
+    $(breaklineTitle).appendTo(resultDiv);
     /* #endregion */
 
 
@@ -521,6 +545,23 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         remainingSpan.innerHTML = crops[i].maxProfit.toLocaleString('en-US', 'USD');
         remainingMonthlyAmount.innerHTML = 'Profit from remaining harvests this month: ';
         $(remainingSpan).appendTo(remainingMonthlyAmount,'::after');
+
+        $(remainingSpan).hover(function (event) {
+            let remainingContainer = document.createElement('div');
+            remainingContainer.setAttribute('id', 'remaining-container');
+            $(remainingContainer).appendTo(event.target);
+        
+            let disclaimer1 = document.createElement('p');
+            disclaimer1.setAttribute('class', 'disclaimer');
+            disclaimer1.style.margin = '0';
+            disclaimer1.innerHTML = 'Remaining profit is based on remaining harvests in the season(s).';
+        
+        
+            $(disclaimer1).appendTo(remainingContainer);
+
+        }, function (event) {
+            $(event.target.children).remove();
+        })
 
         let potentialMonthlyAmount = document.createElement('p');
         potentialMonthlyAmount.setAttribute('class', 'crop-info');
@@ -643,5 +684,6 @@ form.addEventListener('submit', function (event) {
 
     console.log(form.elements);
 })
+
 
 export { cropArray };

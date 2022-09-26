@@ -333,4 +333,9 @@ $(function () {
         gingerClick(event.target);
     })
 
+    $(window).on('load', function () {
+        cropName.value = 'cactusFruit';
+        gingerClick(cropName);
+    })
+
 })

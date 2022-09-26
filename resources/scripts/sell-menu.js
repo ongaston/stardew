@@ -357,6 +357,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 days = days - 56;
             }
         } else if (gingers[index] == false) {
+            console.log(index);
             if (value.maxHarvests == 1) {
                 value.singleProfit = (value.sellPrice);
 
@@ -367,7 +368,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyHarvests = Math.floor(28 / value.matureDays);
 
                 value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
-            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower') || value.name == 'Wheat')) || (season == 'fall' && value.name == 'Ancient Fruit')))) {
+            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower') || value.name == 'Wheat')) || ((season == 'fall' && value.name == 'Ancient Fruit') || (value.name == 'Cactus Fruit'))))) {
                 value.singleProfit = (value.sellPrice);
 
                 let remainingDays = days - (value.matureDays + 1);
@@ -379,7 +380,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyHarvests = remainingDays / value.harvestDays + 1;
 
                 value.monthlyProfit = (value.monthlyHarvests * value.sellPrice);
-            } else if (((season == 'spring' && value.name == 'Coffee') || (season == 'summer' && value.name == 'Corn')) || ((season == 'fall' && value.name == 'Cactus Fruit') || (season == 'summer' && value.name == 'Ancient Fruit'))) {
+            } else if (((season == 'spring' && value.name == 'Coffee') || (season == 'summer' && value.name == 'Corn')) || ( (season == 'summer' && value.name == 'Ancient Fruit'))) {
                 days = days + 28;
                 value.singleProfit = (value.sellPrice);
 
@@ -407,7 +408,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
 
                 days = days - 28;
-            } else if ((season == 'spring' && value.name == 'Ancient Fruit') || (season == 'summer' && value.name == 'Cactus Fruit')) {
+            } else if ((season == 'spring' && value.name == 'Ancient Fruit') ) {
                 days = days + 56;
                 value.singleProfit = (value.sellPrice);
 
@@ -565,7 +566,6 @@ form.addEventListener('submit', function (event) {
     let profitCheck = form['profit-type'].value;
 
     let formArray = form.firstElementChild.children;
-    console.log(formArray);
 
     let gingerArray = [];
 
@@ -578,14 +578,15 @@ form.addEventListener('submit', function (event) {
             } else {
                 fertCon = cropElementContainer.children[3];
             }
-            if (fertCon.children.length == 2) {
+            if (fertCon.children.length == 1) {
                 gingerArray.push(false);
             } else {
-                gingerArray.push(fertCon.children[3].checked);
+                gingerArray.push(fertCon.children[1].children[0].checked);
             }
         }
     }
 
+    console.log(gingerArray);
 
     selectedCrops = document.getElementsByClassName('crop-name');
     fertilizers = document.getElementsByClassName('fertilizer');

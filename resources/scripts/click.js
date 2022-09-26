@@ -174,6 +174,7 @@ function clickFunction() {
     let cropSelect = document.createElement('select');
     cropSelect.setAttribute('name', 'crop-name' + cropNumber.toString());
     cropSelect.setAttribute('class', 'crop-name');
+    cropSelect.setAttribute('required', true);
 
     $(bigContainer).appendTo(biggerContainer);
     $(cropTitle).appendTo(bigContainer);
@@ -231,6 +232,7 @@ function clickFunction() {
     quantityInput.setAttribute('value', 1);
     quantityInput.setAttribute('id', 'quantity' + cropNumber.toString());
     quantityInput.setAttribute('class', 'quantity');
+    quantityInput.setAttribute('required', true);
     $(quantityInput).appendTo(quantityContainer);
 
     let fertilizerGinger = document.createElement('section');
@@ -248,6 +250,7 @@ function clickFunction() {
     let fertilizerSelect = document.createElement('select');
     fertilizerSelect.setAttribute('id', 'fertilizer' + cropNumber.toString());
     fertilizerSelect.setAttribute('class', 'fertilizer');
+    fertilizerSelect.setAttribute('required', true);
     $(fertilizerSelect).appendTo(fertilizerContainer);
 
     let none = document.createElement('option');

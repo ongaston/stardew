@@ -561,6 +561,12 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         $(remainingMonthlyAmount).appendTo(cropDiv);
         $(potentialMonthlyAmount).appendTo(cropDiv);
 
+        if ((crops.length > 1) && i !== crops.length - 1) {
+            let breakline = document.createElement('hr');
+
+            $(breakline).appendTo(cropDiv);
+        }
+
         if ((crops[i].name == 'Unmilled rice' || crops[i].name == 'Taro Root') && irrigations[i] == true) {
             crops[i].matureDays = crops[i].defaultMatureDays;
         }
@@ -616,8 +622,6 @@ form.addEventListener('submit', function (event) {
             }
         }
     }
-
-    console.log(irrigationArray);
 
     selectedCrops = document.getElementsByClassName('crop-name');
     fertilizers = document.getElementsByClassName('fertilizer');

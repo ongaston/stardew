@@ -254,10 +254,9 @@ hr::after {
 
 /*main info container*/
 
-#main-info-container,
-#mobile-info-container {
+#main-info-container{
     width: 100%;
-    height: 100%;
+    height: 600px;
     background-color: hsla(56, 55%, 90%, 0.7);
     z-index: 4;
     display: none;
@@ -268,11 +267,34 @@ hr::after {
     backdrop-filter: blur(10px);
 }
 
+#mobile-info-container {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    background-color: hsla(56, 55%, 90%, 0.7);
+    z-index: 4;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    display: none;
+}
+
+
 #close-main,
 #close-mobile {
     align-self: flex-end;
     margin-right: 1rem;
     color: var(--dark-teal);
+    height: 27px;
+    width: 20px;
+}
+
+#close-main:before,
+#close-mobile:before {
+    position: relative;
+    bottom: 0;
+    top: 10px
 }
 
 #info-container,

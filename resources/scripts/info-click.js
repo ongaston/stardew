@@ -32,4 +32,12 @@ $(function () {
         closeMain();
     })
 
+    $(mobileInfoButton).on('click', function () {
+        mobileInfoContainer.style.display = 'inline-flex';
+    })
+
+    $(mobileClose).on('click', function () {
+        mobileInfoContainer.style.display = 'none';
+    })
+
 })

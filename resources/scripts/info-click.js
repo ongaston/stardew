@@ -16,11 +16,6 @@ function mainInfo() {
 
 }
 
-let mobileInfoContainer = document.getElementById('mobile-info-container');
-let mobileClose = document.getElementById('close-mobile');
-let mobileInfoButton = document.getElementById('mobile-info-button');
-
-
 
 $(function () {
 
@@ -30,14 +25,6 @@ $(function () {
 
     $(closeButton).on('click', function () {
         closeMain();
-    })
-
-    $(mobileInfoButton).on('click', function () {
-        mobileInfoContainer.style.display = 'inline-flex';
-    })
-
-    $(mobileClose).on('click', function () {
-        mobileInfoContainer.style.display = 'none';
     })
 
 })

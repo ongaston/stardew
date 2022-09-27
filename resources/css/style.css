@@ -5,6 +5,7 @@ html {
     background-color: var(--main-teal);
     color: var(--main-white);
     text-align: center;
+    overflow: hidden;
 }
 
 #main {

@@ -33,11 +33,11 @@ let fertilizers = [];
 /* #endregion */
 
 
-function disclaimerHover(element) {
+function disclaimerHover() {
 
     let disclaimerContainer = document.createElement('div');
     disclaimerContainer.setAttribute('id', 'disclaimer-container');
-    $(disclaimerContainer).appendTo(element);
+    $(disclaimerContainer).appendTo('#main');
 
     let disclaimer1 = document.createElement('p');
     disclaimer1.setAttribute('class', 'disclaimer');
@@ -499,10 +499,10 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
     $(function () {
 
-        $(divTitle).hover(function (event) {
-            disclaimerHover(event.target);
-        }, function (event) {
-            $(event.target.children).remove();
+        $(divTitle).hover(function () {
+            disclaimerHover();
+        }, function () {
+            $('#disclaimer-container').remove();
         })
 
     });

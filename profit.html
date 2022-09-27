@@ -16,6 +16,22 @@
 
     <body>
 
+        <div id='main-info-container'>
+
+            <i class='fa-solid fa-times fa-xl' id='close-main'></i>
+            <div id='info-container'>
+
+                <p id='season-info' class='main-info'><span class='info-title'>Season:</span>  Select current in-game season. Used if any selected crops potentially grow in more than one season.</p>
+                <p class='main-info'><span class='info-title'>Days:</span>  Number of days left in the current season.</p>
+                <p class='main-info'><span class='info-title'>Tiller Profession:</span>  Check yes if you have the tiller profession for a more accurate calculation.</p>
+                <p class='main-info'><span class='info-title'>Level:</span>  Input your farming level.</p>
+                <p class='main-info'><span class='info-title'>Quantity:</span>  Amount of crop to sell.</p>
+                <p class='main-info'><span class='info-title'>Fertilizer:</span>  Enter the type of fertilzer you grew the crop with to get a more accurate calculation.</p>
+
+            </div>
+
+        </div>
+
         <header>
             <nav id='nav-bar'>
                 <a href='index.html'>Buy</a>
@@ -25,6 +41,9 @@
 
         <i class='fa-solid fa-circle-info' id='info-button-main'></i>
         <div id = 'button-background'></div>
+
+
+
         <main id='main'>
 
             <form method='' id='form' action='profit.html'>
@@ -171,6 +190,7 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src='./resources/scripts/mobile-sell.js' type='module'></script>
+        <script src='./resources/scripts/info-click.js' type='module'></script>
         <script src='./resources/scripts/utilities.js' type='module'></script>
         <script src='./resources/scripts/calculations.js' type='module'></script>
         <script src='./resources/scripts/sell-menu.js' type='module'></script>

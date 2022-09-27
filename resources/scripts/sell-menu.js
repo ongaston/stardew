@@ -519,6 +519,11 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
         getCropNumbers(crops, quantities[i], crops[i], days, fertilizers[i], level, profession, profit);
 
+        if ($('#mobile-check').css('display') == 'block') {
+            let submitBreak = document.createElement('hr');
+            $(submitBreak).appendTo(form);
+        }
+
         let cropDiv = document.createElement('div');
         cropDiv.setAttribute('class', 'crop-div');
 

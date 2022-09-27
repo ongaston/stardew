@@ -29,7 +29,6 @@ levelInput.style.textAlign = 'center';
 
 let form = document.getElementById('form');
 let rect = form.getBoundingClientRect();
-console.log(rect);
 
 let mainInfo = document.getElementById('info-button-main');
 
@@ -42,3 +41,27 @@ mainBackground.style.top = rect.top - 7 + ('px');
 mainBackground.style.right = rect.left - 7 + ('px');
 mainBackground.style.width = mainInfo.width;
 mainBackground.style.height = mainInfo.height;
+
+$(function () {
+
+    $('#form').on('submit', function () {
+
+        let mobileCheck = document.getElementById('mobile-check');
+        if ($(mobileCheck).css('display') == 'block') {
+            let mobileInfo = document.getElementById('mobile-info-button');
+            mobileInfo.style.display = 'block';
+            mobileInfo.style.setProperty('--display','block');
+
+            let resultDiv = document.getElementById('result-div');
+            let resultRect = resultDiv.getBoundingClientRect();
+
+            //mobileInfo.style.setProperty('--top', resultRect.top + 225 + ('px'));
+            mobileInfo.style.top = resultRect.top + 225 + ('px');
+            mobileInfo.style.right = resultRect.left + 13 + ('px');
+
+            console.log(mobileInfo);
+        }
+
+    })
+
+})

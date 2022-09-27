@@ -6,6 +6,7 @@ main {
     justify-content: center;
 }
 
+
 h1 {
     margin-bottom: 2rem;
     text-decoration: underline;
@@ -227,9 +228,34 @@ hr::after {
     border-radius: 50%;
 }
 
+#mobile-info-button {
+    --display: none;
+    --top: 0;
+    --right: 0;
+}
+
+#mobile-info-button:before,
+#mobile-info-button {
+    position: absolute;
+    z-index: 2;
+    height: 30px;
+    width: 30px;
+    display: var(--display);
+    top: var(--top);
+    right: var(--right);
+}
+
+#mobile-button-background {
+    position: absolute;
+    background-color: var(--main-teal);
+    border-radius: 50%;
+    display: none;
+}
+
 /*main info container*/
 
-#main-info-container {
+#main-info-container,
+#mobile-info-container {
     width: 100%;
     height: 100%;
     background-color: hsla(56, 55%, 90%, 0.7);
@@ -242,13 +268,15 @@ hr::after {
     backdrop-filter: blur(10px);
 }
 
-#close-main {
+#close-main,
+#close-mobile {
     align-self: flex-end;
     margin-right: 1rem;
     color: var(--dark-teal);
 }
 
-#info-container {
+#info-container,
+#mobile-container {
     height: 90%;
     width: 100%;
     display: inline-flex;
@@ -266,4 +294,13 @@ hr::after {
 .info-title {
     text-decoration: underline;
     font-weight: bold;
+}
+
+@media only screen and (max-width: 480px) {
+
+    #mobile-info-button,
+    #mobile-button-background {
+        display: block;
+    }
+
 }

@@ -470,7 +470,7 @@ $(function () {
     })
 
     $(window).on('load', function () {
-        cropName.value = 'unmilledRice';
+        cropName.value = 'coffee';
         gingerClick(cropName);
         irrigationClick(cropName);
 

@@ -535,7 +535,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         let singleSpan = document.createElement('span');
         singleSpan.setAttribute('class', 'span');
         singleSpan.innerHTML = crops[i].singleProfit.toLocaleString('en-US', 'USD');
-        singleProfitAmount.innerHTML = 'Profit from one harvest: ';
+        singleProfitAmount.innerHTML = 'Single Harvest: ';
         $(singleSpan).appendTo(singleProfitAmount);
 
         let remainingMonthlyAmount = document.createElement('p');
@@ -543,24 +543,27 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         let remainingSpan = document.createElement('span');
         remainingSpan.setAttribute('class', 'span');
         remainingSpan.innerHTML = crops[i].maxProfit.toLocaleString('en-US', 'USD');
-        remainingMonthlyAmount.innerHTML = 'Profit from remaining harvests this month: ';
+        remainingMonthlyAmount.innerHTML = 'Remaining Harvests Profit: ';
         $(remainingSpan).appendTo(remainingMonthlyAmount,'::after');
 
-        $(remainingSpan).hover(function (event) {
+
+
+        $(remainingMonthlyAmount).hover(function () {
             let remainingContainer = document.createElement('div');
             remainingContainer.setAttribute('id', 'remaining-container');
-            $(remainingContainer).appendTo(event.target);
+            let main = document.getElementById('main');
+            $(remainingContainer).appendTo(main);
         
             let disclaimer1 = document.createElement('p');
             disclaimer1.setAttribute('class', 'disclaimer');
             disclaimer1.style.margin = '0';
             disclaimer1.innerHTML = 'Remaining profit is based on remaining harvests in the season(s).';
         
-        
             $(disclaimer1).appendTo(remainingContainer);
 
-        }, function (event) {
-            $(event.target.children).remove();
+        }, function () {
+            let remainingContainer = document.getElementById('remaining-container');
+            $(remainingContainer).remove();
         })
 
         let potentialMonthlyAmount = document.createElement('p');
@@ -568,8 +571,34 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
         let potentialSpan = document.createElement('span');
         potentialSpan.setAttribute('class', 'span');
         potentialSpan.innerHTML = crops[i].monthlyProfit.toLocaleString('en-US', 'USD');
-        potentialMonthlyAmount.innerHTML = 'Potential total profit from start of the month: ';
+        potentialMonthlyAmount.innerHTML = 'Potential Total for Season(s): ';
         $(potentialSpan).appendTo(potentialMonthlyAmount);
+
+        $(potentialMonthlyAmount).hover(function () {
+            let potentialContainer = document.createElement('div');
+            potentialContainer.setAttribute('id', 'potential-container');
+            let main = document.getElementById('main');
+            $(potentialContainer).appendTo(main);
+
+            let disclaimer1 = document.createElement('p');
+            disclaimer1.setAttribute('class', 'disclaimer');
+            disclaimer1.style.margin = '0';
+            disclaimer1.innerHTML = 'Potential profit is based on harvests from the start of the current season to the end of last season crop can be grown.';
+
+            $(disclaimer1).appendTo(potentialContainer);
+
+
+        }, function () {
+            $('#potential-container').remove();
+        })
+
+        /*if ((((crops[i].name == 'Ancient Fruit' || crops[i].name == 'Corn') || (crops[i].name == 'Sunflower' || crops[i].name == 'Wheat')) && season == 'summer') || ((crops[i].name == 'Coffee' || crops[i].name == 'Ancient Fruit') && season == 'spring')) {
+            remainingMonthlyAmount.innerHTML = 'Profit from remaining harvests while crop is in season: ';
+            $(remainingSpan).appendTo(remainingMonthlyAmount,'::after');
+
+            potentialMonthlyAmount.innerHTML = 'Potential total profit from start of current season to end of crop\'s final season: ';
+            $(potentialSpan).appendTo(potentialMonthlyAmount);
+        }*/
 
         $(cropTitle).appendTo(cropDiv);
 

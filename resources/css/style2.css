@@ -45,6 +45,9 @@ input[type='number'] {
     align-self: start;
     margin: 0.3rem 0;
     font-size: 16px;
+    width: 370px;
+    line-height: 130%;
+    text-align: center;
 }
 
 .crop-title {
@@ -183,11 +186,23 @@ hr::after {
 #remaining-container {
     display: inline-flex;
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.7rem 0.5rem;
     position: absolute;
     background-color: var(--dark-teal);
-    left: 26rem;
+    left: 24rem;
     top: 50rem;
+    border-radius: 4px;
+    border: double var(--main-white);
+}
+
+#potential-container {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0.7rem 1rem;
+    position: absolute;
+    background-color: var(--dark-teal);
+    top: 49.5rem;
+    left: 24.5rem;
     border-radius: 4px;
     border: double var(--main-white);
 }

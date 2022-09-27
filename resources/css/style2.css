@@ -212,3 +212,17 @@ hr::after {
     text-decoration: none;
     margin: 0.5rem 0;
 }
+
+#info-button-main {
+    position: absolute;
+    background-color: var(--main-teal);
+    z-index: 2;
+    height: 20px;
+    width: 20px;
+}
+
+#button-background {
+    position: absolute;
+    background-color: var(--main-teal);
+    border-radius: 50%;
+}

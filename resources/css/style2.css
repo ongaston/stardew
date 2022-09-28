@@ -329,6 +329,7 @@ hr::after {
     animation-duration: 7s;
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    overflow: hidden;
 }
 
 

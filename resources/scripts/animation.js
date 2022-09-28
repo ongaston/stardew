@@ -20,7 +20,7 @@ let positionEight = (windowWidth * 0.875) + 'px';
 let keyframeRule = style2.cssRules[40];
 console.log(keyframeRule)
 
-for (let i = 0; i < 39; i++) {
+/*for (let i = 0; i < 39; i++) {
 
     let transformRule = keyframeRule[i].style.transform;
     if (transformRule.includes('translate(12.5%')) {

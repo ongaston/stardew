@@ -164,4 +164,11 @@ $(function () {
 
     })
 
+    $('#form').on('submit', function () {
+        let buyDiv = document.createElement('div');
+        buyDiv.setAttribute('id', 'buy-method');
+        buyDiv.innerHTML = "\n\n <h1 class='title'>Buy based on:</h1>\n<div id='method-container'>\n<div class='radio-container'>\n<label for='quantity'>Crop Quantity</label>\n<input id='quantity' name='buy-method' value='quantity' type='radio'>\n</div>\n<div class='radio-container'>\n<label for='gold-buy'>Gold to Spend</label>\n<input id='gold-buy' name='buy-method' value='gold-buy' type='radio' checked>\n</div>\n</div>\n</div>";
+        $(buyDiv).prependTo('#main');
+    })
+
 })

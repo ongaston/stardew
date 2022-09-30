@@ -21,6 +21,25 @@ if ($(mobile).css('display') == 'block') {
     goldInput.style.width = '4rem';
     goldInput.style.textAlign = 'center';
 
+    let additionalCropsTitle = document.getElementById('additional-crops');
+    additionalCropsTitle.style.fontSize = '23px';
+    additionalCropsTitle.style.fontWeight = 'bold';
+
+    let breakOne = document.createElement('hr');
+    let breakTwo = document.createElement('hr');
+
+    $(breakOne).appendTo('#form');
+    $('#additional-crops').appendTo('#form');
+    $('#crops-available').appendTo('#form');
+    $(breakTwo).appendTo('#form');
+    $('#formula-container').appendTo('#form');
+    $('#submit').appendTo('#form');
+
+    $('#form').on('submit', function () {
+        let breakThree = document.createElement('hr');
+        $(breakThree).appendTo('#form');
+    })
+
 }
 
 let daysInput = document.getElementById('days');

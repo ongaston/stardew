@@ -3,11 +3,22 @@ import { Crop, getCropQuality, baseCropArray, blueJazz, cauliflower, greenBean, 
 
 
 
+function getBestCrops(season, quantity, days, cropArray, profession, level, fertilizer, check) {
+    days = eval(days);
+    level = eval(level);
+    //filter out crops that are not in season
+    let potentialCropArray = cropArray.filter((value) => value.season.includes(season));
+    //filter out crops who's growing period is longer than the amount of time left in the season
+    potentialCropArray = potentialCropArray.filter((value) => value.matureDays < days);
+    
+    for (let i = 0; i < potentialCropArray.length; i++) {
+        delete potentialCropArray[i].maxProfit;
+        Object.defineProperty(potentialCropArray[i], 'maxProfit', { enumerable: true, writable: true, configurable: true });
+    }
 
 
 
-
-
+}
 
 
 
@@ -25,7 +36,7 @@ let form = document.querySelector('#form');
         event.preventDefault();
         
         let season = form.season.value;
-        let goldToSpend = form['gold-to-spend'].value;
+        let quantityToBuy = form['quantity-to-buy'].value;
         let days = form.days.value;
         let fertilizer = form.fertilizer.value;
         let level = form.level.value;
@@ -41,5 +52,6 @@ let form = document.querySelector('#form');
         for (let j = 0; j < cropsArray.length; j++) {
             baseCropArray.push(cropsArray[j]);
         }
+        getBestCrops(season, quantityToBuy, days, baseCropArray, profession, level, fertilizer, formulaCheck);
         console.log(form.elements);
     })

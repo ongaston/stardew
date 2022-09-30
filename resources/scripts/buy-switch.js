@@ -148,6 +148,13 @@ $(function () {
             formulaLabel.setAttribute('for', 'formula-switch');
             formulaLabel.innerHTML = "User Quantity Formula\n <input id='formula-switch' value='quantity-formula' type='checkbox' name='formula-switch'>\n <span class='checkmark'></span>";
 
+            if ($('#mobile-check').css('display') == 'block') {
+                label.innerHTML = 'Gold: ';
+
+                input.style.width = '4rem';
+                input.style.textAlign = 'center';
+            }
+
             $(formulaLabel).appendTo('#form');
 
             $('#submit').appendTo('#form');

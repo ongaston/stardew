@@ -10,6 +10,8 @@ html {
 #main {
     position: relative;
     top: 3rem;
+    display: inline-flex;
+    flex-direction: column;
 }
 
 :root {
@@ -62,6 +64,32 @@ body {
     display: inline-flex;
     flex-direction: column;
     width: 100%;
+}
+
+#buy-method {
+    display: inline-flex;
+    flex-direction: column;
+    border: double var(--main-white);
+    border-radius: 4px;
+    padding: 1.5rem 1rem 2rem;
+    margin-bottom: 1rem;
+}
+
+#buy-method div {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.3rem 1.5rem 0;
+}
+
+#buy-method h1 {
+    font-size: 23px;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+
+#buy-method label {
+    margin-right: 0.5rem;
 }
 
 #form {
@@ -170,7 +198,7 @@ select {
 
 #div-title {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 
@@ -257,6 +285,42 @@ select {
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.crop-info {
+    text-decoration: none;
+    align-self: start;
+    margin: 0.3rem 0;
+    font-size: 16px;
+    width: 370px;
+    line-height: 130%;
+    text-align: center;
+}
+
+.crop-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+hr {
+    border: none;
+    border-top: 3px double var(--main-white); 
+    height: 10px;
+    text-align: center;
+    width: 90%;
+    overflow: visible;
+    text-align: center;
+    margin: 2rem 0 1rem;
+}
+
+hr::after {
+    content: '§';
+    position: relative;
+    bottom: 10px;
+    z-index: 2;
+    background-color: var(--main-teal);
+    padding: 0 15px;
 }
 
 @media only screen and (max-width: 480px) {

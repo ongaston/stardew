@@ -151,11 +151,14 @@ console.log(value);
         let disclaimer = document.createElement('p');
         disclaimer.style.color = 'hsla(56, 23%, 90%, 1)';
         disclaimer.style.fontSize = '14px';
-        disclaimer.style.width = '150px';
+        disclaimer.style.width = '350px';
         disclaimer.style.textDecoration = 'none';
         disclaimer.style.textAlign = 'center';
-        disclaimer.style.margin = '1rem 0';
+        disclaimer.style.margin = '0.5rem 0 0';
+        disclaimer.style.lineHeight = '120%';
         disclaimer.innerHTML = 'Profits assume replanting of crops with only one harvest.';
+
+        let disclaimerBreak = document.createElement('hr');
 
 
         $(main).css('flex-direction', 'column');
@@ -164,6 +167,7 @@ console.log(value);
         $(resultDiv).appendTo(main);
         $(divTitle).appendTo(resultDiv);
         $(disclaimer).appendTo(resultDiv);
+        $(disclaimerBreak).appendTo(resultDiv);
 
         let crop1div = document.createElement('div');
         crop1div.setAttribute('class', 'crop-div');
@@ -171,7 +175,8 @@ console.log(value);
         $(crop1div).appendTo(resultDiv);
 
         let crop1title = document.createElement('p');
-        crop1title.setAttribute('class', 'crop-info');
+        crop1title.setAttribute('class', 'crop-title');
+        crop1title.style.marginTop = '0';
         crop1title.style.textDecoration = 'underline';;
         crop1title.innerHTML = crop1.name;
 
@@ -252,7 +257,7 @@ console.log(value);
             $(cropDiv).appendTo(resultDiv);
 
             let croptitle = document.createElement('p');
-            croptitle.setAttribute('class', 'crop-info');
+            croptitle.setAttribute('class', 'crop-title');
             croptitle.style.textDecoration = 'underline';;
             croptitle.innerHTML = crop.name;
 
@@ -278,8 +283,11 @@ console.log(value);
         }
         if (remainingMoney == 0) {
 
+                let totalBreak = document.createElement('hr');
+                $(totalBreak).appendTo(resultDiv);
+
                 let totalProfitTitle = document.createElement('p');
-                totalProfitTitle.setAttribute('class', 'crop-info');
+                totalProfitTitle.setAttribute('class', 'crop-title');
                 totalProfitTitle.setAttribute('id', 'total-profit');
                 totalProfitTitle.style.textDecoration = 'underline';
                 totalProfitTitle.style.textAlign = 'center';
@@ -433,7 +441,6 @@ function getQualityNumbers(array, number, crop, days, fertilizer, level, profess
             baseCropArray.push(cropsArray[j]);
         }
         getBestCrops(season, goldToSpend, days, baseCropArray, profession, level, fertilizer, formulaCheck);
-        submitCount++;
         console.log(form.elements);
     })
     

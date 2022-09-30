@@ -25,17 +25,35 @@
         </header>
 
         <main id='main'>
+
+            <div id='buy-method'>
+
+                <h1 class='title'>Buy based on:</h1>
+                <div id='method-container'>
+                    <div class='radio-container'>
+                        <label for='quantity'>Crop Quantity</label>
+                        <input id='quantity' name='buy-method' value='quantity' type='radio'>
+                    </div>
+                    <div class='radio-container'>
+                        <label for='gold-buy'>Gold to Spend</label>
+                        <input id='gold-buy' name='buy-method' value='gold-buy' type='radio' checked>
+                    </div>
+                </div>
+
+            </div>
+
             <form method='' id='form' action='index.html'>
+
                 <section id='big-container'>
                     <section class='column'>
                         <section class='mobile'>
                             <label for='season' class='desktop'>Season: </label>
                             <select name='season' required>
-
+                                <option value='fall'>Fall</option>
                                 <option value='' id='season'>--Choose an option--</option>
                                 <option value='spring'>Spring</option>
                                 <option value='summer'>Summer</option>
-                                <option value='fall'>Fall</option>
+
                             </select>
                         </section>
                             

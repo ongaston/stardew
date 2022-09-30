@@ -227,6 +227,7 @@ function getBestCrops(season, quantity, days, cropArray, profession, level, fert
     $(remainingMonthlyAmount).appendTo(cropDiv);
     $(potentialMonthlyAmount).appendTo(cropDiv);
     /* #endregion */
+
 }
 
 

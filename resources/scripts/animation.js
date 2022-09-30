@@ -1,7 +1,6 @@
 
 
 const style2 = document.getElementById('style2').sheet;
-console.log(style2)
 let ruleLength = style2.cssRules.length;
 
 //keyframe index - 40
@@ -18,7 +17,7 @@ let positionSeven = (windowWidth * 0.75) + 'px';
 let positionEight = (windowWidth * 0.875) + 'px';
 
 let keyframeRule = style2.cssRules[40];
-console.log(keyframeRule)
+
 
 /*for (let i = 0; i < 39; i++) {
 

@@ -469,13 +469,13 @@ $(function () {
         irrigationClick(event.target);
     })
 
-    /*$(window).on('load', function () {
+    $(window).on('load', function () {
         cropName.value = 'coffee';
         gingerClick(cropName);
         irrigationClick(cropName);
 
         let seasonSelect = document.getElementById('season-select');
         seasonSelect.value = 'spring';
-    })*/
+    })
 
 })

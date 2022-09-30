@@ -46,7 +46,7 @@ $(function () {
 
     $('#form').on('submit', function () {
 
-        let mobileCheck = document.getElementById('mobile-check');
+        /*let mobileCheck = document.getElementById('mobile-check');
         if ($(mobileCheck).css('display') == 'block') {
             let mobileInfo = document.getElementById('mobile-info-button');
             mobileInfo.style.display = 'block';
@@ -69,10 +69,11 @@ $(function () {
 
             let resultDiv = document.getElementById('result-div');
             let resultRect = resultDiv.getBoundingClientRect();
+            console.log(resultRect);
 
             //mobileInfo.style.setProperty('--top', resultRect.top + 225 + ('px'));
-            mobileInfo.style.top = resultRect.top + 225 + ('px');
-            mobileInfo.style.right = resultRect.left + 7 + ('px');
+            mobileInfo.style.top = resultRect.top + ('px');
+            mobileInfo.style.right = resultRect.left + 7 + ('px');*/
 
 
             let mainInfoContainer = document.createElement('div');
@@ -88,7 +89,7 @@ $(function () {
                 mainInfoContainer.style.display = 'none';
             })
             
-        }
+        
 
     })
 

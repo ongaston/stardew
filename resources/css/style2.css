@@ -232,6 +232,7 @@ hr::after {
     --display: none;
     --top: 0;
     --right: 0;
+    align-self: flex-end;
 }
 
 #mobile-info-button:before,

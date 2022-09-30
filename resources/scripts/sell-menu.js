@@ -559,6 +559,43 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
     $(resultDiv).appendTo(main);
     $(divTitle).appendTo(resultDiv);
     $(breaklineTitle).appendTo(resultDiv);
+
+    if ($('#mobile-check').css('display') == 'block') {
+        let mobileInfo = document.getElementById('mobile-info-button');
+        mobileInfo.style.display = 'block';
+        mobileInfo.style.setProperty('--display','block');
+
+        $(mobileInfo).prependTo('#result-div');
+
+        let mobileInfoContainer = document.createElement('div');
+        mobileInfoContainer.setAttribute('id', 'mobile-info-container');
+        mobileInfoContainer.innerHTML = "\n<i class='fa-solid fa-times fa-xl' id='close-mobile'></i>\n<div id='mobile-container'>\n<p class='main-info'>Profits assume replanting of crops with only one harvest.</p>\n<p class='main-info'>Profits assume selected crops are in season.</p>\n<p class='main-info'>Remaining Profit is based on remaining harvests in the season. For crops that can grow in more than one season, it's based on the remaining days in the current season + any following season(s) the crop can grow in.</p>\n<p class='main-info'>Potential Total is based on the total for crops grown from the first day of the current season. For crops that can grow in more than one season, it's based on the remaining days in the current season + any following season(s) the crop can grow in.</p>\n</div>"
+        //$(mobileInfoContainer).appendTo('#main');
+        let body = document.getElementById('body');
+        $(mobileInfoContainer).prependTo(body);
+
+
+        $(mobileInfo).on('click', function () {
+            mobileInfoContainer.style.display = 'inline-flex';
+            mobileInfoContainer.style.top =  window.visualViewport.pageTop + 'px';
+        })
+
+        $('#close-mobile').on('click', function () {
+            mobileInfoContainer.style.display = 'none';
+        })
+
+        let resultDiv = document.getElementById('result-div');
+        let resultRect = resultDiv.getBoundingClientRect();
+        console.log(resultRect);
+
+        //mobileInfo.style.setProperty('--top', resultRect.top + 225 + ('px'));
+        mobileInfo.style.top = resultRect.top + 180 + ('px');
+        //mobileInfo.style.right = resultRect.left + 50 + ('px');
+        mobileInfo.style.right = '25px';
+
+
+        
+    }
     /* #endregion */
 
 

@@ -212,25 +212,6 @@ function getBestCrops(season, quantity, days, cropArray, profession, level, fert
     $(remainingSpan).appendTo(remainingMonthlyAmount, '::after');
 
 
-
-    $(remainingMonthlyAmount).hover(function () {
-        let remainingContainer = document.createElement('div');
-        remainingContainer.setAttribute('id', 'remaining-container');
-        let main = document.getElementById('main');
-        $(remainingContainer).appendTo(main);
-
-        let disclaimer1 = document.createElement('p');
-        disclaimer1.setAttribute('class', 'disclaimer');
-        disclaimer1.style.margin = '0';
-        disclaimer1.innerHTML = 'Remaining profit is based on remaining harvests in the season(s).';
-
-        $(disclaimer1).appendTo(remainingContainer);
-
-    }, function () {
-        let remainingContainer = document.getElementById('remaining-container');
-        $(remainingContainer).remove();
-    })
-
     let potentialMonthlyAmount = document.createElement('p');
     potentialMonthlyAmount.setAttribute('class', 'crop-info');
     let potentialSpan = document.createElement('span');
@@ -239,23 +220,6 @@ function getBestCrops(season, quantity, days, cropArray, profession, level, fert
     potentialMonthlyAmount.innerHTML = 'Potential Total for Season(s): ';
     $(potentialSpan).appendTo(potentialMonthlyAmount);
 
-    $(potentialMonthlyAmount).hover(function () {
-        let potentialContainer = document.createElement('div');
-        potentialContainer.setAttribute('id', 'potential-container');
-        let main = document.getElementById('main');
-        $(potentialContainer).appendTo(main);
-
-        let disclaimer1 = document.createElement('p');
-        disclaimer1.setAttribute('class', 'disclaimer');
-        disclaimer1.style.margin = '0';
-        disclaimer1.innerHTML = 'Potential profit is based on harvests from the start of the current season to the end of last season crop can be grown.';
-
-        $(disclaimer1).appendTo(potentialContainer);
-
-
-    }, function () {
-        $('#potential-container').remove();
-    })
 
     $(cropTitle).appendTo(cropDiv);
 
@@ -268,17 +232,10 @@ function getBestCrops(season, quantity, days, cropArray, profession, level, fert
 
 
 
-
-
-
-
-
-
-
-
 let form = document.querySelector('#form');
 form.addEventListener('submit', function (event) {
     event.preventDefault();
+    console.log(form)
     let season = form.season.value;
     let quantityToBuy = form['quantity-to-buy'].value;
     let days = form.days.value;

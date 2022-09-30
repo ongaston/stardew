@@ -95,6 +95,7 @@ $(function () {
             netInput.setAttribute('id', 'net');
             netInput.setAttribute('type', 'radio');
             netInput.setAttribute('value', 'net');
+            netInput.setAttribute('name', 'profit-type');
 
             let section2 = document.createElement('section');
             section2.setAttribute('class', 'radio-container');
@@ -108,6 +109,7 @@ $(function () {
             formulaInput.setAttribute('value', 'profit');
             formulaInput.setAttribute('type', 'radio');
             formulaInput.setAttribute('checked', 'true');
+            formulaInput.setAttribute('name', 'profit-type');
 
             $(section1).appendTo(formulaLegend);
             $(netLabel).appendTo(section1);

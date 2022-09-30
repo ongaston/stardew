@@ -9,7 +9,7 @@ let goldRadio = document.getElementById('gold-buy');
 
 $(function () {
 
-    $(window).on('load', function () {
+    /*$(window).on('load', function () {
         let label = document.getElementById('gold');
             label.setAttribute('for', 'quantity-to-buy');
             label.setAttribute('id', 'quantity-label');
@@ -64,7 +64,7 @@ $(function () {
 
             $(formulaLegend).appendTo(form);
             $('#submit').appendTo(form);
-    })
+    })*/
 
     $(quantityRadio).on('click', function () {
 

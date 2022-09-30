@@ -321,7 +321,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
 
         if (profit == 'profit' && ((value.name !== 'Cactus Fruit') && (value.name !== 'Pineapple' && value.name !== 'Taro Root'))) {
 
-            if (value.maxHarvests == 1 || (value.name == 'Wheat' && value.season == 'fall')) {
+            if (value.maxHarvests == 1 || ((value.name == 'Wheat' || value.name == 'Sunflower') && season == 'fall')) {
                 value.singleProfit = (value.sellPrice - value.seedCost);
 
                 value.mostHarvests = Math.floor(days / value.matureDays);
@@ -331,7 +331,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyHarvests = Math.floor(28 / value.matureDays);
 
                 value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
-            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower'))) || (season == 'fall' && value.name == 'Ancient Fruit')))) {
+            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn'))) || (season == 'fall' && value.name == 'Ancient Fruit')))) {
                 value.singleProfit = (value.sellPrice - value.seedCost);
 
                 let remainingDays = days - (value.matureDays + 1);
@@ -386,7 +386,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyProfit = (value.monthlyHarvests * value.sellPrice) - value.seedCost;
                 days = days - 56;
             } else {
-                if (value.maxHarvests == 1 || value.name == 'Wheat') {
+                if (value.maxHarvests == 1 || (value.name == 'Sunflower' || value.name == 'Wheat')) {
                     value.singleProfit = (value.sellPrice);
     
                     value.mostHarvests = Math.floor(days / value.matureDays);
@@ -411,7 +411,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 }
             }
         } else if (gingers[index] == false) {
-            if (value.maxHarvests == 1) {
+            if (value.maxHarvests == 1 || ((value.name == 'Wheat' || value.name == 'Sunflower') && season == 'fall')) {
                 value.singleProfit = (value.sellPrice);
 
                 value.mostHarvests = Math.floor(days / value.matureDays);
@@ -421,7 +421,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyHarvests = Math.floor(28 / value.matureDays);
 
                 value.monthlyProfit = value.monthlyHarvests * value.singleProfit;
-            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn' || value.name == 'Sunflower'))) || ((season == 'fall' && value.name == 'Ancient Fruit') || (value.name == 'Cactus Fruit'))))) {
+            } else if (value.maxHarvests > 1 || ((season == 'summer' && value.name == 'Coffee') || ((season == 'fall' && ((value.name == 'Corn'))) || ((season == 'fall' && value.name == 'Ancient Fruit') || (value.name == 'Cactus Fruit'))))) {
                 value.singleProfit = (value.sellPrice);
 
                 let remainingDays = days - (value.matureDays + 1);
@@ -476,7 +476,7 @@ function sellFunction(season, days, level, profession, check, crops, fertilizers
                 value.monthlyProfit = (value.monthlyHarvests * value.sellPrice);
                 days = days - 56;
             } else {
-                if (value.maxHarvests == 1 || value.name == 'Wheat') {
+                if (value.maxHarvests == 1 || (value.name == 'Wheat' || value.name == 'Sunflower')) {
                     value.singleProfit = (value.sellPrice);
     
                     value.mostHarvests = Math.floor(days / value.matureDays);
@@ -769,4 +769,4 @@ form.addEventListener('submit', function (event) {
 })
 
 
-export { cropArray };
+export { cropArray, getCropNumbers };
